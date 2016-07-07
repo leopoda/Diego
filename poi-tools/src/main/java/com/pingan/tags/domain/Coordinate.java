@@ -33,10 +33,16 @@ public class Coordinate {
 		
 		final String url = String.format("%s%s", prefix, params);
 		
-		ResponseEntity<AmapCoordinateResponse> e = REST.getForEntity(url, AmapCoordinateResponse.class);
-		return Optional.ofNullable(e.getBody().parseAsCoordinate());
+//		log.error("error");
 		
-		
+		try {
+			ResponseEntity<AmapCoordinateResponse> e = REST.getForEntity(url, AmapCoordinateResponse.class);
+			return Optional.ofNullable(e.getBody().parseAsCoordinate());
+		} catch (Exception e) {
+			log.error("坐标转换错误: " + lng + "," + lat, e);
+			return Optional.empty();
+		}
+
 //		try {
 //			String content = URLUtil.doGet(url);
 //			return Reponse.parse(content).parseAsCoordinate();
@@ -75,7 +81,7 @@ public class Coordinate {
 			String newConent = content.replace("[]", "null");
 			return Optional.of(MAPPER.readValue(newConent, Regeo.class));
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("不能获取逆地理编码", e);
 			return Optional.empty();
 		}
 	}

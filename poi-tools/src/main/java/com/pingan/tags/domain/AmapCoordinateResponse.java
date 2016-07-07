@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
+@Slf4j
 public class AmapCoordinateResponse {
 	private String status;
 	private String info;
@@ -34,7 +36,7 @@ public class AmapCoordinateResponse {
 			c.setLng(Double.parseDouble(arr[0]));
 			c.setLat(Double.parseDouble(arr[1]));
 		} else {
-			System.out.println("Convert coordinate failed");
+			log.error("Convert coordinate failed");
 		}
 		return c;
 	}

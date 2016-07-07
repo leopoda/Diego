@@ -26,11 +26,12 @@ public class JdbcRepository implements Repository {
 			//System.out.println("id:" + id);
 			b = new Address(
 					a.getId(),
-					a.getTdid(),
+					a.getOffset(),
 					a.getMonth(),
 					a.getHour(),
 					a.getLng(),
 					a.getLat(),
+					a.getSource(),
 					a.getCountry(),
 					a.getProvince(),
 					a.getCity(),
@@ -56,7 +57,7 @@ public class JdbcRepository implements Repository {
 					          					 + "count = ? "
 					          					 + "where id = ?";
 			jdbcTemplate.update(sql,
-					a.getTdid(),
+					a.getOffset(),
 					a.getMonth(),
 					a.getHour(),
 					a.getLng(),
@@ -90,7 +91,7 @@ public class JdbcRepository implements Repository {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
 		Map<String, Object> args = new HashMap<String, Object>();
 		
-		args.put("tdid", a.getTdid());
+		args.put("offset", a.getOffset());
 		args.put("month", a.getMonth());
 		args.put("hour", a.getHour());
 		args.put("lng", a.getLng());
@@ -106,7 +107,7 @@ public class JdbcRepository implements Repository {
 		
 		return 
 		jdbcInsert.withTableName("address")
-				  .usingColumns("tdid", "month", "hour", "lng", "lat", "country", "province", "city", "district", "township", "address", "isWeekend", "count")
+				  .usingColumns("offset", "month", "hour", "lng", "lat", "country", "province", "city", "district", "township", "address", "isWeekend", "count")
 				  .usingGeneratedKeyColumns("id")
 				  .executeAndReturnKey(args)
 				  .longValue();

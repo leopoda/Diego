@@ -11,27 +11,29 @@ import lombok.Getter;
 @Getter
 @Setter
 public class GatherPoint {
-	private String tdid;
+	private long offset;
 	
 	private String month;
 	private String day;
 	private int hour;
 	
 	private Coordinate coordinate;
+	private String source;
 
 	private boolean isWeekend;
 	private int count;
 	
 	private static ObjectMapper MAPPER = new ObjectMapper();
 
-	public GatherPoint(String tdid, boolean isWeekend, String month, int hour, double lng, double lat, int count) {
-		this.tdid = tdid;
+	public GatherPoint(long offset, boolean isWeekend, String month, int hour, double lng, double lat, String source, int count) {
+		this.offset = offset;
 		this.isWeekend = isWeekend;
 		this.month = month;
 		this.hour = hour;
 		this.coordinate = new Coordinate();
 		this.coordinate.setLat(lat);
 		this.coordinate.setLng(lng);
+		this.source = source;
 		this.count = count;
 	}
 	
@@ -52,12 +54,13 @@ public class GatherPoint {
 
 		Optional<Coordinate> c = r.getCoordinate().toAmapCoordinate();
 		return new GatherPoint(
-				r.getTdid(), 
+				r.getOffset(), 
 				r.isWeekend(), 
 				r.getMonth(), 
 				r.getHour(), 
 				c.orElse(o).getLng(), 
 				c.orElse(o).getLat(),
+				r.getSource(),
 				r.getCount());
 	}
 }

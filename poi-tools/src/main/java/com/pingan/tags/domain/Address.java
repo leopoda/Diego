@@ -7,13 +7,14 @@ import lombok.Setter;
 @Setter
 public class Address {
 	private long id;
-	private String tdid;
+	private long offset;
 
 	private String month;
 	private int hour;
 
 	private double lng;
 	private double lat;
+	private String source;
 	
 	private String country;
 	private String province;
@@ -26,7 +27,7 @@ public class Address {
 	private int count;
 	
 	public Address(long id, 
-				   String tdid, 
+				   long offset, 
 				   String month, 
 				   int hour, 
 				   double lng, 
@@ -40,13 +41,14 @@ public class Address {
 				   boolean isWeekend,
 				   int count) {
 		this.id = id;
-		this.tdid = tdid;
+		this.offset = offset;
 		
 		this.month = month;
 		this.hour = hour;
 		
 		this.lng = lng;
 		this.lat = lat;
+		this.source = source;
 		
 		this.country = country;
 		this.province = province;
@@ -66,18 +68,18 @@ public class Address {
 	@Override
 	public String toString() {
 		return String.join("\t", 
-				tdid, 
+				Long.toString(offset), 
+				isWeekend ? "Y" : "N",
 				month,
 				String.format("%02d", hour),
 				Double.toString(lng),
 				Double.toString(lat),
+//				source,
 				country, 
 				province, 
 				city, 
 				district, 
 				township, 
-				address, 
-				isWeekend ? "Y" : "N", 
-				Integer.toString(count));
+				address);
 	}
 }
