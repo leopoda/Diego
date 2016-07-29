@@ -1,6 +1,9 @@
 package com.pingan.tags.config;
 
 import org.springframework.context.annotation.Configuration;
+
+import java.io.UnsupportedEncodingException;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -18,6 +21,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.pingan.tags.dao.AmapRepository;
 import com.pingan.tags.dao.Repository;
+import com.pingan.tags.service.CoordService;
+import com.pingan.tags.service.CoordServiceImpl;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.CacheManager;
@@ -30,7 +35,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 @EnableCaching
 @ComponentScan(basePackages = "com.pingan.tags")
-@PropertySource(value="classpath:app.properties")
+@PropertySource({"classpath:app.properties", "classpath:poi.properties"})
 public class RootConfig {
 	@Autowired
 	Environment env;
@@ -96,10 +101,32 @@ public class RootConfig {
 	@Bean
 	public MapConfig mapConfig() {
 		MapConfig conf = new MapConfig();
+		String baseURL = env.getProperty("amap.api.base.url");
+		
 		conf.setToken(env.getProperty("amap.api.token"));
-		conf.setConvertURL(env.getProperty("amap.api.convert.url"));
-		conf.setRegeoURL(env.getProperty("amap.api.regeo.url"));
-
+		conf.setConvertURL(baseURL + env.getProperty("amap.api.convert.path"));
+		conf.setRegeoURL(baseURL + env.getProperty("amap.api.regeo.path"));
+		conf.setAroundURL(baseURL + env.getProperty("amap.api.around.path"));
 		return conf;
+	}
+	
+	@Bean
+	public PoiConfig poiConfig() {
+		PoiConfig poiConfig = new PoiConfig();
+		try {
+			poiConfig.setPoiTypeInfo(new String(env.getProperty("poi.type.info").getBytes("ISO-8859-1"), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+		
+		poiConfig.setPoiAroundRadius(Integer.parseInt(env.getProperty("poi.around.radius")));
+		poiConfig.setPoiAroundPageSize(Integer.parseInt(env.getProperty("poi.around.page.size")));
+		
+		return poiConfig;
+	}
+	
+	@Bean
+	public CoordService coordService() {
+		return new CoordServiceImpl();
 	}
 }

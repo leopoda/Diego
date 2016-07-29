@@ -11,4 +11,5 @@ public class MapConfig {
 	private String token;
 	private String convertURL;
 	private String regeoURL;
+	private String aroundURL;
 }

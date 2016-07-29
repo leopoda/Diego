@@ -20,9 +20,9 @@
 		</rollingPolicy>
 	</appender>
 	<logger name="com.pingan.tags" level="error" additivity="false">
-		<appender-ref ref="file-audit" />
+		<appender-ref ref="stdout" />
 	</logger>
-		<root level="error">
+	<root level="error">
 		<appender-ref ref="file-audit" />
 	</root>
 </configuration>

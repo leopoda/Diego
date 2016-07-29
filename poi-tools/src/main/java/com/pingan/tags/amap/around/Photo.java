@@ -1,22 +1,15 @@
 package com.pingan.tags.amap.around;
 
-public class Photo {
+import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Photo implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private String title;
 	private String url;
-
-	public String getUrl() {
-		return url;
-	}
-	
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
 }

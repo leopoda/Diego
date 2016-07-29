@@ -20,10 +20,15 @@ public class URLUtil {
 
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("User-Agent", USER_AGENT);
+//		conn.setConnectTimeout(5 * 1000);
 
 		int code = conn.getResponseCode();
 		LOG.debug("Sending 'GET' request to URL:" + url);
 		LOG.debug("Reponse code:" + code);
+		
+		if (code != HttpURLConnection.HTTP_OK) {
+			throw new RuntimeException(String.format("URLUtil get failed: %s", url));
+		}
 		
 		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		StringBuffer sb = new StringBuffer();

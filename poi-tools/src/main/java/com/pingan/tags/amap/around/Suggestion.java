@@ -1,23 +1,17 @@
 package com.pingan.tags.amap.around;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class Suggestion {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class Suggestion implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private String keywords;
 	private String cities;
-	
-	public String getKeywords() {
-		return keywords;
-	}
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
-	public String getCities() {
-		return cities;
-	}
-	public void setCities(String cities) {
-		this.cities = cities;
-	}
-	
-	
 }

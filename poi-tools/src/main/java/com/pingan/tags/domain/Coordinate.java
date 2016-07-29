@@ -3,7 +3,9 @@ package com.pingan.tags.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -15,6 +17,11 @@ public class Coordinate implements Serializable {
 	private double lat;
 	
 	public Coordinate() {}
+	
+	public Coordinate(Coordinate coord) {
+		this.lng = coord.lng;
+		this.lat = coord.lat;
+	}
 	
 	public Coordinate(double lng, double lat) {
 		this.lng = lng;
@@ -31,6 +38,7 @@ public class Coordinate implements Serializable {
 		
 	}
 	
+	@JsonIgnore
 	public boolean isValid() {
 		return (lng >= 73 && lng <= 135) && (lat >= 4 && lat <= 53);
 	}

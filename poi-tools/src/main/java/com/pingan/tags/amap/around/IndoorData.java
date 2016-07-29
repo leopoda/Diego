@@ -1,34 +1,19 @@
 package com.pingan.tags.amap.around;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class IndoorData {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class IndoorData implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private String cpid;
 	private String floor;
 	private String truefloor;
 	private String cmsid;
-	public String getCpid() {
-		return cpid;
-	}
-	public void setCpid(String cpid) {
-		this.cpid = cpid;
-	}
-	public String getFloor() {
-		return floor;
-	}
-	public void setFloor(String floor) {
-		this.floor = floor;
-	}
-	public String getTruefloor() {
-		return truefloor;
-	}
-	public void setTruefloor(String truefloor) {
-		this.truefloor = truefloor;
-	}
-	public String getCmsid() {
-		return cmsid;
-	}
-	public void setCmsid(String cmsid) {
-		this.cmsid = cmsid;
-	}
 }
