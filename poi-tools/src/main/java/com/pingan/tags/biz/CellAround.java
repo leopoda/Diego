@@ -3,14 +3,23 @@ package com.pingan.tags.biz;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.minBy;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 
 import static java.util.Comparator.comparingInt;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.pingan.tags.config.RootConfig;
 import com.pingan.tags.domain.Coordinate;
 import com.pingan.tags.domain.PoiInfo;
 import com.pingan.tags.domain.PoiType;
@@ -23,7 +32,37 @@ public class CellAround {
 	
 	private static final int CELL_POI_TYPE = 120302;
 	
-	public String doCalc(Coordinate coord) {
+	public static void main(String[] args) throws IOException {
+		if (args.length < 2) {
+			System.out.println("Error, at least two input parameters!");
+			return;
+		}
+
+		String filePath = args[0];
+		String prefix = args[1];
+		
+//		String filePath = "D:/datahub/pa_list_home_loc@20160726.dat";
+//		String prefix = "D:/datahub/pa_list_cell-%s.txt";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		PrintStream strm = new PrintStream(String.format(prefix, sdf.format(System.currentTimeMillis())));
+
+		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
+			try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+				CellAround cellAround = ctx.getBean(CellAround.class);
+				lines.map(line -> parseAsCoordinate(line))
+						// .limit(10)
+						// .filter(x -> x.isValid())
+						// .parallel()
+						.map(c -> cellAround.calc(c)).forEach(s -> strm.println(s));
+			} finally {
+				strm.close();
+			}
+		}
+	}
+	
+	
+	public String calc(Coordinate coord) {
 		List<PoiType> poiTypes = new ArrayList<>();
 		PoiType poiType = new PoiType();
 
@@ -48,5 +87,13 @@ public class CellAround {
 		}
 		
 		return addr;
+	}
+	
+	private static Coordinate parseAsCoordinate(String line) {
+		String[] arr = line.split("\t");
+		double lng = Double.parseDouble(arr[0]);
+		double lat = Double.parseDouble(arr[1]);
+
+		return new Coordinate(lng, lat);
 	}
 }

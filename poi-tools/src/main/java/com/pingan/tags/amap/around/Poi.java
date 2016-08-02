@@ -3,6 +3,8 @@ package com.pingan.tags.amap.around;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Poi implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +41,7 @@ public class Poi implements Serializable {
 	private String business_area;
 	private String parking_type;
 	private String indoor_map;
-	private IndoorData indoor_data;
+//	private IndoorData indoor_data;
 
 	private String website;
 	private String email;
@@ -48,8 +51,8 @@ public class Poi implements Serializable {
 	private String timestamp;
 	private String groupbuy_num;
 	private String discount_num;
-	private BizExt biz_ext;
+//	private BizExt biz_ext;
 	private String event;
 	private String children;
-	private List<Photo> photos;
+//	private List<Photo> photos;
 }

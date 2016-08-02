@@ -14,7 +14,7 @@ import com.pingan.tags.config.MapConfig;
 import com.pingan.tags.config.PoiConfig;
 import com.pingan.tags.amap.around.Around;
 import com.pingan.tags.amap.regeo.AddressComponent;
-import com.pingan.tags.dao.Repository;
+import com.pingan.tags.dao.MapRepository;
 import com.pingan.tags.domain.AddressData;
 import com.pingan.tags.domain.CoordAddress;
 import com.pingan.tags.domain.Coordinate;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 @Component
 public class CoordServiceImpl implements CoordService {
 	@Autowired
-	Repository repo;
+	MapRepository repo;
 	
 	@Autowired
 	MapConfig mapConfig;
@@ -97,6 +97,8 @@ public class CoordServiceImpl implements CoordService {
 			String c = String.join(",", String.valueOf(wjs84Coord.getLng()), String.valueOf(wjs84Coord.getLat()));
 			log.info(c + "; page count:" + pageCount + "; poi amount:" + amount);
 			
+//			System.out.println(around);
+			
 			List<PoiInfo> p1 = around.getPois()
 									 .stream()
 									 .map(p -> new PoiInfo(	p.getId(), 
@@ -128,7 +130,8 @@ public class CoordServiceImpl implements CoordService {
 							 				p.getAdname()))
 					 .collect(toList());
 			
-			return (p2 != null) ? Stream.of(p1, p2).flatMap(x -> x.stream()).collect(toList()) : p1;
+			return Stream.of(p1, p2).flatMap(x -> x.stream()).collect(toList());
+//			return (p2 != null) ? Stream.of(p1, p2).flatMap(x -> x.stream()).collect(toList()) : p1;
 		} catch (Exception e) {
 			log.error("get around poi failed", e);
 			return new ArrayList<PoiInfo>();

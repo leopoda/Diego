@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pingan.tags.amap.around.Around;
 import com.pingan.tags.amap.regeo.CoordinateResponse;
@@ -20,12 +21,17 @@ import com.pingan.tags.util.URLUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class AmapRepository implements Repository {
+public class AmapRepository implements MapRepository {
 	@Autowired
 	MapConfig mapConfig;
  
 	private final static RestTemplate REST = new RestTemplate();
-	private final static ObjectMapper MAPPER = new ObjectMapper();
+	private final static ObjectMapper MAPPER = new ObjectMapper()
+			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+			.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true)
+			.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
+			.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+			;
 
 	@Cacheable(value="coordCache", key="'wjs84-' + #p0.lng + ',' + #p0.lat", unless="#result == null")
 	public Coordinate getGCJ02Coord(Coordinate c) {
@@ -64,26 +70,6 @@ public class AmapRepository implements Repository {
 		return null;
 	}
 
-//	@Override
-//	public Around getPoiAround(Coordinate coord) {
-//		final String params = String.format("key=%s&location=%s,%s", mapConfig.getToken(), coord.getLng(), coord.getLat());
-//		final String url = String.format("%s%s", mapConfig.getAroundURL(), params);
-//
-//		try {
-//			String content = URLUtil.doGet(url);
-//			String newConent = content.replace("[]", "null");
-//			return MAPPER.readValue(newConent, Around.class);
-//		} catch (Exception e) {
-//			log.error("", e);
-//		} 
-//		return null;
-//	}
-//	
-//	@Override
-//	public Around getPoiAround(Coordinate coord, String poiTypes) {
-//		return null;
-//	}
-
 	@Override
 	@Cacheable(value="poiAroundCache", key="'poi-around-gcj02-' + #p0.lng + ',' + #p0.lat + ';' + #p1 + ';' + #p2 + ';' + #p3 + ';' + #p4", unless="#result == null")
 	public Around getPoiAround(Coordinate coord, String poiTypes, int radius, int pageSize, int pageNum) {
@@ -100,9 +86,11 @@ public class AmapRepository implements Repository {
 		
 		try {
 			String content = URLUtil.doGet(url);
-			String newConent = content.replace("[]", "null").replace("[null]", "null");
-			log.debug(newConent);
-			return MAPPER.readValue(newConent, Around.class);
+			String newConent = content.replace("[]", "null");
+//			log.debug(content);
+			Around around = MAPPER.readValue(newConent, Around.class);
+//			System.out.println(around);
+			return around;
 		} catch (IOException e) {
 			log.error("Unable to get poi from amap", e);
 //			throw new RuntimeException(e);

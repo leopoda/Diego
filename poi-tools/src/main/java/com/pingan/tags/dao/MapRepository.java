@@ -4,7 +4,7 @@ import com.pingan.tags.amap.around.Around;
 import com.pingan.tags.amap.regeo.Regeo;
 import com.pingan.tags.domain.Coordinate;
 
-public interface Repository {
+public interface MapRepository {
 	Coordinate getGCJ02Coord (Coordinate wjs84Coord);
 	Regeo getGEO(Coordinate gcj02Coord);
 //	Around getPoiAround(Coordinate gcj02Coord);

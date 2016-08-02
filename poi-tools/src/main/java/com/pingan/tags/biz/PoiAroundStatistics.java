@@ -1,6 +1,10 @@
 package com.pingan.tags.biz;
 
 import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,11 +21,13 @@ import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.averagingInt;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pingan.tags.config.PoiConfig;
+import com.pingan.tags.config.RootConfig;
 import com.pingan.tags.domain.Coordinate;
 import com.pingan.tags.domain.PoiInfo;
 import com.pingan.tags.domain.PoiSummary;
@@ -37,7 +43,42 @@ public class PoiAroundStatistics {
 	@Autowired
 	PoiConfig poiConfig;
 
-	public List<String> doCalc(Coordinate coord) {
+	public static void main(String[] args) throws IOException {
+		if (args.length < 2) {
+			System.out.println("Error, at least two input parameters!");
+			return;
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
+			
+			String inFile = args[0]; // "D:/datahub/pa_list_home_loc@20160726.dat"
+			String outFile = args[1]; // "D:/datahub/output/pa_list_poi-%s.txt"
+			PrintStream strm = new PrintStream(String.format(outFile, sdf.format(System.currentTimeMillis())));
+			
+			try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
+				PoiAroundStatistics poiStats = ctx.getBean(PoiAroundStatistics.class);
+				lines.map(line -> parseAsCoordinate(line))
+//					 .limit(10)
+					 .map(c -> poiStats.calculate(c))
+					 .flatMap(s -> s.stream())
+//					 .forEach(System.out::println);
+					 .forEach(o -> strm.println(o));
+			} finally {
+				strm.close();
+			}
+		}
+	}
+	
+	private static Coordinate parseAsCoordinate(String line) {
+		String[] arr = line.split("\t");
+		double lng = Double.parseDouble(arr[0]);
+		double lat = Double.parseDouble(arr[1]);
+
+		return new Coordinate(lng, lat);
+	}
+	
+	public List<String> calculate(Coordinate coord) {
 		
 		// 大组分类
 		List<ImmutablePair<String, String>> groups = Arrays.asList(

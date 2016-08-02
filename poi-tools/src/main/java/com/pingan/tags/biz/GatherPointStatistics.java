@@ -4,31 +4,54 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.pingan.tags.config.RootConfig;
 import com.pingan.tags.domain.CoordAddress;
 import com.pingan.tags.domain.GatherPoint;
 import com.pingan.tags.service.CoordService;
 
 @Component
 public class GatherPointStatistics {
-
 	@Autowired
 	CoordService coordService;
 	
-	void doCalc(String filePath, String outFile) throws IOException {
+	public static void main(String[] args) throws IOException {
+		if (args.length < 2) {
+			System.out.println("Error, at least two input parameters!");
+			return;
+		}
+
+		String filePath = args[0];
+		String prefix = args[1];
+		
+//		String filePath = "d:/datahub/近一月到访tdid聚集点信息.dat";
+//		String prefix = "d:/datahub/花样年地产-%s.txt";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		PrintStream strm = new PrintStream(String.format(prefix, sdf.format(System.currentTimeMillis())));
+		
+		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
+			GatherPointStatistics gatherPoint = ctx.getBean(GatherPointStatistics.class);
+			gatherPoint.calc(filePath, String.format(prefix, sdf.format(System.currentTimeMillis())));
+		}
+	}
+	
+	void calc(String filePath, String outFile) throws IOException {
 		// "D:/datahub/光大位置数据.dat"
 		
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> line = Files.lines(Paths.get(filePath))) {
 			line.map(x -> parseAsGatherPoint(x))
-//				.limit(10)
+				.limit(10)
 				.parallel()
 				.flatMap(o -> o.stream())
 				.filter(o -> o.getCoordinate().isValid())
@@ -45,8 +68,8 @@ public class GatherPointStatistics {
 //															String.valueOf(gp.getCoordinate().getLat()),
 															ca.asFlatText());
 							return addr;})
-//				.forEach(System.out::println);
-				.forEach(o -> strm.println(o));
+				.forEach(System.out::println);
+//				.forEach(o -> strm.println(o));
 			strm.close();
 		}
 	}

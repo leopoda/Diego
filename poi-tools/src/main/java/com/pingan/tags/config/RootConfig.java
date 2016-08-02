@@ -20,7 +20,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.pingan.tags.dao.AmapRepository;
-import com.pingan.tags.dao.Repository;
+import com.pingan.tags.dao.MapRepository;
 import com.pingan.tags.service.CoordService;
 import com.pingan.tags.service.CoordServiceImpl;
 
@@ -40,6 +40,7 @@ public class RootConfig {
 	@Autowired
 	Environment env;
 	
+	/*
 	@Profile("dev")
 	@Bean(destroyMethod="shutdown")
 	public DataSource embeddedDataSource() {
@@ -63,16 +64,19 @@ public class RootConfig {
 	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
 		return new JdbcTemplate(dataSource);
 	}
+	*/
 	
 	@Bean
-	public Repository repository() {
+	public MapRepository repository() {
 		return new AmapRepository();
 	}
 	
+	/*
 	@Bean
 	public PlatformTransactionManager transactionManager(DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
 	}
+	*/
 	
 	@Bean
 	public CacheManager cacheManager(RedisTemplate<String, String> redisTemplate) {

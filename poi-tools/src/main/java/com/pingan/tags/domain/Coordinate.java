@@ -27,6 +27,11 @@ public class Coordinate implements Serializable {
 		this.lng = lng;
 		this.lat = lat;
 	}
+	
+	public Coordinate(String coord) {
+		this.lng = Double.parseDouble(coord.split(",")[0]);
+		this.lat = Double.parseDouble(coord.split(",")[1]);
+	}
 
 	@Override
 	public boolean equals(Object o) {
