@@ -37,7 +37,7 @@ public class GatherPointStatistics {
 //		String prefix = "d:/datahub/花样年地产-%s.txt";
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		PrintStream strm = new PrintStream(String.format(prefix, sdf.format(System.currentTimeMillis())));
+//		PrintStream strm = new PrintStream(String.format(prefix, sdf.format(System.currentTimeMillis())));
 		
 		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
 			GatherPointStatistics gatherPoint = ctx.getBean(GatherPointStatistics.class);
@@ -46,12 +46,10 @@ public class GatherPointStatistics {
 	}
 	
 	void calc(String filePath, String outFile) throws IOException {
-		// "D:/datahub/光大位置数据.dat"
-		
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> line = Files.lines(Paths.get(filePath))) {
 			line.map(x -> parseAsGatherPoint(x))
-				.limit(10)
+//				.limit(10)
 				.parallel()
 				.flatMap(o -> o.stream())
 				.filter(o -> o.getCoordinate().isValid())
@@ -68,8 +66,9 @@ public class GatherPointStatistics {
 //															String.valueOf(gp.getCoordinate().getLat()),
 															ca.asFlatText());
 							return addr;})
-				.forEach(System.out::println);
-//				.forEach(o -> strm.println(o));
+//				.forEach(System.out::println);
+				.forEach(o -> strm.println(o));
+		} finally {
 			strm.close();
 		}
 	}

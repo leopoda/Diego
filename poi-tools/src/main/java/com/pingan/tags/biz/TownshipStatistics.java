@@ -46,11 +46,12 @@ public class TownshipStatistics {
 			PrintStream strm = new PrintStream(String.format(outputFilePrefix, sdf.format(System.currentTimeMillis())));
 
 			lines.map(line -> parseAsCoordinate(line))
-				 .limit(10)
+//				 .limit(10)
 				 .filter(c -> c.isValid() == true)
 				 .map(c -> coordService.getCoordAddress(c))
 				 .map(CoordAddress::asFlatText)
-				 .forEach(System.out::println);
+//				 .forEach(System.out::println);
+				 .forEach(s -> strm.println(s));
 			
 			strm.close();
 		} catch (IOException e) {
