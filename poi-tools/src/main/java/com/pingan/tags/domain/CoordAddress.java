@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CoordAddress {
 	private Coordinate coord;
+	private Coordinate amapCoord;
 	private AddressData addr;
 	
 	private final static ObjectMapper m = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true);
@@ -38,6 +39,8 @@ public class CoordAddress {
 		return String.join(	"\t", 
 							String.valueOf(coord.getLng()),
 							String.valueOf(coord.getLat()),
+							String.valueOf(amapCoord.getLng()),
+							String.valueOf(amapCoord.getLat()),
 							addr.getCountry() == null ? "" : addr.getCountry(),
 							addr.getProvince() == null ? "" : addr.getProvince(),
 							addr.getCity() == null ? "" : addr.getCity(),

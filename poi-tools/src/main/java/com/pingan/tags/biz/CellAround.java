@@ -53,8 +53,9 @@ public class CellAround {
 				lines.map(line -> parseAsCoordinate(line))
 						// .limit(10)
 						// .filter(x -> x.isValid())
-						// .parallel()
-						.map(c -> cellAround.calc(c)).forEach(s -> strm.println(s));
+						.parallel()
+						.map(c -> cellAround.calc(c))
+						.forEach(s -> strm.println(s));
 			} finally {
 				strm.close();
 			}
@@ -81,9 +82,10 @@ public class CellAround {
 							  		 p.get().getCity() == null ? "" : p.get().getCity(),
 							  		 p.get().getDistrict() == null ? "" :  p.get().getDistrict(),
 							  		 p.get().getAddress() == null ? "" : p.get().getAddress(),
-							  		 p.get().getName() == null ? "" : p.get().getName());
+							  		 p.get().getName() == null ? "" : p.get().getName(),
+							  		 p.get().getLocation() == null ? "" : p.get().getLocation());
 		} else {
-			addr = String.join("\t", String.valueOf(coord.getLng()), String.valueOf(coord.getLat()), "", "", "", "", "");
+			addr = String.join("\t", String.valueOf(coord.getLng()), String.valueOf(coord.getLat()), "", "", "", "", "", "");
 		}
 		
 		return addr;

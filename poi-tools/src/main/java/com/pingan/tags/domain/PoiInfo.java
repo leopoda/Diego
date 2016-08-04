@@ -14,14 +14,15 @@ public class PoiInfo {
 	private String name;
 	private String address;
 	private int distance; // 离中心点距离, 米
+	private String location;
 	
 	private String province;
 	private String city;
 	private String district; // 区域名称
 	
-	private String bizArea;
+//	private String bizArea;
 	
-	public PoiInfo (String id, String type, String typecode, String name, String address, int distance, String province, String city, String district) {
+	public PoiInfo (String id, String type, String typecode, String name, String address, int distance, String province, String city, String district, String location) {
 		this.id = id;
 		this.type = type;
 		this.typecode = typecode;
@@ -32,5 +33,6 @@ public class PoiInfo {
 		this.province = province;
 		this.city = city;
 		this.district = district;
+		this.location = location;
 	}
 }

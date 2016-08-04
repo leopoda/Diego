@@ -24,15 +24,15 @@ public class TownshipStatistics {
 	CoordService coordService;
 	
 	public static void main(String[] args) throws IOException {
-		if (args.length < 2) {
-			System.out.println("Error, at least two input parameters!");
-			return;
-		}
-//		String filePath = "D:/datahub/pa_list_loc@20160715.txt";
-//		String prefix = "d:/datahub/coord-geo-%s.txt";
+//		if (args.length < 2) {
+//			System.out.println("Error, at least two input parameters!");
+//			return;
+//		}
+		String filePath = "D:/datahub/pa_list_loc@20160715.txt";
+		String prefix = "d:/datahub/output/coord-geo-%s.txt";
 		
-		String filePath = args[0];
-		String prefix = args[1];
+//		String filePath = args[0];
+//		String prefix = args[1];
 		
 		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
 			TownshipStatistics coordStreet = ctx.getBean(TownshipStatistics.class);
@@ -47,6 +47,7 @@ public class TownshipStatistics {
 
 			lines.map(line -> parseAsCoordinate(line))
 //				 .limit(10)
+				 .parallel()
 				 .filter(c -> c.isValid() == true)
 				 .map(c -> coordService.getCoordAddress(c))
 				 .map(CoordAddress::asFlatText)

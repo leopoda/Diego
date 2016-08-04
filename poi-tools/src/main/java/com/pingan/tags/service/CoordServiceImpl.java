@@ -47,8 +47,9 @@ public class CoordServiceImpl implements CoordService {
 		AddressData anotherAddr = new AddressData();
 		
 		CoordAddress ca = new CoordAddress();
+		Coordinate gcj02Coord = null;
 		try {
-			Coordinate gcj02Coord = repo.getGCJ02Coord(wjs84Coord);
+			gcj02Coord = repo.getGCJ02Coord(wjs84Coord);
 			Regeo regeo = repo.getGEO(gcj02Coord);
 			
 			RegeoCode rc = regeo.getRegeocode();
@@ -64,10 +65,14 @@ public class CoordServiceImpl implements CoordService {
 					);
 
 			ca.setCoord(wjs84Coord);
+			ca.setAmapCoord(gcj02Coord);
 			ca.setAddr(addr);
 		} catch (Exception e) {
 			log.error("failed to retrieve address for coordinate: " + e.toString(), e);
 			ca.setCoord(anotherCoord);
+			if (gcj02Coord != null) {
+				ca.setAmapCoord(gcj02Coord);
+			}
 			ca.setAddr(anotherAddr);
 		}
 
@@ -109,7 +114,8 @@ public class CoordServiceImpl implements CoordService {
 											 				Integer.parseInt(p.getDistance()),
 											 				p.getPname(),
 											 				p.getCityname(),
-											 				p.getAdname()))
+											 				p.getAdname(),
+											 				p.getLocation()))
 									 .collect(toList());
 
 			List<PoiInfo> p2 = 
@@ -127,7 +133,8 @@ public class CoordServiceImpl implements CoordService {
 							 				Integer.parseInt(p.getDistance()),
 							 				p.getPname(),
 							 				p.getCityname(),
-							 				p.getAdname()))
+							 				p.getAdname(),
+							 				p.getLocation()))
 					 .collect(toList());
 			
 			return Stream.of(p1, p2).flatMap(x -> x.stream()).collect(toList());
