@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<property name="log_home" value="d:/logs" />
+	<property name="log_home" value="/home/jw/logs" />
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</Pattern>
@@ -19,10 +19,10 @@
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 	</appender>
-	<logger name="org.springframework" level="debug">
+	<logger name="org.springframework" level="error">
     	<appender-ref ref="console" />
 	</logger>
-	<logger name="cn.td.geotags" level="debug" additivity="false">
+	<logger name="cn.td.geotags" level="error" additivity="false">
 		<appender-ref ref="console" />
 	</logger>
 	<root level="error">

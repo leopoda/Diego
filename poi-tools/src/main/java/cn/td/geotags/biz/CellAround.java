@@ -34,16 +34,16 @@ public class CellAround {
 	private static final int CELL_POI_TYPE = 120302;
 	
 	public static void main(String[] args) throws IOException {
-//		if (args.length < 2) {
-//			System.out.println("Error, at least two input parameters!");
-//			return;
-//		}
-//
-//		String filePath = args[0];
-//		String prefix = args[1];
+		if (args.length < 2) {
+			System.out.println("Error, at least two input parameters!");
+			return;
+		}
+
+		String filePath = args[0];
+		String prefix = args[1];
 		
-		String filePath = "D:/datahub/pa_list_home_loc@20160726.dat";
-		String prefix = "D:/datahub/pa_list_cell-%s.txt";
+//		String filePath = "D:/datahub/pa_list_home_loc@20160726.dat";
+//		String prefix = "D:/datahub/pa_list_cell-%s.txt";
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		PrintStream strm = new PrintStream(String.format(prefix, sdf.format(System.currentTimeMillis())));
@@ -54,12 +54,12 @@ public class CellAround {
 			try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
 				CellAround cellAround = ctx.getBean(CellAround.class);
 				lines.map(line -> parseAsCoordinate(line))
-						 .limit(10)
+//						 .limit(10)
 						// .filter(x -> x.isValid())
 						.parallel()
 						.map(c -> cellAround.calc(c))
-						.forEach(System.out::println);
-//						.forEach(s -> strm.println(s));
+//						.forEach(System.out::println);
+						.forEach(s -> strm.println(s));
 			} finally {
 				strm.close();
 			}

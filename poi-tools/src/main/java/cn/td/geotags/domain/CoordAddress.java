@@ -44,8 +44,8 @@ public class CoordAddress {
 							addr.getCountry() == null ? "" : addr.getCountry(),
 							addr.getProvince() == null ? "" : addr.getProvince(),
 							addr.getCity() == null ? "" : addr.getCity(),
+							addr.getDistrict() == null ? "" : addr.getDistrict(),
 							addr.getTown() == null ? "" : addr.getTown(),
 							addr.getAddress() == null ? "" : addr.getAddress());
-//							addr.getBizArea() == null ? "" : addr.getBizArea());
 	}
 }
