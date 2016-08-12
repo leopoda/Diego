@@ -21,14 +21,14 @@ public class GatherPoint {
 	private Coordinate coordinate;
 //	private String source;
 
-	private boolean isWeekend;
+	private boolean isWorkday;
 	private int count;
 	
 	private static ObjectMapper MAPPER = new ObjectMapper();
 
-	public GatherPoint(String tdid, boolean isWeekend, String month, int hour, double lng, double lat, /*String source,*/ int count) {
+	public GatherPoint(String tdid, boolean isWorkday, String month, int hour, double lng, double lat, /*String source,*/ int count) {
 		this.tdid = tdid;
-		this.isWeekend = isWeekend;
+		this.isWorkday = isWorkday;
 		this.month = month;
 		this.hour = hour;
 		this.coordinate = new Coordinate();
@@ -76,7 +76,7 @@ public class GatherPoint {
 						String lng = co[1];
 						int count = Integer.parseInt(co[2]);
 						GatherPoint gp = new GatherPoint(tdid, 
-														 false, 
+														 true, 
 														 "", 
 														 Integer.parseInt(h), 
 														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 
@@ -98,7 +98,7 @@ public class GatherPoint {
 						String lng = co[1];
 						int count = Integer.parseInt(co[2]);
 						GatherPoint gp = new GatherPoint(tdid, 
-														 true, 
+														 false, 
 														 "", 
 														 Integer.parseInt(h), 
 														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 

@@ -6,8 +6,6 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import cn.td.geotags.amap.around.Around;
 import cn.td.geotags.amap.regeo.AddressComponent;
 import cn.td.geotags.amap.regeo.Regeo;
@@ -29,7 +27,6 @@ import java.util.ArrayList;
 
 @Slf4j
 @Getter
-//@Component
 public class CoordServiceImpl implements CoordService {
 	@Autowired
 	MapRepository repo;
@@ -78,23 +75,36 @@ public class CoordServiceImpl implements CoordService {
 		return ca;
 	}
 
-	@Override
 	public List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, List<PoiType> poiTypes) {
+		List<String> types = poiTypes.stream()
+				.map(x -> x.getType())
+				.map(x -> Arrays.asList(x.split("\\|")))
+				.flatMap(x -> x.stream())
+				.distinct()
+				.collect(toList());
+
+		String typeStr = String.join("|", types);
+		
+		return this.getAroundPoi(wjs84Coord, typeStr, poiConfig.getPoiAroundRadius());
+	}
+	
+	@Override
+	public List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, String types, long radius) {
 		try {
-			List<String> types = poiTypes.stream()
-										 .map(x -> x.getType())
-										 .map(x -> Arrays.asList(x.split("\\|")))
-										 .flatMap(x -> x.stream())
-										 .distinct()
-										 .collect(toList());
+//			List<String> types = poiTypes.stream()
+//										 .map(x -> x.getType())
+//										 .map(x -> Arrays.asList(x.split("\\|")))
+//										 .flatMap(x -> x.stream())
+//										 .distinct()
+//										 .collect(toList());
 			
-			String typeStr = String.join("|", types);
+//			String typeStr = String.join("|", types);
 			int pageSize = poiConfig.getPoiAroundPageSize();
-			int radius = poiConfig.getPoiAroundRadius();
+//			int radius = poiConfig.getPoiAroundRadius();
 	
 			Coordinate gcj02Coord = repo.getGCJ02Coord(wjs84Coord);
 			
-			Around around = repo.getPoiAround(gcj02Coord, typeStr, radius, pageSize, 1);
+			Around around = repo.getPoiAround(gcj02Coord, types, radius, pageSize, 1);
 			int amount = Integer.parseInt(around.getCount());
 			
 			int pageCount = amount / pageSize + (amount % pageSize == 0 ? 0 : 1);
@@ -103,37 +113,43 @@ public class CoordServiceImpl implements CoordService {
 			
 //			System.out.println(around);
 			
-			List<PoiInfo> p1 = around.getPois()
-									 .stream()
-									 .map(p -> new PoiInfo(	p.getId(), 
-											 				p.getType(), 
-											 				p.getTypecode(), 
-											 				p.getName(), 
-											 				p.getAddress(), 
-											 				Integer.parseInt(p.getDistance()),
-											 				p.getPname(),
-											 				p.getCityname(),
-											 				p.getAdname(),
-											 				p.getLocation()))
-									 .collect(toList());
+			List<PoiInfo> p1 = around.getPois().stream().map(p -> {
+													PoiInfo po = new PoiInfo(p.getId(), 
+															p.getType(), 
+															p.getTypecode(), 
+															p.getName(), 
+															p.getAddress(),
+															Integer.parseInt(p.getDistance()), 
+															p.getPname(), 
+															p.getCityname(), 
+															p.getAdname(),
+															p.getLocation());
+													po.setCenter(wjs84Coord);
+													po.setAmapCenter(gcj02Coord);
+													return po;})
+										.collect(toList());
 
 			List<PoiInfo> p2 = 
 			IntStream.rangeClosed(2,  pageCount)
 					 .boxed()
 					 .parallel() // 经常假死, 需要并行调用高德 api 获取各个页面
-					 .map(x -> repo.getPoiAround(gcj02Coord, typeStr, radius, pageSize, x))
+					 .map(x -> repo.getPoiAround(gcj02Coord, types, radius, pageSize, x))
 					 .map(a -> a.getPois())
 					 .flatMap(p -> p.stream())
-					 .map(p -> new PoiInfo(	p.getId(), 
-							 				p.getType(), 
-							 				p.getTypecode(), 
-							 				p.getName(), 
-							 				p.getAddress(), 
-							 				Integer.parseInt(p.getDistance()),
-							 				p.getPname(),
-							 				p.getCityname(),
-							 				p.getAdname(),
-							 				p.getLocation()))
+					 .map(p -> {
+							PoiInfo po = new PoiInfo(p.getId(), 
+									p.getType(), 
+									p.getTypecode(), 
+									p.getName(), 
+									p.getAddress(),
+									Integer.parseInt(p.getDistance()), 
+									p.getPname(), 
+									p.getCityname(), 
+									p.getAdname(),
+									p.getLocation());
+							po.setCenter(wjs84Coord);
+							po.setAmapCenter(gcj02Coord);
+							return po;})
 					 .collect(toList());
 			
 			return Stream.of(p1, p2).flatMap(x -> x.stream()).collect(toList());

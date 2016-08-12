@@ -12,4 +12,7 @@ public interface CoordService {
 	CoordAddress getCoordAddress(Coordinate wjs84Coord);
 	List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, List<PoiType> poiTypes);
 //	List<PoiType> getConfigPoiTypes();
+	List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, String types, long radius);
+	
+	
 }

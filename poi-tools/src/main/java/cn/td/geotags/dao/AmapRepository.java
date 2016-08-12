@@ -72,7 +72,7 @@ public class AmapRepository implements MapRepository {
 
 	@Override
 	@Cacheable(value="poiAroundCache", key="'poi-around-gcj02-' + #p0.lng + ',' + #p0.lat + ';' + #p1 + ';' + #p2 + ';' + #p3 + ';' + #p4", unless="#result == null")
-	public Around getPoiAround(Coordinate coord, String poiTypes, int radius, int pageSize, int pageNum) {
+	public Around getPoiAround(Coordinate coord, String poiTypes, long radius, int pageSize, int pageNum) {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(mapConfig.getAroundURL());
 		builder.queryParam("key", mapConfig.getToken());
 		builder.queryParam("location", String.format("%s,%s", coord.getLng(), coord.getLat()));

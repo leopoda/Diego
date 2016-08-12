@@ -8,6 +8,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PoiInfo {
+	private Coordinate center;
+	private Coordinate amapCenter;
+	
 	private String id;
 	private String type;
 	private String typecode;
@@ -34,5 +37,22 @@ public class PoiInfo {
 		this.city = city;
 		this.district = district;
 		this.location = location;
+	}
+	
+	public String asFlatText() {
+		return String.join("\t", 
+				String.valueOf(center.getLng()),
+				String.valueOf(center.getLat()),
+				String.valueOf(amapCenter.getLng()),
+				String.valueOf(amapCenter.getLat()),
+				String.valueOf(this.distance), 
+				this.province, 
+				this.city, 
+				this.district, 
+				this.address,
+				this.location, 
+				this.type, 
+				this.typecode, 
+				this.name);
 	}
 }

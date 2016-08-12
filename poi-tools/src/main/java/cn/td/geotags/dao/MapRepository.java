@@ -9,5 +9,5 @@ public interface MapRepository {
 	Regeo getGEO(Coordinate gcj02Coord);
 //	Around getPoiAround(Coordinate gcj02Coord);
 //	Around getPoiAround(Coordinate gcj02Coord, String poiTypes);
-	Around getPoiAround(Coordinate gcj02Coord, String poiTypes, int radius, int pageSize, int pageNum);
+	Around getPoiAround(Coordinate gcj02Coord, String poiTypes, long radius, int pageSize, int pageNum);
 }

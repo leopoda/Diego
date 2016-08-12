@@ -1,10 +1,9 @@
-package cn.td.geotags.config;
+package cn.td.geotags.web;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import cn.td.geotags.config.RootConfig;
 
-import cn.td.geotags.web.WebConfig;
-
-public class CoordWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {

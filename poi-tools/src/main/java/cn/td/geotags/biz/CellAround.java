@@ -3,6 +3,7 @@ package cn.td.geotags.biz;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.minBy;
@@ -15,7 +16,6 @@ import java.text.SimpleDateFormat;
 
 import static java.util.Comparator.comparingInt;
 
-import org.springframework.batch.core.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -49,8 +49,6 @@ public class CellAround {
 		PrintStream strm = new PrintStream(String.format(prefix, sdf.format(System.currentTimeMillis())));
 
 		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
-			Job j = ctx.getBean(Job.class);
-			
 			try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
 				CellAround cellAround = ctx.getBean(CellAround.class);
 				lines.map(line -> parseAsCoordinate(line))
@@ -66,15 +64,45 @@ public class CellAround {
 		}
 	}
 	
+	public void calc(long radius, String inFile, String outFile) throws IOException {
+		PrintStream strm = new PrintStream(outFile);
+		try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
+			lines.map(CellAround::parseAsCoordinate)
+				.limit(1000)
+				.parallel()
+				.map(c -> calc(c, radius))
+//				.forEach(s -> strm.println(s));
+				.forEach(System.out::println);
+				
+		} finally {
+			strm.close();
+		}
+	}
 	
-	public String calc(Coordinate coord) {
+	private String calc(Coordinate coord, long radius) {
+		return this.calc(coord, c -> coordService.getAroundPoi(coord, String.valueOf(CELL_POI_TYPE), radius));
+	}
+	
+	private String calc(Coordinate coord) {
 		List<PoiType> poiTypes = new ArrayList<>();
 		PoiType poiType = new PoiType();
 
 		poiType.setType(String.valueOf(CELL_POI_TYPE));
 		poiTypes.add(poiType);
 		
-		List<PoiInfo> cells = coordService.getAroundPoi(coord, poiTypes);
+		return calc(coord, c -> coordService.getAroundPoi(c, poiTypes));
+	}
+	
+	private String calc(Coordinate coord, Function<Coordinate, List<PoiInfo>> f) {
+//		List<PoiType> poiTypes = new ArrayList<>();
+//		PoiType poiType = new PoiType();
+//
+//		poiType.setType(String.valueOf(CELL_POI_TYPE));
+//		poiTypes.add(poiType);
+		
+		List<PoiInfo> cells = f.apply(coord);
+		
+//		List<PoiInfo> cells = coordService.getAroundPoi(coord, poiTypes);
 		
 		Optional<PoiInfo> p = cells.stream().collect(minBy(comparingInt(PoiInfo::getDistance)));
 		
@@ -82,14 +110,17 @@ public class CellAround {
 		if (p.isPresent()) {
 			addr = String.join("\t", String.valueOf(coord.getLng()),
 							  		 String.valueOf(coord.getLat()),
+							  		 String.valueOf(p.get().getAmapCenter().getLng()),
+							  		 String.valueOf(p.get().getAmapCenter().getLat()),
+							  		 String.valueOf(p.get().getDistance()),
+							  		 p.get().getLocation() == null ? "" : p.get().getLocation(),
 							  		 p.get().getProvince() == null ? "" : p.get().getProvince(),
 							  		 p.get().getCity() == null ? "" : p.get().getCity(),
 							  		 p.get().getDistrict() == null ? "" :  p.get().getDistrict(),
 							  		 p.get().getAddress() == null ? "" : p.get().getAddress(),
-							  		 p.get().getName() == null ? "" : p.get().getName(),
-							  		 p.get().getLocation() == null ? "" : p.get().getLocation());
+							  		 p.get().getName() == null ? "" : p.get().getName());
 		} else {
-			addr = String.join("\t", String.valueOf(coord.getLng()), String.valueOf(coord.getLat()), "", "", "", "", "", "");
+			addr = String.join("\t", String.valueOf(coord.getLng()), String.valueOf(coord.getLat()), "", "", "", "", "", "", "", "", "");
 		}
 		
 		return addr;

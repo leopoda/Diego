@@ -19,10 +19,13 @@
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 	</appender>
-	<logger name="org.springframework" level="error">
+	<logger name="org.springframework" level="info">
     	<appender-ref ref="console" />
 	</logger>
-	<logger name="cn.td.geotags" level="error" additivity="false">
+	<logger name="cn.td.geotags" level="debug" additivity="false">
+		<appender-ref ref="console" />
+	</logger>
+		<logger name="org.eclipse.jetty" level="info" additivity="false">
 		<appender-ref ref="console" />
 	</logger>
 	<root level="error">

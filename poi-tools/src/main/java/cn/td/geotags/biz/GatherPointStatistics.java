@@ -59,7 +59,7 @@ public class GatherPointStatistics {
 				.map(x -> {	GatherPoint gp = x.left;
 							CoordAddress ca = x.right;
 							String addr = String.join("\t", gp.getTdid(),
-															gp.isWeekend() ? "Y" : "N",
+															gp.isWorkday() ? "Y" : "N",
 															String.valueOf(gp.getHour()),
 															String.valueOf(gp.getCount()),
 //															String.valueOf(gp.getCoordinate().getLng()),
@@ -102,7 +102,7 @@ public class GatherPointStatistics {
 						String lng = co[1];
 						int count = Integer.parseInt(co[2]);
 						GatherPoint gp = new GatherPoint(tdid, 
-														 false, 
+														 true, 
 														 "", 
 														 Integer.parseInt(h), 
 														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 
@@ -124,7 +124,7 @@ public class GatherPointStatistics {
 						String lng = co[1];
 						int count = Integer.parseInt(co[2]);
 						GatherPoint gp = new GatherPoint(tdid, 
-														 true, 
+														 false, 
 														 "", 
 														 Integer.parseInt(h), 
 														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 

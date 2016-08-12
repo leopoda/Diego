@@ -21,10 +21,9 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import cn.td.geotags.backend.InfraConfig;
-import cn.td.geotags.backend.CoordAddrJobConfig;
 import cn.td.geotags.dao.AmapRepository;
 import cn.td.geotags.dao.MapRepository;
+import cn.td.geotags.job.JobConfig;
 import cn.td.geotags.service.CoordService;
 import cn.td.geotags.service.CoordServiceImpl;
 
@@ -35,11 +34,13 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 @Configuration
 @EnableCaching
 @ComponentScan(basePackages = "cn.td.geotags")
 @PropertySource({"classpath:app.properties", "classpath:poi.properties"})
+@Import(JobConfig.class)
 public class RootConfig {
 	@Autowired
 	Environment env;
@@ -52,23 +53,23 @@ public class RootConfig {
 	}
 */
 	
-//	@Bean
-////	@Profile("prod")
-//	public BasicDataSource dataSource() {
-//		BasicDataSource ds = new BasicDataSource();
-//		ds.setDriverClassName(env.getProperty("jdbc.driver"));
-//		ds.setUrl(env.getProperty("jdbc.url"));
-//		ds.setUsername(env.getProperty("jdbc.username"));
-//		ds.setPassword(env.getProperty("jdbc.password"));
-//		ds.setInitialSize(5);
-//		ds.setMaxTotal(10);
-//		return ds;
-//	}
+	@Bean
+//	@Profile("prod")
+	public BasicDataSource dataSource() {
+		BasicDataSource ds = new BasicDataSource();
+		ds.setDriverClassName(env.getProperty("jdbc.driver"));
+		ds.setUrl(env.getProperty("jdbc.url"));
+		ds.setUsername(env.getProperty("jdbc.username"));
+		ds.setPassword(env.getProperty("jdbc.password"));
+		ds.setInitialSize(5);
+		ds.setMaxTotal(10);
+		return ds;
+	}
 
-//	@Bean
-//	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-//		return new JdbcTemplate(dataSource);
-//	}	
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
+	}	
 
 	@Bean
 	public MapRepository repository() {
@@ -88,6 +89,20 @@ public class RootConfig {
 	}
 
 	@Bean
+	public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisCF) {
+		RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+		redisTemplate.setConnectionFactory(redisCF);
+		redisTemplate.afterPropertiesSet();
+		
+		return redisTemplate;
+	}
+
+	@Bean
+	public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory cf) {
+		return new StringRedisTemplate(cf);
+	}
+	
+	@Bean
 	public JedisConnectionFactory redisConnectionFactory() {
 		JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
 		jedisConnectionFactory.setHostName(env.getProperty("redis.hostname"));
@@ -95,15 +110,6 @@ public class RootConfig {
 		jedisConnectionFactory.afterPropertiesSet();
 
 		return jedisConnectionFactory;
-	}
-	
-	@Bean
-	public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisCF) {
-		RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
-		redisTemplate.setConnectionFactory(redisCF);
-		redisTemplate.afterPropertiesSet();
-
-		return redisTemplate;
 	}
 	
 	@Bean
