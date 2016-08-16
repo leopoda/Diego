@@ -5,8 +5,6 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -18,6 +16,7 @@ import cn.td.geotags.config.RootConfig;
 import cn.td.geotags.domain.CoordAddress;
 import cn.td.geotags.domain.GatherPoint;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.GatherPointParser;
 
 @Component
 public class GatherPointStatistics {
@@ -45,10 +44,10 @@ public class GatherPointStatistics {
 		}
 	}
 	
-	void calc(String filePath, String outFile) throws IOException {
+	public void calc(String filePath, String outFile) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> line = Files.lines(Paths.get(filePath))) {
-			line.map(x -> parseAsGatherPoint(x))
+			line.map(GatherPointParser::parse)
 //				.limit(10)
 				.parallel()
 				.flatMap(o -> o.stream())
@@ -71,70 +70,5 @@ public class GatherPointStatistics {
 		} finally {
 			strm.close();
 		}
-	}
-	
-	
-	private List<GatherPoint> parseAsGatherPoint(String line) {
-		String tdid = "";
-		String pos = "";
-		String[] arr = line.split("\t");
-
-		if (arr.length >= 2) {
-			tdid = arr[0];
-			pos = arr[1];
-		}
-
-		int idx = pos.indexOf("|");
-		List<GatherPoint> list = new ArrayList<>();
-
-		if (idx >= 0) {
-			String first = pos.substring(0, idx);
-			String second = pos.substring(idx + 1, pos.length());
-			
-			if (first != null && first.length() > 0) {
-				for (String hc : first.split(";")) {
-					int idx2 = hc.indexOf(":");
-					String h = hc.substring(0, idx2);
-					String c = hc.substring(idx2 + 1, hc.length());
-					for (String cos : c.split(",")) {
-						String[] co = cos.split("_");
-						String lat = co[0];
-						String lng = co[1];
-						int count = Integer.parseInt(co[2]);
-						GatherPoint gp = new GatherPoint(tdid, 
-														 true, 
-														 "", 
-														 Integer.parseInt(h), 
-														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 
-														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lat))), 
-														 count);
-						list.add(gp);
-					}
-				}
-			}
-
-			if (second != null && second.length() > 0) {
-				for (String hc : second.split(";")) {
-					int idx2 = hc.indexOf(":");
-					String h = hc.substring(0, idx2);
-					String c = hc.substring(idx2 + 1, hc.length());
-					for (String cos : c.split(",")) {
-						String[] co = cos.split("_");
-						String lat = co[0];
-						String lng = co[1];
-						int count = Integer.parseInt(co[2]);
-						GatherPoint gp = new GatherPoint(tdid, 
-														 false, 
-														 "", 
-														 Integer.parseInt(h), 
-														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 
-														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lat))), 
-														 count);
-						list.add(gp);
-					}
-				}
-			}
-		}
-		return list;
 	}
 }

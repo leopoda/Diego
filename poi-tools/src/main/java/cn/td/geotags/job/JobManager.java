@@ -1,10 +1,12 @@
 package cn.td.geotags.job;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -13,10 +15,17 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.td.geotags.task.CellAroundTasklet;
+import cn.td.geotags.task.GatherPointTasklet;
 import cn.td.geotags.task.PoisAroundTasklet;
 import cn.td.geotags.task.TownshipTasklet;
+import cn.td.geotags.util.BigFileMD5;
+import cn.td.geotags.util.Contants;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -42,38 +51,70 @@ public class JobManager {
 	@Autowired
 	private PoisAroundTasklet poisAround;
 	
-	public JobStatus runCellAroundJob(String jobName, JobParameters params) {
+	@Autowired
+	private GatherPointTasklet gatherPoint;
+	
+	@Autowired
+	private Environment env;
+	
+	public JobState runCellAroundJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
-				.start(stepBuilder.get("CellAround").tasklet(this.cellAround).build())
+				.start(stepBuilder.get(Contants.BIZ_CELL_AROUND).tasklet(this.cellAround).build())
 				.build();
 		
 		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
 		return runJob(p, f);
 	}
 	
-	public JobStatus runTownshipJob(String jobName, JobParameters params) {
+	public JobState runTownshipJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
-				.start(stepBuilder.get("Township").tasklet(this.township).build())
+				.start(stepBuilder.get(Contants.BIZ_TOWNSHIP).tasklet(this.township).build())
 				.build();
 		
 		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
 		return runJob(p, f);
 	}
 	
-	public JobStatus runPoiAroundJob(String jobName, JobParameters params) {
+	public JobState runPoiAroundJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
-				.start(stepBuilder.get("PoiAround").tasklet(this.poisAround).build())
+				.start(stepBuilder.get(Contants.BIZ_POI_AROUND).tasklet(this.poisAround).build())
 				.build();
 		
 		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
 		return runJob(p, f);
 	}
 
-	private JobStatus runJob(ImmutablePair<String, JobParameters> p, Function<String, Job> f) {
+	public JobState runGatherPointJob(String jobName, JobParameters params) {
+		Function<String, Job> f = j -> jobBuilder.get(j)
+				.start(stepBuilder.get(Contants.BIZ_GP_TO_POI_AROUND).tasklet(this.gatherPoint).build())
+				.build();
+		
+		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
+		return runJob(p, f);
+	}
+
+	public ImmutablePair<String, String> getInputAndOutputFilePath(MultipartFile file, String inputType, String outputType) throws IllegalStateException, IOException {
+		String md5 = BigFileMD5.getMD5((FileInputStream)file.getInputStream());
+		String inputFilePath = env.getProperty("file.in.dir") + "/" + inputType + "-" + md5 + Contants.FILE_EXT_DAT;
+		String outputFilePath = env.getProperty("file.out.dir") + "/" + outputType + "-" + md5 + Contants.FILE_EXT_CSV;
+
+		File f = new File(inputFilePath);
+		if (!f.exists()) {
+			file.transferTo(f);
+		}
+		return ImmutablePair.of(inputFilePath, outputFilePath);
+	}
+
+//	public String getOutputFilePath(String outputType) {
+//		String test = env.getProperty("file.out.dir") + "/" + outputType + "-" + UUID.randomUUID().toString().replace("-", "") + ".txt";
+//		return test;
+//	}
+
+	private JobState runJob(ImmutablePair<String, JobParameters> p, Function<String, Job> f) {
 		String jobName = p.getLeft();
 		JobParameters jobParameters = p.getRight();
 
-		JobStatus jobStatus = new JobStatus();
+		JobState jobState = new JobState();
 		JobExecution jobExecution;
 		if (!jobRepo.isJobInstanceExists(jobName, jobParameters)) {
 			try {
@@ -86,11 +127,11 @@ public class JobManager {
 			jobExecution = jobRepo.getLastJobExecution(jobName, jobParameters);
 		}
 
-		jobStatus.setJobStatus(jobExecution.getStatus().name());
-		jobStatus.setJobName(jobExecution.getJobInstance().getJobName());
-		jobStatus.setJobId(jobExecution.getJobId());
-		jobStatus.setStartTime(jobExecution.getStartTime() == null ? "" : jobExecution.getStartTime().toString());
-		jobStatus.setEndTime(jobExecution.getEndTime() == null ? "" : jobExecution.getStartTime().toString());
+		jobState.setJobStatus(jobExecution.getStatus().name());
+		jobState.setJobName(jobExecution.getJobInstance().getJobName());
+		jobState.setJobId(jobExecution.getJobId());
+		jobState.setStartTime(jobExecution.getStartTime() == null ? "" : jobExecution.getStartTime().toString());
+		jobState.setEndTime(jobExecution.getEndTime() == null ? "" : jobExecution.getStartTime().toString());
 		
 		Map<String, Object> params = p.getRight()
 				.getParameters()
@@ -98,7 +139,7 @@ public class JobManager {
 				.stream()
 				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().getValue()));
 		
-		jobStatus.setParams(params);
-		return jobStatus;
+		jobState.setParams(params);
+		return jobState;
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.td.geotags.biz.PoiAround;
+import cn.td.geotags.util.Contants;
 
 public class PoisAroundTasklet implements Tasklet {
 	@Autowired
@@ -17,11 +18,11 @@ public class PoisAroundTasklet implements Tasklet {
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		Map<String, Object> params = chunkContext.getStepContext().getJobParameters();
-		String inputFileName = (String) params.get("inFile");
-		String outputFileName = (String) params.get("outFile");
+		String inputFileName = (String) params.get(Contants.PARAM_IN_FILE);
+		String outputFileName = (String) params.get(Contants.PARAM_OUT_FILE);
 
-		String types = (String) params.get("types");
-		long radius = Long.parseLong(params.get("radius").toString());
+		String types = (String) params.get(Contants.PARAM_TYPES);
+		long radius = Long.parseLong(params.get(Contants.PARAM_RADIUS).toString());
 		
 		poiAround.calc(types, radius, inputFileName, outputFileName);
 		

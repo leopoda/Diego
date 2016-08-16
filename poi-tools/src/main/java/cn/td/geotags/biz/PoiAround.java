@@ -69,13 +69,13 @@ public class PoiAround {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> lines = Files.lines(Paths.get(coordinateInputFile))) {
 			lines.map(PoiAround::parseAsCoordinate)
-				 .limit(2)
+//				 .limit(2)
 				 .parallel()
 				 .map(c -> this.getPoiInfo(c, poiTypes, radius))
 				 .flatMap(s -> s.stream())
 				 .map(o -> o.asFlatText())
-				 .forEach(System.out::println);
-//				 .forEach(o -> strm.println(o));
+//				 .forEach(System.out::println);
+				 .forEach(o -> strm.println(o));
 		} finally {
 			strm.close();
 		}

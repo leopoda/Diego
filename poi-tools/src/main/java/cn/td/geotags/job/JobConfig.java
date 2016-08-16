@@ -6,18 +6,22 @@ import org.springframework.batch.core.configuration.annotation.DefaultBatchConfi
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
+import org.springframework.batch.core.repository.dao.JdbcJobExecutionDao;
 import org.springframework.batch.core.repository.dao.JdbcJobInstanceDao;
+import org.springframework.batch.core.repository.dao.JobExecutionDao;
 import org.springframework.batch.core.repository.dao.JobInstanceDao;
 import org.springframework.batch.item.database.support.DefaultDataFieldMaxValueIncrementerFactory;
+
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import cn.td.geotags.task.CellAroundTasklet;
+import cn.td.geotags.task.GatherPointTasklet;
 import cn.td.geotags.task.PoisAroundTasklet;
 import cn.td.geotags.task.TownshipTasklet;
 
@@ -25,7 +29,7 @@ import cn.td.geotags.task.TownshipTasklet;
 @EnableBatchProcessing
 public class JobConfig extends DefaultBatchConfigurer {
 	@Autowired
-	Environment env;
+	private Environment env;
 	
 	private final static String databaseType = "MYSQL";
 	private final static String tablePrefix = "BATCH_";
@@ -46,17 +50,43 @@ public class JobConfig extends DefaultBatchConfigurer {
 	}
 
 	@Bean
+	public GatherPointTasklet gatherPointTasklet() {
+		return new GatherPointTasklet();
+	}
+	
+	@Bean
 	public JobManager jobManager() {
 		return new JobManager();
 	}
 	
 	@Bean
+	public JobDao jobRepo() {
+		return new JobDao();
+	}
+	
+	@Bean
 	public JobInstanceDao jobInstanceDao (JdbcTemplate jdbcTemplate, DataSource dataSource) {
-		DefaultDataFieldMaxValueIncrementerFactory incrementerFactory = new DefaultDataFieldMaxValueIncrementerFactory(dataSource);
+		DefaultDataFieldMaxValueIncrementerFactory incrementerFactory = incrementerFactory(dataSource);
 		JdbcJobInstanceDao dao = new JdbcJobInstanceDao();
 		dao.setJdbcTemplate(jdbcTemplate);
 		dao.setJobIncrementer(incrementerFactory.getIncrementer(databaseType, tablePrefix + "JOB_SEQ"));
-		dao.setTablePrefix("BATCH_");
+		dao.setTablePrefix(tablePrefix);
+		return dao;
+	}
+
+	@Bean
+	public DefaultDataFieldMaxValueIncrementerFactory incrementerFactory(DataSource dataSource) {
+		DefaultDataFieldMaxValueIncrementerFactory incrementerFactory = new DefaultDataFieldMaxValueIncrementerFactory(dataSource);
+		return incrementerFactory;
+	}
+	
+	@Bean
+	public JobExecutionDao jobExecutionDao(JdbcTemplate jdbcTemplate, DataSource dataSource) {
+		DefaultDataFieldMaxValueIncrementerFactory incrementerFactory = incrementerFactory(dataSource);
+		JdbcJobExecutionDao dao = new JdbcJobExecutionDao();
+		dao.setJdbcTemplate(jdbcTemplate);
+		dao.setJobExecutionIncrementer(incrementerFactory.getIncrementer(databaseType, tablePrefix + "JOB_EXECUTION_SEQ"));
+		dao.setTablePrefix(tablePrefix);
 		return dao;
 	}
 
@@ -78,22 +108,4 @@ public class JobConfig extends DefaultBatchConfigurer {
         executor.initialize();
         return executor;
 	}
-
-//	@Bean
-//	@Qualifier("SimpleJobLauncher")
-//	public JobLauncher SimpleJobLauncher() {
-//		return SimpleJobLauncher();
-//	}
-	
-//	@Bean
-//	public BasicDataSource dataSource() {
-//		BasicDataSource ds = new BasicDataSource();
-//		ds.setDriverClassName(env.getProperty("jdbc.driver"));
-//		ds.setUrl(env.getProperty("jdbc.url"));
-//		ds.setUsername(env.getProperty("jdbc.username"));
-//		ds.setPassword(env.getProperty("jdbc.password"));
-//		ds.setInitialSize(5);
-//		ds.setMaxTotal(10);
-//		return ds;
-//	}
 }

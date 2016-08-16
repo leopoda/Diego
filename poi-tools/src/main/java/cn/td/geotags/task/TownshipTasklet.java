@@ -8,6 +8,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.td.geotags.biz.Township;
+import cn.td.geotags.util.Contants;
 
 public class TownshipTasklet implements Tasklet {
 
@@ -18,8 +19,8 @@ public class TownshipTasklet implements Tasklet {
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		Map<String, Object> params = chunkContext.getStepContext().getJobParameters();
 
-		String inputFile = (String) params.get("inFile");
-		String outputFile = (String) params.get("outFile");
+		String inputFile = (String) params.get(Contants.PARAM_IN_FILE);
+		String outputFile = (String) params.get(Contants.PARAM_OUT_FILE);
 		
 		township.calc(inputFile, outputFile);
 		return RepeatStatus.FINISHED;

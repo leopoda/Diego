@@ -19,14 +19,14 @@
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 	</appender>
-	<logger name="org.springframework" level="info">
-    	<appender-ref ref="console" />
+	<logger name="org.springframework" level="error">
+    	<appender-ref ref="file-audit" />
 	</logger>
-	<logger name="cn.td.geotags" level="debug" additivity="false">
-		<appender-ref ref="console" />
+	<logger name="cn.td.geotags" level="error" additivity="false">
+		<appender-ref ref="file-audit" />
 	</logger>
-		<logger name="org.eclipse.jetty" level="info" additivity="false">
-		<appender-ref ref="console" />
+		<logger name="org.eclipse.jetty" level="error" additivity="false">
+		<appender-ref ref="file-audit" />
 	</logger>
 	<root level="error">
 		<appender-ref ref="file-audit" />
