@@ -24,6 +24,7 @@ import cn.td.geotags.task.CellAroundTasklet;
 import cn.td.geotags.task.GatherPointTasklet;
 import cn.td.geotags.task.PoisAroundTasklet;
 import cn.td.geotags.task.TownshipTasklet;
+import cn.td.geotags.task.CompressFileTasklet;
 
 @Configuration
 @EnableBatchProcessing
@@ -52,6 +53,11 @@ public class JobConfig extends DefaultBatchConfigurer {
 	@Bean
 	public GatherPointTasklet gatherPointTasklet() {
 		return new GatherPointTasklet();
+	}
+	
+	@Bean
+	public CompressFileTasklet zipTasklet() {
+		return new CompressFileTasklet();
 	}
 	
 	@Bean

@@ -7,6 +7,11 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.web.multipart.MultipartFile;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -15,16 +20,13 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.web.multipart.MultipartFile;
 
 import cn.td.geotags.task.CellAroundTasklet;
 import cn.td.geotags.task.GatherPointTasklet;
 import cn.td.geotags.task.PoisAroundTasklet;
 import cn.td.geotags.task.TaskConfig;
 import cn.td.geotags.task.TownshipTasklet;
+import cn.td.geotags.task.CompressFileTasklet;
 import cn.td.geotags.util.BigFileMD5;
 import cn.td.geotags.util.Contants;
 
@@ -58,6 +60,9 @@ public class JobManager {
 	private GatherPointTasklet gatherPoint;
 	
 	@Autowired
+	private CompressFileTasklet zipTasklet;
+	
+	@Autowired
 	private Environment env;
 	
 	@Autowired
@@ -69,6 +74,7 @@ public class JobManager {
 	public JobState runCellAroundJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
 				.start(stepBuilder.get(Contants.BIZ_CELL_AROUND).tasklet(this.cellAround).build())
+				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
 		
 		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
@@ -78,8 +84,9 @@ public class JobManager {
 	public JobState runTownshipJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
 				.start(stepBuilder.get(Contants.BIZ_TOWNSHIP).tasklet(this.township).build())
+				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
-		
+
 		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
 		return runJob(p, f);
 	}
@@ -87,6 +94,7 @@ public class JobManager {
 	public JobState runPoiAroundJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
 				.start(stepBuilder.get(Contants.BIZ_POI_AROUND).tasklet(this.poisAround).build())
+				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
 		
 		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
@@ -96,6 +104,7 @@ public class JobManager {
 	public JobState runGatherPointJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
 				.start(stepBuilder.get(Contants.BIZ_GP_TO_POI_AROUND).tasklet(this.gatherPoint).build())
+				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
 		
 		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
@@ -137,7 +146,7 @@ public class JobManager {
 			JobParameters jobParameters = jobExecution.getJobParameters();
 			
 			String outputType = jobParameters.getString(Contants.PARAM_REQ_TYPE);
-			String result = taskConfig.getOutputFilePath(jobId, outputType);
+			String result = taskConfig.getCompressedOutputFilePath(jobId, outputType);
 			
 			FileSystemResource  fileSystemResource = new FileSystemResource(result);
 			return fileSystemResource;

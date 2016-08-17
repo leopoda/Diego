@@ -3,6 +3,8 @@ package cn.td.geotags.web;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import static java.util.stream.Collectors.toList;
 
@@ -46,6 +48,9 @@ public class CoordController {
 	
 	@Autowired
 	private JobDao jobDao;
+	
+	@Autowired
+	private HttpServletResponse response;
 	
 	@Autowired
 	public CoordController(CoordService coordService) {
@@ -106,7 +111,6 @@ public class CoordController {
 		
 			JobParameters jobParameters = new JobParametersBuilder()
 					.addString(Contants.PARAM_IN_FILE, inFile)
-//					.addString(Contants.PARAM_OUT_FILE, p.right)
 					.addString(Contants.PARAM_CONTENT, contentType)
 					.addString(Contants.PARAM_REQ_TYPE, reqType)
 					.addLong(Contants.PARAM_RADIUS, radius == null ? Contants.DEFAULT_RADIUS : radius)
@@ -146,10 +150,12 @@ public class CoordController {
 			throw new RuntimeException("this type of request is not supported yet!");
 		}
 	}
-	
+
 	@CrossOrigin
 	@RequestMapping(value="/jobresult/{jobId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public FileSystemResource handleDownload(@PathVariable long jobId) {
-		return jobManager.getJobOutput(jobId);
+		FileSystemResource resource = jobManager.getJobOutput(jobId);
+		response.setHeader("Content-disposition", String.format("attachment;filename=\"%s\"", resource.getFilename()));
+		return resource;
 	}
 }
