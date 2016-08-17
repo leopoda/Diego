@@ -2,14 +2,17 @@ package cn.td.geotags.web;
 
 import java.util.Arrays;
 import java.util.List;
+
 import java.io.IOException;
 import static java.util.stream.Collectors.toList;
 
 import org.springframework.http.HttpStatus;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.springframework.http.MediaType;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +52,7 @@ public class CoordController {
 		this.coordService = coordService;
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/pois", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
 	public List<PoiInfo> getAroundPoi(@RequestParam(required=true) String coord, @RequestParam(required=true) String types) {
 		Coordinate c = new Coordinate(coord);
@@ -62,6 +66,7 @@ public class CoordController {
 		return coordService.getAroundPoi(c, poiTypes);
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/township/{coord}", produces="application/json;charset=UTF-8")
 	public CoordAddress getCoordAddress(@PathVariable String coord) {
 		Coordinate c = new Coordinate(coord);
@@ -70,14 +75,15 @@ public class CoordController {
 		return ca;
 	}
 
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler({ Exception.class, RuntimeException.class })
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public JobError jobException(Exception e) {
 		log.error("service has detected some errors", e);
-		return  new JobError(1, "service error: " + e.getMessage());
+		return new JobError(1, "service error: " + e.getMessage());
 	}
 
-	@RequestMapping(value="/submit", method=RequestMethod.POST)
+	@CrossOrigin
+	@RequestMapping(value="/submit", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public JobState submitJob(
 			@RequestParam(value="job", required=true) String jobName,
 			@RequestParam(value="file", required=true) MultipartFile file, 
@@ -91,18 +97,16 @@ public class CoordController {
 		String inFile = "";
 
 		if (!file.isEmpty()) {
-			
-			ImmutablePair<String, String> p;
 			try {
 				// calc file MD5 to prevent duplicated jobs being submitted
-				p = jobManager.getInputAndOutputFilePath(file, contentType, reqType);
+				inFile = jobManager.getInputFilePath(file, contentType);
 			} catch (IllegalStateException | IOException e) {
 				throw new RuntimeException("identify file for input and output failed", e);
 			}
 		
 			JobParameters jobParameters = new JobParametersBuilder()
-					.addString(Contants.PARAM_IN_FILE, p.left)
-					.addString(Contants.PARAM_OUT_FILE, p.right)
+					.addString(Contants.PARAM_IN_FILE, inFile)
+//					.addString(Contants.PARAM_OUT_FILE, p.right)
 					.addString(Contants.PARAM_CONTENT, contentType)
 					.addString(Contants.PARAM_REQ_TYPE, reqType)
 					.addLong(Contants.PARAM_RADIUS, radius == null ? Contants.DEFAULT_RADIUS : radius)
@@ -128,17 +132,24 @@ public class CoordController {
 		return jobState;
 	}
 
-	@RequestMapping(value="/jobs", method=RequestMethod.GET, produces="application/json")
+	@CrossOrigin
+	@RequestMapping(value="/jobs", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public JobResult handleJobQuery(@RequestParam(value = "offset", required = true) int offset,
 			@RequestParam(value = "page", required = true) int page,
-			@RequestParam(value="for", required=true) String reqType) {
-		
+			@RequestParam(value="for", required=true) String reqType,
+			@RequestParam(value="search", required=false) String search) {
 		if (reqType.equals(Contants.REQ_GEO)) {
-			return jobDao.queryJobs(offset, page, Contants.REQ_GEO);
+			return jobDao.queryJobs(offset, page, Contants.REQ_GEO, search);
 		} else if (reqType.equals(Contants.REQ_POI)) {
-			return jobDao.queryJobs(offset, page, Contants.REQ_POI);
+			return jobDao.queryJobs(offset, page, Contants.REQ_POI, search);
 		} else {
 			throw new RuntimeException("this type of request is not supported yet!");
 		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/jobresult/{jobId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public FileSystemResource handleDownload(@PathVariable long jobId) {
+		return jobManager.getJobOutput(jobId);
 	}
 }

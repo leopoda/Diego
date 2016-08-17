@@ -68,11 +68,11 @@ public class CellAround {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
 			lines.map(CellAround::parseAsCoordinate)
-				.limit(100)
+//				.limit(100)
 				.parallel()
 				.map(c -> calc(c, radius))
-//				.forEach(s -> strm.println(s));
-				.forEach(System.out::println);
+				.forEach(s -> strm.println(s));
+//				.forEach(System.out::println);
 				
 		} finally {
 			strm.close();

@@ -1,12 +1,13 @@
 package cn.td.geotags.job;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -16,11 +17,13 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.td.geotags.task.CellAroundTasklet;
 import cn.td.geotags.task.GatherPointTasklet;
 import cn.td.geotags.task.PoisAroundTasklet;
+import cn.td.geotags.task.TaskConfig;
 import cn.td.geotags.task.TownshipTasklet;
 import cn.td.geotags.util.BigFileMD5;
 import cn.td.geotags.util.Contants;
@@ -56,6 +59,12 @@ public class JobManager {
 	
 	@Autowired
 	private Environment env;
+	
+	@Autowired
+	private JobDao jobDao;
+	
+	@Autowired
+	private TaskConfig taskConfig;
 	
 	public JobState runCellAroundJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
@@ -93,23 +102,50 @@ public class JobManager {
 		return runJob(p, f);
 	}
 
-	public ImmutablePair<String, String> getInputAndOutputFilePath(MultipartFile file, String inputType, String outputType) throws IllegalStateException, IOException {
-		String md5 = BigFileMD5.getMD5((FileInputStream)file.getInputStream());
-		String inputFilePath = env.getProperty("file.in.dir") + "/" + inputType + "-" + md5 + Contants.FILE_EXT_DAT;
-		String outputFilePath = env.getProperty("file.out.dir") + "/" + outputType + "-" + md5 + Contants.FILE_EXT_CSV;
+	public String getInputFilePath(MultipartFile file, String inputType) throws IllegalStateException, IOException {
+		String tmpUUID = env.getProperty("file.in.dir") + "/" + UUID.randomUUID();
 
-		File f = new File(inputFilePath);
-		if (!f.exists()) {
-			file.transferTo(f);
+		File tmpFile = new File(tmpUUID);
+		file.transferTo(tmpFile);
+		
+		String inputFilePath = "";
+		if (tmpFile.exists()) {
+			String md5 = BigFileMD5.getMD5(tmpFile);
+			inputFilePath = env.getProperty("file.in.dir") + "/" + inputType + "-" + md5 + Contants.FILE_EXT_DAT;
+			
+			File f = new File(inputFilePath);
+			if (!f.exists()) {
+				tmpFile.renameTo(f);
+			} else {
+				tmpFile.delete();
+			}
 		}
-		return ImmutablePair.of(inputFilePath, outputFilePath);
+		
+		if (inputFilePath == null || inputFilePath.equals("")) {
+			throw new RuntimeException("arrange input file failed");
+		}
+		return inputFilePath;
 	}
 
-//	public String getOutputFilePath(String outputType) {
-//		String test = env.getProperty("file.out.dir") + "/" + outputType + "-" + UUID.randomUUID().toString().replace("-", "") + ".txt";
-//		return test;
-//	}
+	public FileSystemResource getJobOutput(long jobId) {
+		JobExecution jobExecution = jobDao.getJobExecution(jobId);
+		if (jobExecution != null) {
+			if (jobExecution.getStatus() != BatchStatus.COMPLETED) {
+				throw new RuntimeException("this job is not COMPLETED yet");
+			}
 
+			JobParameters jobParameters = jobExecution.getJobParameters();
+			
+			String outputType = jobParameters.getString(Contants.PARAM_REQ_TYPE);
+			String result = taskConfig.getOutputFilePath(jobId, outputType);
+			
+			FileSystemResource  fileSystemResource = new FileSystemResource(result);
+			return fileSystemResource;
+		} else {
+			throw new RuntimeException("invalid job ID");
+		}
+	}
+	
 	private JobState runJob(ImmutablePair<String, JobParameters> p, Function<String, Job> f) {
 		String jobName = p.getLeft();
 		JobParameters jobParameters = p.getRight();

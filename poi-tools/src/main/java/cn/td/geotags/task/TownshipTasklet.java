@@ -11,19 +11,21 @@ import cn.td.geotags.biz.Township;
 import cn.td.geotags.util.Contants;
 
 public class TownshipTasklet implements Tasklet {
+	@Autowired
+	private Township township;
 
 	@Autowired
-	Township township;
+	private TaskConfig taskConfig;
 	
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		Map<String, Object> params = chunkContext.getStepContext().getJobParameters();
-
 		String inputFile = (String) params.get(Contants.PARAM_IN_FILE);
-		String outputFile = (String) params.get(Contants.PARAM_OUT_FILE);
 		
-		township.calc(inputFile, outputFile);
+		String outputType = (String) params.get(Contants.PARAM_REQ_TYPE);
+		long jobId = chunkContext.getStepContext().getStepExecution().getJobExecutionId();
+		
+		township.calc(inputFile, taskConfig.getOutputFilePath(jobId, outputType));
 		return RepeatStatus.FINISHED;
 	}
-
 }

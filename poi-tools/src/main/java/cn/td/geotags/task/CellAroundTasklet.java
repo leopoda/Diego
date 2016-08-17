@@ -10,19 +10,22 @@ import cn.td.geotags.biz.CellAround;
 import cn.td.geotags.util.Contants;
 
 public class CellAroundTasklet implements Tasklet {
-
 	@Autowired
 	private CellAround cellAround;
+	
+	@Autowired
+	private TaskConfig taskConfig;
 	
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		Map<String, Object> params = chunkContext.getStepContext().getJobParameters();
 
 		String inputFileName = (String) params.get(Contants.PARAM_IN_FILE);
-		String outputFileName = (String) params.get(Contants.PARAM_OUT_FILE);
+		String outputType = (String) params.get(Contants.PARAM_REQ_TYPE);
+		long jobId = chunkContext.getStepContext().getStepExecution().getJobExecutionId();
 		long radius = Long.parseLong(params.get(Contants.PARAM_RADIUS).toString());
-		
-		cellAround.calc(radius, inputFileName, outputFileName);
+
+		cellAround.calc(radius, inputFileName, taskConfig.getOutputFilePath(jobId, outputType));
 		return RepeatStatus.FINISHED;
 	}
 }

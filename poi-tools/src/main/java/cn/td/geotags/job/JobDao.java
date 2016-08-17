@@ -49,7 +49,7 @@ public class JobDao {
 		return jobState;
 	}
 	
-	public JobResult queryJobs(int offset, int pageNum, String reqType) {
+	public JobResult queryJobs(int offset, int pageNum, String reqType, String search) {
 		List<ImmutablePair<String, List<JobExecution>>> jobExecutionList = getJobExecution();
 		Comparator<JobState> byJobId = (j1, j2) -> Long.compare(j2.getJobId(), j1.getJobId());
 		
@@ -57,12 +57,13 @@ public class JobDao {
 		jobResult.setCount(jobExecutionList.size());
 		jobResult.setOffset(offset);
 		jobResult.setPageNum(pageNum);
-		
+
 		List<JobState> list = jobExecutionList.stream()
 				.map(p -> p.getRight())
 				.flatMap(o -> o.stream())
 				.map(o -> getJobState(o))
 				.filter(o -> o.getParams().get(Contants.PARAM_REQ_TYPE).equals(reqType))
+				.filter(o -> (search != null && !search.equals("")) ? o.getJobName().contains(search) : true)
 				.collect(toList());
 				
 		int count = list.size();
@@ -76,6 +77,10 @@ public class JobDao {
 					.collect(toList()));
 		
 		return jobResult;
+	}
+	
+	public JobExecution getJobExecution(long jobId) {
+		return jobExecutionDao.getJobExecution(jobId);
 	}
 
 	private List<ImmutablePair<String, List<JobExecution>>> getJobExecution() {
