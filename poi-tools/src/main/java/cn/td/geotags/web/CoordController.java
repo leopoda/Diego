@@ -98,12 +98,12 @@ public class CoordController {
 	@RequestMapping(value="/submit", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public JobState submitJob(
 			@ApiParam("*任务名称") @RequestParam(value="job") String jobName,
-			@ApiParam("*输入类别") @RequestParam(value="import") String contentType,
+			@ApiParam("*输入类别 (co - 经纬度, gp - 聚集点)") @RequestParam(value="import") String contentType,
 			@ApiParam("*上传文件") @RequestPart(value="file") MultipartFile file, 
-			@ApiParam("坐标系") @RequestParam(value="coordsys", required=false) String coordsys,
-			@ApiParam("搜索半径") @RequestParam(value="types", required=false) String poiTypes,
-			@ApiParam("POI分类代码") @RequestParam(value="radius", required=false) Integer radius,
-			@ApiParam("*输出类别") @RequestParam(value="for") String reqType) {
+			@ApiParam("坐标系 (gps - wjs84坐标, autonavi -  高德、谷歌、腾讯坐标)") @RequestParam(value="coordsys", required=false) String coordsys,
+			@ApiParam("POI分类代码  (高德 POI 类型代码，多个以|分隔)") @RequestParam(value="types", required=false) String poiTypes,
+			@ApiParam("搜索半径 (默认 500m)") @RequestParam(value="radius", required=false) Integer radius,
+			@ApiParam("*输出类别 (geo - 社区街道, poi - 周边 POI, cell - 最近小区)") @RequestParam(value="for") String reqType) {
 
 		JobState jobState = null;
 		String inFile = "";
@@ -147,7 +147,7 @@ public class CoordController {
 	@ApiOperation(tags ="地理标签应用", value = "批量任务状态查询")
 	@RequestMapping(value="/jobs", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public JobResult handleJobQuery(
-			@ApiParam(value = "*任务类型") @RequestParam(value = "for") String reqType,
+			@ApiParam(value = "*任务类型 (geo, poi, cell)") @RequestParam(value = "for") String reqType,
 			@ApiParam(value = "*请求页码") @RequestParam(value = "page") int page,
 			@ApiParam(value = "*每页记录数") @RequestParam(value = "offset") int offset,
 			@ApiParam(value = "任务名称(过滤用)") @RequestParam(value="search", required=false) String search) {

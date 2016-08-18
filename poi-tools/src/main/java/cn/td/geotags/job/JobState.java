@@ -1,5 +1,7 @@
 package cn.td.geotags.job;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,6 +14,9 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JobState {
+	private final static String DATE_FMT_PATTERN = "yyyy-MM-dd HH:mm:ss";
+	private final static String DATE_PAR_PATTERN = "yyyy-MM-dd HH:mm:ss.S";
+
 	@JsonProperty("job_id")
 	private Long jobId;
 	
@@ -27,9 +32,29 @@ public class JobState {
 	@JsonProperty("end_time")
 	private String endTime;
 	
-//	@JsonProperty("msg")
-//	private String message;
-	
 	@JsonProperty("job_param")
 	Map<String, Object> params;
+	
+	public String getStartTime() {
+		return formatDateTime(startTime);
+	}
+	
+	public String getEndTime() {
+		return formatDateTime(endTime);
+	}
+	
+	private String formatDateTime(String dateTime) {
+		final SimpleDateFormat fmt = new SimpleDateFormat(DATE_FMT_PATTERN);
+		final SimpleDateFormat par = new SimpleDateFormat(DATE_PAR_PATTERN);
+
+		if (dateTime == null || dateTime.isEmpty()) {
+			return "";
+		}
+		
+		try {
+			return fmt.format(par.parse(dateTime));
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
