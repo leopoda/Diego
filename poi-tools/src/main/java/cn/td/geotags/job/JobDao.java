@@ -32,12 +32,14 @@ public class JobDao {
 	
 	private JobState getJobState(JobExecution jobExecution) {
 		JobState jobState = new JobState();
+		JobInstance jobInstance = jobInstanceDao.getJobInstance(jobExecution);
 		
-		jobState.setJobId(jobExecution.getJobId());
+		jobState.setJobId(jobExecution.getId());
 		jobState.setJobStatus(jobExecution.getStatus().toString());
 		jobState.setStartTime(jobExecution.getStartTime() == null ? "" : jobExecution.getStartTime().toString());
 		jobState.setEndTime(jobExecution.getEndTime() == null ? "" : jobExecution.getEndTime().toString());
-		jobState.setJobName(jobExecution.getJobInstance().getJobName());
+//		jobState.setJobName(jobExecution.getJobInstance() == null ? "" : jobExecution.getJobInstance().getJobName());
+		jobState.setJobName(jobInstance == null ? "" : jobInstance.getJobName());
 
 		JobParameters jobParameters = jobExecution.getJobParameters();
 		Map<String, Object> params = jobParameters.getParameters()
@@ -81,6 +83,15 @@ public class JobDao {
 	
 	public JobExecution getJobExecution(long jobId) {
 		return jobExecutionDao.getJobExecution(jobId);
+	}
+	
+	public JobState getJobState(long jobId) {
+		JobExecution jobExecution = getJobExecution(jobId);
+		if (jobExecution == null) {
+			throw new RuntimeException("invalid job id");
+		}
+		
+		return getJobState(jobExecution);
 	}
 
 	private List<ImmutablePair<String, List<JobExecution>>> getJobExecution() {

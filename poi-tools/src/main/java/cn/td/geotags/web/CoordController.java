@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,10 @@ import cn.td.geotags.job.JobState;
 import cn.td.geotags.job.JobResult;
 import cn.td.geotags.service.CoordService;
 import cn.td.geotags.util.Contants;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Slf4j
 @RestController
@@ -57,6 +61,7 @@ public class CoordController {
 		this.coordService = coordService;
 	}
 	
+	@ApiIgnore
 	@CrossOrigin
 	@RequestMapping(value="/pois", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
 	public List<PoiInfo> getAroundPoi(@RequestParam(required=true) String coord, @RequestParam(required=true) String types) {
@@ -71,6 +76,7 @@ public class CoordController {
 		return coordService.getAroundPoi(c, poiTypes);
 	}
 	
+	@ApiIgnore
 	@CrossOrigin
 	@RequestMapping(value="/township/{coord}", produces="application/json;charset=UTF-8")
 	public CoordAddress getCoordAddress(@PathVariable String coord) {
@@ -88,15 +94,16 @@ public class CoordController {
 	}
 
 	@CrossOrigin
+	@ApiOperation(tags ="地理标签应用", value = "提交任务")
 	@RequestMapping(value="/submit", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public JobState submitJob(
-			@RequestParam(value="job", required=true) String jobName,
-			@RequestParam(value="file", required=true) MultipartFile file, 
-			@RequestParam(value="import", required=true) String contentType,
-			@RequestParam(value="coordsys", required=false) String coordsys,
-			@RequestParam(value="types", required=false) String poiTypes,
-			@RequestParam(value="radius", required=false) Integer radius,
-			@RequestParam(value="for", required=true) String reqType) {
+			@ApiParam("*任务名称") @RequestParam(value="job") String jobName,
+			@ApiParam("*输入类别") @RequestParam(value="import") String contentType,
+			@ApiParam("*上传文件") @RequestPart(value="file") MultipartFile file, 
+			@ApiParam("坐标系") @RequestParam(value="coordsys", required=false) String coordsys,
+			@ApiParam("搜索半径") @RequestParam(value="types", required=false) String poiTypes,
+			@ApiParam("POI分类代码") @RequestParam(value="radius", required=false) Integer radius,
+			@ApiParam("*输出类别") @RequestParam(value="for") String reqType) {
 
 		JobState jobState = null;
 		String inFile = "";
@@ -137,23 +144,35 @@ public class CoordController {
 	}
 
 	@CrossOrigin
+	@ApiOperation(tags ="地理标签应用", value = "批量任务状态查询")
 	@RequestMapping(value="/jobs", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public JobResult handleJobQuery(@RequestParam(value = "offset", required = true) int offset,
-			@RequestParam(value = "page", required = true) int page,
-			@RequestParam(value="for", required=true) String reqType,
-			@RequestParam(value="search", required=false) String search) {
+	public JobResult handleJobQuery(
+			@ApiParam(value = "*任务类型") @RequestParam(value = "for") String reqType,
+			@ApiParam(value = "*请求页码") @RequestParam(value = "page") int page,
+			@ApiParam(value = "*每页记录数") @RequestParam(value = "offset") int offset,
+			@ApiParam(value = "任务名称(过滤用)") @RequestParam(value="search", required=false) String search) {
 		if (reqType.equals(Contants.REQ_GEO)) {
 			return jobDao.queryJobs(offset, page, Contants.REQ_GEO, search);
 		} else if (reqType.equals(Contants.REQ_POI)) {
 			return jobDao.queryJobs(offset, page, Contants.REQ_POI, search);
+		} else if (reqType.equals(Contants.REQ_CELL)){
+			return jobDao.queryJobs(offset, page, reqType, search);
 		} else {
 			throw new RuntimeException("this type of request is not supported yet!");
 		}
 	}
 
 	@CrossOrigin
+	@ApiOperation(tags ="地理标签应用", value = "单个任务状态查询")
+	@RequestMapping(value="/job/{jobId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public JobState singleJobQuery(@ApiParam(value = "*任务 ID") @PathVariable long jobId) {
+		return jobDao.getJobState(jobId);
+	}
+
+	@CrossOrigin
+	@ApiOperation(tags ="地理标签应用", value = "获取任务结果")
 	@RequestMapping(value="/jobresult/{jobId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public FileSystemResource handleDownload(@PathVariable long jobId) {
+	public FileSystemResource handleDownload(@ApiParam(value = "*任务 ID") @PathVariable long jobId) {
 		FileSystemResource resource = jobManager.getJobOutput(jobId);
 		response.setHeader("Content-disposition", String.format("attachment;filename=\"%s\"", resource.getFilename()));
 		return resource;
