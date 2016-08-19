@@ -1,0 +1,85 @@
+<div class="row" ng-controller="AreaCtrl">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" style="table-layout:fixed">
+                <thead>
+                <tr>
+                    <th>任务名称</th>
+                    <th width="10%">任务ID</th>
+                    <th>创建时间</th>
+                    <th>上传内容</th>
+                    <th>当前状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="record in items">
+                    <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{record.job_name}}</td>
+                    <td>{{record.job_id}}</td>
+                    <td>{{record.start_time}}</td>
+                    <td ng-switch="record.job_param.types">
+                        <div ng-switch-when="1">
+                            经纬度
+                        </div>
+                        <div ng-switch-default>
+                            位置聚集点
+                        </div>
+                    </td>
+                    <td ng-switch="record.status">
+                        <div ng-switch-when="COMPLETED">
+                            已完成
+                        </div>
+                        <div ng-switch-when="STARTING">
+                            进行中
+                        </div>
+                        <div ng-switch-when="STARTED">
+                            进行中
+                        </div>
+                        <div ng-switch-when="STOPPING">
+                            正在停止
+                        </div>
+                        <div ng-switch-when="STOPPED">
+                            已停止
+                        </div>
+                        <div ng-switch-when="FAILED">
+                            失败
+                        </div>
+                        <div ng-switch-when="ABANDONED">
+                            失败
+                        </div>
+                        <div ng-switch-default>
+                            未知状态
+                        </div>
+                    </td>
+                    <td>
+                        <!--<div class="btn-group btn-group-sm" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" ng-show=false >删除</button>
+                            <a type="button" class="btn btn-default" href="http://54.222.253.178:8080/poi-tools/jobresult/{{record.job_id}}">下载</a>
+                        </div>-->
+                        <a type="button" class="btn btn-default" ng-show="record.status=='COMPLETED'" href="{{$root.downloadurl}}{{record.job_id}}" >下载</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3 col-md-offset-8">
+            <nav>
+                <ul class="pagination pagination-sm" ng-show="pages!=1" >
+                    <li ng-class="{disabled: selPage==1}">
+                        <a ng-click="Previous()" >
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}" >
+                        <a ng-click="selectPage(page)" >{{ page}}</a>
+                    </li>
+                    <li ng-class="{disabled: selPage==pages}">
+                        <a ng-click="Next()" >
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

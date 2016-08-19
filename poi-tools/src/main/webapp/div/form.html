@@ -1,0 +1,76 @@
+<div class="panel panel-primary" ng-controller="FormCtrl">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-horizontal" role="form" id="taskForm" name="taskForm" ng-submit="submitForm()" enctype="multipart/form-data" novalidate>
+                    <div class="form-group">
+                        <label for="job" class="col-md-1 control-label">新建任务</label>
+                        <div class="col-md-5">
+                            <input type="text" name="job" id="job" class="form-control" placeholder="输入任务名称"
+                                   ng-model="taskInfo.name" required ng-maxlength="30">
+                        </div>
+                        <div class="col-md-1"><span class="glyphicon glyphicon-ok form-control-feedback"
+                                                    ng-show="taskForm.job.$dirty && taskForm.job.$valid"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-1 control-label">文件内容</label>
+                        <div class="col-md-2 ">
+                            <label class="radio-inline"><input type="radio" name="import" value="gp"
+                                                               ng-model="taskInfo.import">位置聚集点</label>
+                            <label class="radio-inline"><input type="radio" name="import" value="co"
+                                                               ng-model="taskInfo.import">经纬度</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="file" class="col-md-1 control-label">上传文件</label>
+                        <div class="col-md-11">
+                            <input type="file" id="file" name="file">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-1 control-label">坐标格式</label>
+                        <div class="col-md-11">
+                            <label class="radio-inline"><input type="radio" name="coordsys" value="gps"
+                                                               ng-model="taskInfo.cood">WGS84（谷歌地图）</label>
+                            <label class="radio-inline"><input type="radio" name="coordsys" value="autonavi"
+                                                               ng-model="taskInfo.cood">GCJ02（高德地图、四维地图、腾讯地图）</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-1 control-label">查询内容</label>
+                        <div class="col-md-11 ">
+                            <label class="radio-inline"><input type="radio" name="for" value="geo"
+                                                               ng-model="taskInfo.for">行政区域</label>
+                            <label class="radio-inline"><input type="radio" name="for" value="poi"
+                                                               ng-model="taskInfo.for">周边poi</label>
+                            <label class="radio-inline"><input type="radio" name="for" value="cell"
+                                                               ng-model="taskInfo.for">周边小区</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="taskInfo.for=='poi'">
+                        <label for="radius" class="col-md-1 control-label">周边半径</label>
+                        <div class="col-md-2">
+                            <input type="number" name="radius" id="radius" class="form-control"
+                                   placeholder="请填写3000以内数字"
+                                   ng-model="taskInfo.radius" ng-maxlength="4">米范围内
+                        </div>
+                    </div>
+                    <div class="form-group"  ng-show="taskInfo.for=='poi'">
+                        <label class="col-md-1 control-label">查询内容</label>
+                        <div id="poiTree" class="col-md-3"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-1 col-md-offset-1">
+                            <input class="btn btn-default" ng-disabled="taskForm.$invalid" type="submit" value="提交任务">
+                        </div>
+                        <div class="col-md-1 col-md-offset-1">
+                            <input class="btn btn-default" type="button" value="放弃任务" ng-click="back()">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

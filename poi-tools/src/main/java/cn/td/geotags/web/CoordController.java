@@ -3,6 +3,7 @@ package cn.td.geotags.web;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -36,10 +37,12 @@ import cn.td.geotags.job.JobState;
 import cn.td.geotags.job.JobResult;
 import cn.td.geotags.service.CoordService;
 import cn.td.geotags.util.Contants;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.annotations.ApiIgnore;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -53,8 +56,11 @@ public class CoordController {
 	@Autowired
 	private JobDao jobDao;
 	
-	@Autowired
-	private HttpServletResponse response;
+//	@Autowired
+//	private HttpServletResponse response;
+	
+//	@Autowired
+//	private HttpServletRequest request;
 	
 	@Autowired
 	public CoordController(CoordService coordService) {
@@ -92,11 +98,12 @@ public class CoordController {
 		log.error("service has detected some errors", e);
 		return new JobError(1, "service error: " + e.getMessage());
 	}
-
 	@CrossOrigin
 	@ApiOperation(tags ="地理标签应用", value = "提交任务")
 	@RequestMapping(value="/submit", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public JobState submitJob(
+			HttpServletRequest request,
+			HttpServletResponse response,
 			@ApiParam("*任务名称") @RequestParam(value="job") String jobName,
 			@ApiParam("*输入类别 (co - 经纬度, gp - 聚集点)") @RequestParam(value="import") String contentType,
 			@ApiParam("*上传文件") @RequestPart(value="file") MultipartFile file, 
@@ -105,6 +112,7 @@ public class CoordController {
 			@ApiParam("搜索半径 (默认 500m)") @RequestParam(value="radius", required=false) Integer radius,
 			@ApiParam("*输出类别 (geo - 社区街道, poi - 周边 POI, cell - 最近小区)") @RequestParam(value="for") String reqType) {
 
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		JobState jobState = null;
 		String inFile = "";
 
@@ -172,7 +180,10 @@ public class CoordController {
 	@CrossOrigin
 	@ApiOperation(tags ="地理标签应用", value = "获取任务结果")
 	@RequestMapping(value="/jobresult/{jobId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public FileSystemResource handleDownload(@ApiParam(value = "*任务 ID") @PathVariable long jobId) {
+	public FileSystemResource handleDownload(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@ApiParam(value = "*任务 ID") @PathVariable long jobId) {
 		FileSystemResource resource = jobManager.getJobOutput(jobId);
 		response.setHeader("Content-disposition", String.format("attachment;filename=\"%s\"", resource.getFilename()));
 		return resource;

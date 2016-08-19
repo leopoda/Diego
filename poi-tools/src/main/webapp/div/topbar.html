@@ -1,0 +1,37 @@
+<div class="row" ng-controller="TabsCtrl">
+    <!--下面是顶部导航栏的代码-->
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <!-- 当浏览器宽度小于一定值时导航栏被折叠-->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"  ><strong>位置标签应用</strong></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <!--<li class="active"><a ui-sref="area"  ng-click="toggle()">行政区域查询</a></li>
+                    <li><a ui-sref="poi" ng-click="toggle()" >周边poi查询</a></li>-->
+                    <!--ng-class="{active:isActiveTab(tab.sref)}"-->
+                    <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.sref)}" ><a ui-sref={{tab.sref}} ui-sref-opts="{reload:true}">{{tab.title}}</a></li>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <a type="button" class="btn btn-default" ui-sref="form" ui-sref-opts="{reload:true}"> 新建任务 </a>
+                </form>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="输入任务名称查询" ng-model="search_content">
+                    </div>
+                    <a type="button" class="btn btn-default"  ng-click="queryTab(search_content)"> <span  class="glyphicon glyphicon-search"></span></a>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+</div>
