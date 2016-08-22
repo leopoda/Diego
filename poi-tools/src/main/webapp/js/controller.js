@@ -12,11 +12,14 @@ taskModule.controller('TabsCtrl', function ($scope, $location, $rootScope) {
     $rootScope.submiturl = "http://54.222.253.178:8080/poi-tools/submit"
     $rootScope.downloadurl = "http://54.222.253.178:8080/poi-tools/jobresult/";
     $scope.tabs = [{
-        title: '行政区域查询',
+        title: '社区街道',
         sref: 'area'
     }, {
-        title: '周边poi查询',
+        title: '周边 POI',
         sref: 'poi'
+    }, {
+        title: '最近小区',
+        sref: 'cell'
     }];
     $scope.currentTab = $location.path().substr(1);
     $scope.search_content = $location.search()["query"];
@@ -103,7 +106,9 @@ taskModule.controller('AreaCtrl', function ($scope,$rootScope, $http, $interval,
     $scope.selectPage(1);
 });
 
-
+/**
+ * poi查询
+ */
 taskModule.controller('PoiCtrl', function ($scope, $rootScope, $http, $interval, $state, $stateParams, $location) {
     $scope.selPage = 1;
     $scope.search_content = $location.search()["query"] == undefined ? "" : $location.search()["query"];
@@ -173,6 +178,76 @@ taskModule.controller('PoiCtrl', function ($scope, $rootScope, $http, $interval,
     $scope.selectPage(1);
 });
 
+/**
+ * 行政区域查询
+ */
+taskModule.controller('CellCtrl', function ($scope,$rootScope, $http, $interval, $state, $stateParams, $location) {
+    $scope.selPage = 1;
+    $scope.search_content = $location.search()["query"] == undefined ? "" : $location.search()["query"];
+    $scope.getAreas = function (selPage) {
+        var params = {
+            offset: 10,
+            page: selPage,
+            for: "cell",
+            search: $scope.search_content
+        };
+        $http.get( $rootScope.queryurl, {
+            params: params
+        }).success(function (response) {
+            //数据源
+            $scope.items = response.jobs;
+            $scope.pages = response.page_total; //分页总数
+            $scope.selPage = response.page_num;
+            $scope.count = response.count;
+            //不能小于1大于最大
+            if (selPage < 1 || selPage > $scope.pages) return;
+            //最多显示分页数5
+            var newpageList = [];
+            if (selPage > 2) {
+                for (var i = (selPage - 3); i < ((selPage + 2) > $scope.pages ? $scope.pages : (selPage + 2)); i++) {
+                    newpageList.push(i + 1);
+                }
+            } else {
+                $scope.newPages = $scope.pages > 5 ? 5 : $scope.pages;
+                $scope.pageList = [];
+                //分页要repeat的数组
+                for (var i = 0; i < $scope.newPages; i++) {
+                    newpageList.push(i + 1);
+                }
+            }
+            $scope.pageList = newpageList;
+            $scope.selPage = selPage;
+            $scope.isActivePage(selPage);
+        });
+    };
+    //打印当前选中页索引
+    $scope.selectPage = function (selPage) {
+        $scope.getAreas(selPage);
+    };
+    //设置当前选中页样式
+    $scope.isActivePage = function (page) {
+        return $scope.selPage == page;
+    };
+    //设置当前选中页样式
+    $scope.isActivePage = function (page) {
+        return $scope.selPage == page;
+    };
+    //上一页
+    $scope.Previous = function () {
+        if ($scope.selPage == 1) {
+            return;
+        }
+        $scope.selectPage($scope.selPage - 1);
+    }
+    //下一页
+    $scope.Next = function () {
+        if ($scope.selPage == $scope.pages) {
+            return;
+        }
+        $scope.selectPage($scope.selPage + 1);
+    };
+    $scope.selectPage(1);
+});
 
 taskModule.controller('DataCtrl', function ($scope, $rootScope, $location, $http) {
     $http.get("resource/gd.json")
@@ -1753,11 +1828,11 @@ taskModule.controller('FormCtrl', function ($scope, $rootScope, $http, $window, 
     $scope.submitForm = function () {
         var file = document.getElementById("file");
         var fileName = file.value;
-        if($scope.taskInfo.import=="gp" && 
+        /*if($scope.taskInfo.import=="gp" && 
             ($scope.taskInfo.for == "poi" || $scope.taskInfo.for == "cell" )){
             alert("位置聚集点数据只支持行政区域查询!");
             return;
-        }
+        }*/
         if (fileName == "") {
             alert("请上传文件!");
             return;

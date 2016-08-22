@@ -21,6 +21,20 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('cell', {
+            url: '/cell',
+            views: {
+                '': {
+                    templateUrl: 'div/main.html'
+                },
+                'topbar@cell': {
+                    templateUrl: 'div/topbar.html'
+                },
+                'main@cell': {
+                    templateUrl: 'div/cell.html'
+                }
+            }
+        })
         .state('poi', {
             url: '/poi',
             views: {
