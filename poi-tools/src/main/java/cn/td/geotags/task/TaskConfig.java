@@ -12,10 +12,10 @@ public class TaskConfig {
 	private Environment env;
 
 	public String getOutputFilePath(long jobId, String outputType) {
-		return env.getProperty("file.out.dir") + "/" + outputType + "-" + jobId + Contants.FILE_EXT_CSV;
+		return env.getProperty("file.out.dir") + "/" + outputType + "-" + jobId + Contants.FILE_EXT_TXT;
 	}
 
 	public String getCompressedOutputFilePath(long jobId, String outputType) {
-		return getOutputFilePath(jobId, outputType).replace(Contants.FILE_EXT_CSV, Contants.FILE_EXT_ZIP);
+		return getOutputFilePath(jobId, outputType).replace(Contants.FILE_EXT_TXT, Contants.FILE_EXT_ZIP);
 	}
 }

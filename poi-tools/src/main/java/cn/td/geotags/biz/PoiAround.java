@@ -18,6 +18,7 @@ import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiType;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.CoordinateParser;
 
 @Component
 public class PoiAround {
@@ -47,13 +48,11 @@ public class PoiAround {
 	private void calc(String inFile, String outFile) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
-			lines.map(PoiAround::parseAsCoordinate)
-//				 .limit(2)
+			lines.map(CoordinateParser::parse)
 				 .parallel()
 				 .map(c -> this.getPoiInfo(c))
 				 .flatMap(s -> s.stream())
 				 .map(o -> o.asFlatText())
-//				 .forEach(System.out::println);
 				 .forEach(o -> strm.println(o));
 		} finally {
 			strm.close();
@@ -68,13 +67,11 @@ public class PoiAround {
 	public void calc(String poiTypes, long radius, String coordinateInputFile, String outFile) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> lines = Files.lines(Paths.get(coordinateInputFile))) {
-			lines.map(PoiAround::parseAsCoordinate)
-//				 .limit(2)
+			lines.map(CoordinateParser::parse)
 				 .parallel()
 				 .map(c -> this.getPoiInfo(c, poiTypes, radius))
 				 .flatMap(s -> s.stream())
 				 .map(o -> o.asFlatText())
-//				 .forEach(System.out::println);
 				 .forEach(o -> strm.println(o));
 		} finally {
 			strm.close();
@@ -83,13 +80,5 @@ public class PoiAround {
 	
 	public List<PoiInfo> getPoiInfo(Coordinate coord, String types, long radius) {
 		return coordService.getAroundPoi(coord, types, radius);
-	}
-	
-	private static Coordinate parseAsCoordinate(String line) {
-		String[] arr = line.split("\t");
-		double lng = Double.parseDouble(arr[0]);
-		double lat = Double.parseDouble(arr[1]);
-
-		return new Coordinate(lng, lat);
 	}
 }

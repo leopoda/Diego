@@ -21,6 +21,10 @@
                             <label class="radio-inline"><input type="radio" name="import" value="co"
                                                                ng-model="taskInfo.import">经纬度</label>
                         </div>
+                        <div class="col-md-6 " style="text-align:center;" ng-show="taskInfo.import=='gp'">
+                            <span style="display: inline-block; padding-top: 7px;">示例格式：每行一条记录，第一列 ID，第二列聚集点。<a ng-click="downloadgp()" >下载样例数据</a></span></div>
+                        <div class="col-md-6 " style="text-align:center;" ng-show="taskInfo.import=='co'">
+                            <span style="display: inline-block; padding-top: 7px;">示例格式：每行一条记录，经度在前，纬度在后，以 tab 分隔。<a ng-click="downloadco()">下载样例数据</a></span></div>
                     </div>
                     <div class="form-group">
                         <label for="file" class="col-md-1 control-label">上传文件</label>
@@ -32,9 +36,9 @@
                         <label class="col-md-1 control-label">坐标格式</label>
                         <div class="col-md-11">
                             <label class="radio-inline"><input type="radio" name="coordsys" value="gps"
-                                                               ng-model="taskInfo.cood">WGS84（谷歌地图）</label>
+                                                               ng-model="taskInfo.cood">WGS84（GPS）</label>
                             <label class="radio-inline"><input type="radio" name="coordsys" value="autonavi"
-                                                               ng-model="taskInfo.cood">GCJ02（高德地图、四维地图、腾讯地图）</label>
+                                                               ng-model="taskInfo.cood" disabled="true">GCJ02（高德地图、四维地图、腾讯地图）</label>
                         </div>
                     </div>
                     <div class="form-group">

@@ -38,7 +38,7 @@ taskModule.controller('TabsCtrl', function ($scope, $location, $rootScope) {
 /**
  * 行政区域查询
  */
-taskModule.controller('AreaCtrl', function ($scope,$rootScope, $http, $interval, $state, $stateParams, $location) {
+taskModule.controller('AreaCtrl', function ($scope, $rootScope, $http, $interval, $state, $stateParams, $location) {
     $scope.selPage = 1;
     $scope.search_content = $location.search()["query"] == undefined ? "" : $location.search()["query"];
     $scope.getAreas = function (selPage) {
@@ -48,7 +48,7 @@ taskModule.controller('AreaCtrl', function ($scope,$rootScope, $http, $interval,
             for: "geo",
             search: $scope.search_content
         };
-        $http.get( $rootScope.queryurl, {
+        $http.get($rootScope.queryurl, {
             params: params
         }).success(function (response) {
             //数据源
@@ -181,7 +181,7 @@ taskModule.controller('PoiCtrl', function ($scope, $rootScope, $http, $interval,
 /**
  * 行政区域查询
  */
-taskModule.controller('CellCtrl', function ($scope,$rootScope, $http, $interval, $state, $stateParams, $location) {
+taskModule.controller('CellCtrl', function ($scope, $rootScope, $http, $interval, $state, $stateParams, $location) {
     $scope.selPage = 1;
     $scope.search_content = $location.search()["query"] == undefined ? "" : $location.search()["query"];
     $scope.getAreas = function (selPage) {
@@ -191,7 +191,7 @@ taskModule.controller('CellCtrl', function ($scope,$rootScope, $http, $interval,
             for: "cell",
             search: $scope.search_content
         };
-        $http.get( $rootScope.queryurl, {
+        $http.get($rootScope.queryurl, {
             params: params
         }).success(function (response) {
             //数据源
@@ -1829,17 +1829,18 @@ taskModule.controller('FormCtrl', function ($scope, $rootScope, $http, $window, 
         var file = document.getElementById("file");
         var fileName = file.value;
         /*if($scope.taskInfo.import=="gp" && 
-            ($scope.taskInfo.for == "poi" || $scope.taskInfo.for == "cell" )){
-            alert("位置聚集点数据只支持行政区域查询!");
-            return;
-        }*/
+         ($scope.taskInfo.for == "poi" || $scope.taskInfo.for == "cell" )){
+         alert("位置聚集点数据只支持行政区域查询!");
+         return;
+         }*/
         if (fileName == "") {
             alert("请上传文件!");
             return;
         } else if (!(fileName.substring(fileName.lastIndexOf(".")) == ".txt"
-            || fileName.substring(fileName.lastIndexOf(".")) == ".csv"
-            || fileName.substring(fileName.lastIndexOf(".")) == ".dat")) {
-            alert("上传文件类型必须为.txt .csv或.dat");
+                //|| fileName.substring(fileName.lastIndexOf(".")) == ".csv"
+                //|| fileName.substring(fileName.lastIndexOf(".")) == ".dat"
+            )) {
+            alert("上传文件类型必须为 .txt");
             return;
         }
         if ($scope.taskInfo.for == "poi") {
@@ -1855,28 +1856,34 @@ taskModule.controller('FormCtrl', function ($scope, $rootScope, $http, $window, 
         }
         var formElement = document.getElementById("taskForm");
         var fd = new FormData(formElement);
-        fd.append("types",types);
-        fd.append("file",file);
+        fd.append("types", types);
+        fd.append("file", file);
         $http({
             method: 'POST',
             url: $rootScope.submiturl,
-            data: fd,/*
-            crossDomain: true,
-            xhrFields: {
-                withCredentials: true
-            },*/
-            headers: {'Content-Type':undefined},
+            data: fd, /*
+             crossDomain: true,
+             xhrFields: {
+             withCredentials: true
+             },*/
+            headers: {'Content-Type': undefined},
             transformRequest: angular.identity
         }).then(function successCallback(response) {
             alert("任务提交成功!");
             $state.go($scope.taskInfo.for == "poi" ? "poi" : "area");
         }, function errorCallback(response) {
-            alert("任务提交失败!"); 
+            alert("任务提交失败!");
         });
 
     };
     $scope.back = function () {
         $window.history.back();
+    }
+    $scope.downloadgp = function () {
+        window.open("resource/id_location_example.txt");
+    }
+    $scope.downloadco = function () {
+        window.open("resource/latlng_example.txt");
     }
 });
 

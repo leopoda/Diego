@@ -17,8 +17,8 @@
                     <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{record.job_name}}</td>
                     <td>{{record.job_id}}</td>
                     <td>{{record.start_time}}</td>
-                    <td ng-switch="record.job_param.types">
-                        <div ng-switch-when="1">
+                    <td ng-switch="record.job_param.import">
+                        <div ng-switch-when="co">
                             经纬度
                         </div>
                         <div ng-switch-default>

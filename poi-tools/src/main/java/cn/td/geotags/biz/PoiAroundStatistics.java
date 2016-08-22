@@ -34,6 +34,7 @@ import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiSummary;
 import cn.td.geotags.domain.PoiType;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.CoordinateParser;
 import cn.td.geotags.util.StreamForker;
 
 @Component
@@ -59,7 +60,7 @@ public class PoiAroundStatistics {
 			
 			try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
 				PoiAroundStatistics poiStats = ctx.getBean(PoiAroundStatistics.class);
-				lines.map(line -> parseAsCoordinate(line))
+				lines.map(CoordinateParser::parse)
 //					 .limit(10)
 					 .map(c -> poiStats.calculate(c))
 					 .flatMap(s -> s.stream())
@@ -70,15 +71,7 @@ public class PoiAroundStatistics {
 			}
 		}
 	}
-	
-	private static Coordinate parseAsCoordinate(String line) {
-		String[] arr = line.split("\t");
-		double lng = Double.parseDouble(arr[0]);
-		double lat = Double.parseDouble(arr[1]);
 
-		return new Coordinate(lng, lat);
-	}
-	
 	public List<String> calculate(Coordinate coord) {
 		
 		// 大组分类

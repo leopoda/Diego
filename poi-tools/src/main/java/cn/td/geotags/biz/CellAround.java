@@ -25,6 +25,7 @@ import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiType;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.CoordinateParser;
 
 @Component
 public class CellAround {
@@ -51,7 +52,7 @@ public class CellAround {
 		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
 			try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
 				CellAround cellAround = ctx.getBean(CellAround.class);
-				lines.map(line -> parseAsCoordinate(line))
+				lines.map(CoordinateParser::parse)
 //						 .limit(10)
 						// .filter(x -> x.isValid())
 						.parallel()
@@ -67,13 +68,10 @@ public class CellAround {
 	public void calc(long radius, String inFile, String outFile) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
-			lines.map(CellAround::parseAsCoordinate)
-//				.limit(100)
+			lines.map(CoordinateParser::parse)
 				.parallel()
 				.map(c -> calc(c, radius))
 				.forEach(s -> strm.println(s));
-//				.forEach(System.out::println);
-				
 		} finally {
 			strm.close();
 		}
@@ -94,16 +92,7 @@ public class CellAround {
 	}
 	
 	private String calc(Coordinate coord, Function<Coordinate, List<PoiInfo>> f) {
-//		List<PoiType> poiTypes = new ArrayList<>();
-//		PoiType poiType = new PoiType();
-//
-//		poiType.setType(String.valueOf(CELL_POI_TYPE));
-//		poiTypes.add(poiType);
-		
 		List<PoiInfo> cells = f.apply(coord);
-		
-//		List<PoiInfo> cells = coordService.getAroundPoi(coord, poiTypes);
-		
 		Optional<PoiInfo> p = cells.stream().collect(minBy(comparingInt(PoiInfo::getDistance)));
 		
 		String addr;
@@ -124,13 +113,5 @@ public class CellAround {
 		}
 		
 		return addr;
-	}
-	
-	private static Coordinate parseAsCoordinate(String line) {
-		String[] arr = line.split("\t");
-		double lng = Double.parseDouble(arr[0]);
-		double lat = Double.parseDouble(arr[1]);
-
-		return new Coordinate(lng, lat);
 	}
 }

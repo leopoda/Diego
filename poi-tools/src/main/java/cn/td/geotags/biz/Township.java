@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 import cn.td.geotags.config.RootConfig;
 import cn.td.geotags.domain.CoordAddress;
-import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.CoordinateParser;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -46,7 +46,7 @@ public class Township {
 	public void calc(String inputFilePath, String outputFile) {
 		try (Stream<String> lines = Files.lines(Paths.get(inputFilePath))) {
 			PrintStream strm = new PrintStream(outputFile);
-			lines.map(line -> parseAsCoordinate(line))
+			lines.map(CoordinateParser::parse)
 //				 .limit(10)
 				 .parallel()
 				 .filter(c -> c.isValid() == true)
@@ -59,13 +59,5 @@ public class Township {
 		} catch (IOException e) {
 			log.error("", e);
 		}
-	}
-	
-	public static  Coordinate parseAsCoordinate(String line) {
-		String[] arr = line.split("\t");
-		double lng = Double.parseDouble(arr[0]);
-		double lat = Double.parseDouble(arr[1]);
-
-		return new Coordinate(lng, lat);
 	}
 }

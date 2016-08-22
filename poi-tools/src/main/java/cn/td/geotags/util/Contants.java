@@ -27,7 +27,7 @@ public final class Contants {
 	public final static String BIZ_GP_TO_POI_AROUND = "聚集点周边 POI";
 	public final static String BIZ_COMPRESS_ZIP = "压缩文件";
 	
-	public final static String FILE_EXT_CSV = ".csv";
+	public final static String FILE_EXT_TXT = ".txt";
 	public final static String FILE_EXT_DAT = ".dat";
 	public final static String FILE_EXT_ZIP = ".zip";
 }
