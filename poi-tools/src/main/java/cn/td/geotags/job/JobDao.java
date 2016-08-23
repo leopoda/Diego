@@ -24,6 +24,9 @@ public class JobDao {
 	@Autowired
 	private JobExecutionDao jobExecutionDao;
 	
+	@Autowired
+	private JobDelete jobDelete;
+	
 //	@Autowired
 //	private StepExecutionDao stepExecutionDao;
 //	
@@ -94,6 +97,10 @@ public class JobDao {
 		return getJobState(jobExecution);
 	}
 
+	public boolean deleteJob(long jobId) {
+		return jobDelete.delete(jobId);
+	}
+	
 	private List<ImmutablePair<String, List<JobExecution>>> getJobExecution() {
 		List<String> jobNames = jobInstanceDao.getJobNames();
 		return jobNames.stream()

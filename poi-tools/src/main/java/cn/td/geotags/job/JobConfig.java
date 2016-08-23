@@ -11,6 +11,7 @@ import org.springframework.batch.core.repository.dao.JdbcJobInstanceDao;
 import org.springframework.batch.core.repository.dao.JobExecutionDao;
 import org.springframework.batch.core.repository.dao.JobInstanceDao;
 import org.springframework.batch.item.database.support.DefaultDataFieldMaxValueIncrementerFactory;
+import org.springframework.batch.core.repository.dao.AbstractJdbcBatchMetadataDao;
 
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class JobConfig extends DefaultBatchConfigurer {
 	private Environment env;
 	
 	private final static String databaseType = "MYSQL";
-	private final static String tablePrefix = "BATCH_";
+	private final static String tablePrefix = AbstractJdbcBatchMetadataDao.DEFAULT_TABLE_PREFIX; //"BATCH_";
 	
 	@Bean
 	public CellAroundTasklet cellAroundTasklet() {

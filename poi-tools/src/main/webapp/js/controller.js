@@ -11,6 +11,7 @@ taskModule.controller('TabsCtrl', function ($scope, $location, $rootScope) {
     $rootScope.queryurl = "http://54.222.253.178:8080/poi-tools/jobs";
     $rootScope.submiturl = "http://54.222.253.178:8080/poi-tools/submit"
     $rootScope.downloadurl = "http://54.222.253.178:8080/poi-tools/jobresult/";
+    $rootScope.deleteurl = "http://54.222.253.178:8080/poi-tools/jobdelete/";
     $scope.tabs = [{
         title: '社区街道',
         sref: 'area'
@@ -103,6 +104,14 @@ taskModule.controller('AreaCtrl', function ($scope, $rootScope, $http, $interval
         }
         $scope.selectPage($scope.selPage + 1);
     };
+    $scope.delete = function (jobid) {
+        $http({
+            method: 'DELETE',
+            url: $rootScope.deleteurl+jobid
+        }).success(function(data,status,config,headers){
+            window.location.reload();
+        });
+    }
     $scope.selectPage(1);
 });
 
@@ -175,6 +184,14 @@ taskModule.controller('PoiCtrl', function ($scope, $rootScope, $http, $interval,
         }
         $scope.selectPage($scope.selPage + 1);
     };
+    $scope.delete = function (jobid) {
+        $http({
+            method: 'DELETE',
+            url: $rootScope.deleteurl+jobid
+        }).success(function(data,status,config,headers){
+            window.location.reload();
+        });
+    }
     $scope.selectPage(1);
 });
 
@@ -246,6 +263,14 @@ taskModule.controller('CellCtrl', function ($scope, $rootScope, $http, $interval
         }
         $scope.selectPage($scope.selPage + 1);
     };
+    $scope.delete = function (jobid) {
+        $http({
+            method: 'DELETE',
+            url: $rootScope.deleteurl+jobid
+        }).success(function(data,status,config,headers){
+            window.location.reload();
+        });
+    }
     $scope.selectPage(1);
 });
 

@@ -154,7 +154,20 @@ public class JobManager {
 			throw new RuntimeException("invalid job ID");
 		}
 	}
-	
+
+	public JobState deleteJob(long jobId) {
+		JobState jobState = jobDao.getJobState(jobId);
+		String outputType = (String) jobState.getParams().get(Contants.PARAM_REQ_TYPE);
+		String outputFilePath = taskConfig.getCompressedOutputFilePath(jobId, outputType);
+		
+		FileSystemResource resource = new FileSystemResource(outputFilePath);
+		if (resource.exists()) {
+			resource.getFile().delete();
+		}
+		jobDao.deleteJob(jobId);
+		return jobState;
+	}
+
 	private JobState runJob(ImmutablePair<String, JobParameters> p, Function<String, Job> f) {
 		String jobName = p.getLeft();
 		JobParameters jobParameters = p.getRight();

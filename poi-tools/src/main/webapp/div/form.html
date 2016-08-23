@@ -22,9 +22,15 @@
                                                                ng-model="taskInfo.import">经纬度</label>
                         </div>
                         <div class="col-md-6 " style="text-align:center;" ng-show="taskInfo.import=='gp'">
-                            <span style="display: inline-block; padding-top: 7px;">示例格式：每行一条记录，第一列 ID，第二列聚集点。<a ng-click="downloadgp()" >下载样例数据</a></span></div>
+                            <label class="col-md-11  control-label">示例格式：每行一条记录，第一列 ID，第二列聚集点 <a
+                                    ng-click="downloadgp()">下载样例数据</a></label>
+                            <!--<span style="display: inline-block; padding-top: 7px;">参考示例格式，每行一条记录，第一列ID，第二列聚集点 <a ng-click="downloadgp()" >下载样例数据</a></span>-->
+                        </div>
                         <div class="col-md-6 " style="text-align:center;" ng-show="taskInfo.import=='co'">
-                            <span style="display: inline-block; padding-top: 7px;">示例格式：每行一条记录，经度在前，纬度在后，以 tab 分隔。<a ng-click="downloadco()">下载样例数据</a></span></div>
+                            <label class="col-md-11  control-label">示例格式：每行一条记录，经度在前，纬度在后，以tab分隔 <a
+                                    ng-click="downloadco()">下载样例数据</a></label>
+                               <!-- <span style="display: inline-block; padding-top: 7px;">参考示例格式，每行一条记录，经度在前，纬度在后，以tab分隔 <a
+                                        ng-click="downloadco()">下载样例数据</a></span>--></div>
                     </div>
                     <div class="form-group">
                         <label for="file" class="col-md-1 control-label">上传文件</label>
@@ -46,10 +52,15 @@
                         <div class="col-md-11 ">
                             <label class="radio-inline"><input type="radio" name="for" value="geo"
                                                                ng-model="taskInfo.for">社区街道</label>
-                            <label class="radio-inline" ng-show="taskInfo.import!='gp'"><input type="radio" name="for" value="poi"
-                                                               ng-model="taskInfo.for">周边 POI</label>
-                            <label class="radio-inline" ng-show="taskInfo.import!='gp'"><input type="radio" name="for" value="cell"
-                                                               ng-model="taskInfo.for">最近小区</label>
+                            <label class="radio-inline" ng-show="taskInfo.import!='gp'"><input type="radio"
+                                                                                               name="for"
+                                                                                               value="poi"
+                                                                                               ng-model="taskInfo.for">周边
+                                POI</label>
+                            <label class="radio-inline" ng-show="taskInfo.import!='gp'"><input type="radio"
+                                                                                               name="for"
+                                                                                               value="cell"
+                                                                                               ng-model="taskInfo.for">最近小区</label>
                         </div>
                     </div>
 

@@ -52,11 +52,10 @@
                         </div>
                     </td>
                     <td>
-                        <!--<div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            <button type="button" class="btn btn-default" ng-show=false >删除</button>
-                            <a type="button" class="btn btn-default" href="http://54.222.253.178:8080/poi-tools/jobresult/{{record.job_id}}">下载</a>
-                        </div>-->
-                        <a type="button" class="btn btn-default" ng-show="record.status=='COMPLETED'" href="{{$root.downloadurl}}{{record.job_id}}" >下载</a>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" ng-click=delete(record.job_id) ng-show="record.status=='COMPLETED' || record.status=='FAILED' || record.status=='ABANDONED'">删除</button>
+                            <a type="button" class="btn btn-default" ng-show="record.status=='COMPLETED'" href="{{$root.downloadurl}}{{record.job_id}}" >下载</a>
+                        </div>
                     </td>
                 </tr>
                 </tbody>

@@ -188,4 +188,11 @@ public class CoordController {
 		response.setHeader("Content-disposition", String.format("attachment;filename=\"%s\"", resource.getFilename()));
 		return resource;
 	}
+
+	@CrossOrigin
+	@ApiOperation(tags = "地理标签应用", value = "删除任务")
+	@RequestMapping(value="/jobdelete/{jobId}", method=RequestMethod.DELETE)
+	public JobState deleteJob(@PathVariable Long jobId) {
+		return jobManager.deleteJob(jobId);
+	}
 }
