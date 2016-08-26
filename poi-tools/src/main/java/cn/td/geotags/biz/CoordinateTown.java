@@ -14,12 +14,13 @@ import org.springframework.stereotype.Component;
 import cn.td.geotags.config.RootConfig;
 import cn.td.geotags.domain.CoordAddress;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.Contants;
 import cn.td.geotags.util.CoordinateParser;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class Township {
+public class CoordinateTown {
 	@Autowired
 	CoordService coordService;
 	
@@ -38,19 +39,23 @@ public class Township {
 		String outputFile = String.format(prefix, sdf.format(System.currentTimeMillis()));
 		
 		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
-			Township coordStreet = ctx.getBean(Township.class);
+			CoordinateTown coordStreet = ctx.getBean(CoordinateTown.class);
 			coordStreet.calc(inputFile, outputFile);
 		}
 	}
 	
 	public void calc(String inputFilePath, String outputFile) {
+		calc(Contants.PARAM_COORD_SYS_GPS, inputFilePath, outputFile);
+	}
+	
+	public void calc(String coordsys, String inputFilePath, String outputFile) {
 		try (Stream<String> lines = Files.lines(Paths.get(inputFilePath))) {
 			PrintStream strm = new PrintStream(outputFile);
 			lines.map(CoordinateParser::parse)
 //				 .limit(10)
 				 .parallel()
 				 .filter(c -> c.isValid() == true)
-				 .map(c -> coordService.getCoordAddress(c))
+				 .map(c -> coordService.getCoordAddress(c, coordsys))
 				 .map(CoordAddress::asFlatText)
 //				 .forEach(System.out::println);
 				 .forEach(s -> strm.println(s));

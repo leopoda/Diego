@@ -6,6 +6,7 @@ import cn.td.geotags.domain.Coordinate;
 
 public interface MapRepository {
 	Coordinate getGCJ02Coord (Coordinate wjs84Coord);
+	Coordinate getGCJ02Coord(String coordsys, Coordinate src);
 	Regeo getGEO(Coordinate gcj02Coord);
 //	Around getPoiAround(Coordinate gcj02Coord);
 //	Around getPoiAround(Coordinate gcj02Coord, String poiTypes);

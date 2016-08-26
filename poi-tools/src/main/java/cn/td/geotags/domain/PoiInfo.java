@@ -53,6 +53,7 @@ public class PoiInfo {
 				this.location, 
 				this.type, 
 				this.typecode, 
+				this.id,
 				this.name);
 	}
 }

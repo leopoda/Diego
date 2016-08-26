@@ -18,6 +18,7 @@ import cn.td.geotags.domain.CoordAddress;
 import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiType;
+import cn.td.geotags.util.Contants;
 import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
 
@@ -37,15 +38,21 @@ public class CoordServiceImpl implements CoordService {
 	@Autowired
 	PoiConfig poiConfig;
 	
+
 	@Override
 	public CoordAddress getCoordAddress(Coordinate wjs84Coord) {
-		Coordinate anotherCoord = new Coordinate(wjs84Coord);
+		return getCoordAddress(wjs84Coord, Contants.PARAM_COORD_SYS_GPS);
+	}
+	
+	@Override
+	public CoordAddress getCoordAddress(Coordinate coord, String coordsys) {
+		Coordinate anotherCoord = new Coordinate(coord);
 		AddressData anotherAddr = new AddressData();
 		
 		CoordAddress ca = new CoordAddress();
 		Coordinate gcj02Coord = null;
 		try {
-			gcj02Coord = repo.getGCJ02Coord(wjs84Coord);
+			gcj02Coord = repo.getGCJ02Coord(coordsys, coord);
 			Regeo regeo = repo.getGEO(gcj02Coord);
 			
 			RegeoCode rc = regeo.getRegeocode();
@@ -60,7 +67,7 @@ public class CoordServiceImpl implements CoordService {
 //					(ac.getBusinessAreas() == null) ? "" : String.format(";", ac.getBusinessAreas().stream().map(b -> b.getName()).collect(toList())) 
 					);
 
-			ca.setCoord(wjs84Coord);
+			ca.setCoord(coord);
 			ca.setAmapCoord(gcj02Coord);
 			ca.setAddr(addr);
 		} catch (Exception e) {
@@ -90,6 +97,11 @@ public class CoordServiceImpl implements CoordService {
 	
 	@Override
 	public List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, String types, long radius) {
+		return getAroundPoi(wjs84Coord, types, radius, Contants.PARAM_COORD_SYS_GPS);
+	}
+	
+	@Override
+	public List<PoiInfo> getAroundPoi(Coordinate coord, String types, long radius, String coordsys) {
 		try {
 //			List<String> types = poiTypes.stream()
 //										 .map(x -> x.getType())
@@ -102,39 +114,69 @@ public class CoordServiceImpl implements CoordService {
 			int pageSize = poiConfig.getPoiAroundPageSize();
 //			int radius = poiConfig.getPoiAroundRadius();
 	
-			Coordinate gcj02Coord = repo.getGCJ02Coord(wjs84Coord);
+			Coordinate gcj02Coord = repo.getGCJ02Coord(coordsys, coord);
+			
+			if (gcj02Coord == null) {
+				throw new RuntimeException("unable to get GCJ02 coordinate");
+			}
 			
 			Around around = repo.getPoiAround(gcj02Coord, types, radius, pageSize, 1);
 			int amount = Integer.parseInt(around.getCount());
 			
 			int pageCount = amount / pageSize + (amount % pageSize == 0 ? 0 : 1);
-			String c = String.join(",", String.valueOf(wjs84Coord.getLng()), String.valueOf(wjs84Coord.getLat()));
+			String c = String.join(",", String.valueOf(coord.getLng()), String.valueOf(coord.getLat()));
 			log.info(c + "; page count:" + pageCount + "; poi amount:" + amount);
 			
 //			System.out.println(around);
 			
-			List<PoiInfo> p1 = around.getPois().stream().map(p -> {
-													PoiInfo po = new PoiInfo(p.getId(), 
-															p.getType(), 
-															p.getTypecode(), 
-															p.getName(), 
-															p.getAddress(),
-															Integer.parseInt(p.getDistance()), 
-															p.getPname(), 
-															p.getCityname(), 
-															p.getAdname(),
-															p.getLocation());
-													po.setCenter(wjs84Coord);
-													po.setAmapCenter(gcj02Coord);
-													return po;})
-										.collect(toList());
+			List<PoiInfo> p1 =
+			IntStream.rangeClosed(1, 1)
+					 .boxed()
+					 .map(o -> around)
+					 .filter(o -> o != null)
+					 .map(o -> o.getPois())
+					 .filter(o -> o != null)
+					 .flatMap(o -> o.stream())
+					 .map(p -> {
+							PoiInfo po = new PoiInfo(p.getId(), 
+									p.getType(), 
+									p.getTypecode(), 
+									p.getName(), 
+									p.getAddress(),
+									Integer.parseInt(p.getDistance()), 
+									p.getPname(), 
+									p.getCityname(), 
+									p.getAdname(),
+									p.getLocation());
+							po.setCenter(coord);
+							po.setAmapCenter(gcj02Coord);
+							return po;})
+					 .collect(toList());
+			
+//			List<PoiInfo> p1 = around.getPois().stream().map(p -> {
+//													PoiInfo po = new PoiInfo(p.getId(), 
+//															p.getType(), 
+//															p.getTypecode(), 
+//															p.getName(), 
+//															p.getAddress(),
+//															Integer.parseInt(p.getDistance()), 
+//															p.getPname(), 
+//															p.getCityname(), 
+//															p.getAdname(),
+//															p.getLocation());
+//													po.setCenter(wjs84Coord);
+//													po.setAmapCenter(gcj02Coord);
+//													return po;})
+//										.collect(toList());
 
 			List<PoiInfo> p2 = 
 			IntStream.rangeClosed(2,  pageCount)
 					 .boxed()
 					 .parallel() // 经常假死, 需要并行调用高德 api 获取各个页面
 					 .map(x -> repo.getPoiAround(gcj02Coord, types, radius, pageSize, x))
+					 .filter(x -> x != null)
 					 .map(a -> a.getPois())
+					 .filter(o -> o != null)
 					 .flatMap(p -> p.stream())
 					 .map(p -> {
 							PoiInfo po = new PoiInfo(p.getId(), 
@@ -147,7 +189,7 @@ public class CoordServiceImpl implements CoordService {
 									p.getCityname(), 
 									p.getAdname(),
 									p.getLocation());
-							po.setCenter(wjs84Coord);
+							po.setCenter(coord);
 							po.setAmapCenter(gcj02Coord);
 							return po;})
 					 .collect(toList());

@@ -21,10 +21,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import cn.td.geotags.task.CellAroundTasklet;
-import cn.td.geotags.task.GatherPointTasklet;
-import cn.td.geotags.task.PoisAroundTasklet;
-import cn.td.geotags.task.TownshipTasklet;
+import cn.td.geotags.task.CoordinateCellTasklet;
+import cn.td.geotags.task.GatherPointTownTasklet;
+import cn.td.geotags.task.CoordinateAroundTasklet;
+import cn.td.geotags.task.CoordinateTownTasklet;
 import cn.td.geotags.task.CompressFileTasklet;
 
 @Configuration
@@ -37,23 +37,23 @@ public class JobConfig extends DefaultBatchConfigurer {
 	private final static String tablePrefix = AbstractJdbcBatchMetadataDao.DEFAULT_TABLE_PREFIX; //"BATCH_";
 	
 	@Bean
-	public CellAroundTasklet cellAroundTasklet() {
-		return new CellAroundTasklet();
+	public CoordinateCellTasklet cellAroundTasklet() {
+		return new CoordinateCellTasklet();
 	}
 	
 	@Bean
-	public TownshipTasklet townshipTasklet() {
-		return new TownshipTasklet();
+	public CoordinateTownTasklet townshipTasklet() {
+		return new CoordinateTownTasklet();
 	}
 	
 	@Bean
-	public PoisAroundTasklet poisAroundTasklet() {
-		return new PoisAroundTasklet();
+	public CoordinateAroundTasklet poisAroundTasklet() {
+		return new CoordinateAroundTasklet();
 	}
 
 	@Bean
-	public GatherPointTasklet gatherPointTasklet() {
-		return new GatherPointTasklet();
+	public GatherPointTownTasklet gatherPointTasklet() {
+		return new GatherPointTownTasklet();
 	}
 	
 	@Bean

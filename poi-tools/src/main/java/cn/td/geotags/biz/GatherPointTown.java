@@ -16,10 +16,11 @@ import cn.td.geotags.config.RootConfig;
 import cn.td.geotags.domain.CoordAddress;
 import cn.td.geotags.domain.GatherPoint;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.Contants;
 import cn.td.geotags.util.GatherPointParser;
 
 @Component
-public class GatherPointStatistics {
+public class GatherPointTown {
 	@Autowired
 	CoordService coordService;
 	
@@ -33,27 +34,30 @@ public class GatherPointStatistics {
 		String prefix = args[1];
 		
 //		String filePath = "d:/datahub/近一月到访tdid聚集点信息.dat";
-//		String prefix = "d:/datahub/花样年地产-%s.txt";
+//		String prefix = "d:/datahub/output/花样年地产-%s.txt";
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 //		PrintStream strm = new PrintStream(String.format(prefix, sdf.format(System.currentTimeMillis())));
 		
 		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
-			GatherPointStatistics gatherPoint = ctx.getBean(GatherPointStatistics.class);
+			GatherPointTown gatherPoint = ctx.getBean(GatherPointTown.class);
 			gatherPoint.calc(filePath, String.format(prefix, sdf.format(System.currentTimeMillis())));
 		}
 	}
-	
 	public void calc(String filePath, String outFile) throws IOException {
+		calc(Contants.PARAM_COORD_SYS_GPS, filePath, outFile);
+	}
+
+	public void calc(String coordsys, String filePath, String outFile) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> line = Files.lines(Paths.get(filePath))) {
 			line.map(GatherPointParser::parse)
-//				.limit(10)
+//				.limit(100)
 				.parallel()
 				.flatMap(o -> o.stream())
 				.filter(o -> o.getCoordinate().isValid())
 				.map(x -> ImmutablePair.of(x, x.getCoordinate()))
-				.map(x -> ImmutablePair.of(x.left, coordService.getCoordAddress(x.right)))
+				.map(x -> ImmutablePair.of(x.left, coordService.getCoordAddress(x.right, coordsys)))
 				.filter(p -> p.right != null)
 				.map(x -> {	GatherPoint gp = x.left;
 							CoordAddress ca = x.right;

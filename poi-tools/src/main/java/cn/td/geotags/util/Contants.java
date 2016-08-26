@@ -24,10 +24,17 @@ public final class Contants {
 	public final static String BIZ_CELL_AROUND = "周边最近小区";
 	public final static String BIZ_TOWNSHIP = "社区街道";
 	public final static String BIZ_POI_AROUND = "周边 POI";
-	public final static String BIZ_GP_TO_POI_AROUND = "聚集点周边 POI";
+	public final static String BIZ_GP_TO_TOWN = "聚集点社区街道";
+	public final static String BIZ_GP_TO_AROUND = "聚集点周边 POI";
 	public final static String BIZ_COMPRESS_ZIP = "压缩文件";
 	
 	public final static String FILE_EXT_TXT = ".txt";
 	public final static String FILE_EXT_DAT = ".dat";
 	public final static String FILE_EXT_ZIP = ".zip";
+	
+	public final static String PARAM_COORD_SYS = "coordsys";
+	public final static String PARAM_COORD_SYS_GPS = "gps";
+	public final static String PARAM_COORD_SYS_MAPBAR = "mapbar";
+	public final static String PARAM_COORD_SYS_BAIDU = "baidu";
+	public final static String PARAM_COORD_SYS_AUTONAVI = "autonavi";
 }

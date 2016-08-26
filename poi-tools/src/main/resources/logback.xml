@@ -22,8 +22,8 @@
 	<logger name="org.springframework" level="error">
     	<appender-ref ref="file-audit" />
 	</logger>
-	<logger name="cn.td.geotags" level="error" additivity="false">
-		<appender-ref ref="file-audit" />
+	<logger name="cn.td.geotags" level="info" additivity="false">
+		<appender-ref ref="console" />
 	</logger>
 		<logger name="org.eclipse.jetty" level="error" additivity="false">
 		<appender-ref ref="file-audit" />

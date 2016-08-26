@@ -8,12 +8,12 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cn.td.geotags.biz.PoiAround;
+import cn.td.geotags.biz.CoordinateAround;
 import cn.td.geotags.util.Contants;
 
-public class PoisAroundTasklet implements Tasklet {
+public class CoordinateAroundTasklet implements Tasklet {
 	@Autowired
-	private PoiAround poiAround;
+	private CoordinateAround poiAround;
 	
 	@Autowired
 	private TaskConfig taskConfig;
@@ -29,8 +29,9 @@ public class PoisAroundTasklet implements Tasklet {
 
 		String types = (String) params.get(Contants.PARAM_TYPES);
 		long radius = Long.parseLong(params.get(Contants.PARAM_RADIUS).toString());
+		String coordsys = (String) params.get(Contants.PARAM_COORD_SYS);
 
-		poiAround.calc(types, radius, inputFileName, taskConfig.getOutputFilePath(jobId, outputType));
+		poiAround.calc(types, radius, coordsys, inputFileName, taskConfig.getOutputFilePath(jobId, outputType));
 		return RepeatStatus.FINISHED;
 	}
 }

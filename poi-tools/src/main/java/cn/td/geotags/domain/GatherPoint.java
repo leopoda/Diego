@@ -48,6 +48,13 @@ public class GatherPoint {
 		}
 	}
 	
+	public String asFlatText() {
+		return String.join("\t", this.getTdid(), 
+								 this.isWorkday ? "Y" : "N", 
+								 String.valueOf(this.getHour()),
+								 String.valueOf(this.getCount()));
+	}
+	
 	public static List<GatherPoint> parseAsGatherPoints(String line) {
 		String tdid = "";
 		String pos = "";

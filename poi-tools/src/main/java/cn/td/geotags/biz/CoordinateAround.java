@@ -18,10 +18,11 @@ import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiType;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.Contants;
 import cn.td.geotags.util.CoordinateParser;
 
 @Component
-public class PoiAround {
+public class CoordinateAround {
 	@Autowired
 	CoordService coordService;
 
@@ -40,7 +41,7 @@ public class PoiAround {
 //			String outFile = "D:/datahub/output/pa_list_poi-%s.txt";
 			String output = String.format(outFile, sdf.format(System.currentTimeMillis()));
 			
-			PoiAround poisAround = ctx.getBean(PoiAround.class);
+			CoordinateAround poisAround = ctx.getBean(CoordinateAround.class);
 			poisAround.calc(inFile, output);
 		}
 	}
@@ -59,17 +60,16 @@ public class PoiAround {
 		}
 	}
 
-	private List<PoiInfo> getPoiInfo(Coordinate coord) {
-		List<PoiType> poiTypes = new ArrayList<>();
-		return coordService.getAroundPoi(coord, poiTypes);
-	}
-	
 	public void calc(String poiTypes, long radius, String coordinateInputFile, String outFile) throws IOException {
+		calc(poiTypes, radius, Contants.PARAM_COORD_SYS_GPS, coordinateInputFile, outFile);
+	}
+
+	public void calc(String poiTypes, long radius, String coordsys, String coordFile, String outFile) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
-		try (Stream<String> lines = Files.lines(Paths.get(coordinateInputFile))) {
+		try (Stream<String> lines = Files.lines(Paths.get(coordFile))) {
 			lines.map(CoordinateParser::parse)
 				 .parallel()
-				 .map(c -> this.getPoiInfo(c, poiTypes, radius))
+				 .map(c -> this.getPoiInfo(c, poiTypes, radius, coordsys))
 				 .flatMap(s -> s.stream())
 				 .map(o -> o.asFlatText())
 				 .forEach(o -> strm.println(o));
@@ -78,7 +78,12 @@ public class PoiAround {
 		}
 	}
 	
-	public List<PoiInfo> getPoiInfo(Coordinate coord, String types, long radius) {
-		return coordService.getAroundPoi(coord, types, radius);
+	private List<PoiInfo> getPoiInfo(Coordinate coord) {
+		List<PoiType> poiTypes = new ArrayList<>();
+		return coordService.getAroundPoi(coord, poiTypes);
+	}
+
+	private List<PoiInfo> getPoiInfo(Coordinate coord, String types, long radius, String coordsys) {
+		return coordService.getAroundPoi(coord, types, radius, coordsys);
 	}
 }

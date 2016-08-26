@@ -38,7 +38,7 @@ import cn.td.geotags.util.CoordinateParser;
 import cn.td.geotags.util.StreamForker;
 
 @Component
-public class PoiAroundStatistics {
+public class CoordinateAroundStatistics {
 	@Autowired
 	CoordService coordService;
 	
@@ -59,7 +59,7 @@ public class PoiAroundStatistics {
 			PrintStream strm = new PrintStream(String.format(outFile, sdf.format(System.currentTimeMillis())));
 			
 			try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
-				PoiAroundStatistics poiStats = ctx.getBean(PoiAroundStatistics.class);
+				CoordinateAroundStatistics poiStats = ctx.getBean(CoordinateAroundStatistics.class);
 				lines.map(CoordinateParser::parse)
 //					 .limit(10)
 					 .map(c -> poiStats.calculate(c))

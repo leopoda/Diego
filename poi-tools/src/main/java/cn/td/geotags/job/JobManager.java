@@ -21,11 +21,12 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 
-import cn.td.geotags.task.CellAroundTasklet;
-import cn.td.geotags.task.GatherPointTasklet;
-import cn.td.geotags.task.PoisAroundTasklet;
+import cn.td.geotags.task.CoordinateCellTasklet;
+import cn.td.geotags.task.GatherPointTownTasklet;
+import cn.td.geotags.task.CoordinateAroundTasklet;
 import cn.td.geotags.task.TaskConfig;
-import cn.td.geotags.task.TownshipTasklet;
+import cn.td.geotags.task.CoordinateTownTasklet;
+import cn.td.geotags.task.GatherPointAroundTasklet;
 import cn.td.geotags.task.CompressFileTasklet;
 import cn.td.geotags.util.BigFileMD5;
 import cn.td.geotags.util.Contants;
@@ -48,16 +49,19 @@ public class JobManager {
 	private JobRepository jobRepo;
 
 	@Autowired
-	private CellAroundTasklet cellAround;
+	private CoordinateCellTasklet coordinateCell;
 	
 	@Autowired
-	private TownshipTasklet township;
+	private CoordinateTownTasklet coordinateTown;
 	
 	@Autowired
-	private PoisAroundTasklet poisAround;
+	private CoordinateAroundTasklet coordinateAround;
 	
 	@Autowired
-	private GatherPointTasklet gatherPoint;
+	private GatherPointTownTasklet gatherPointTown;
+	
+	@Autowired
+	private GatherPointAroundTasklet gatherPointAround;
 	
 	@Autowired
 	private CompressFileTasklet zipTasklet;
@@ -71,9 +75,9 @@ public class JobManager {
 	@Autowired
 	private TaskConfig taskConfig;
 	
-	public JobState runCellAroundJob(String jobName, JobParameters params) {
+	public JobState runCoordinateCellJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
-				.start(stepBuilder.get(Contants.BIZ_CELL_AROUND).tasklet(this.cellAround).build())
+				.start(stepBuilder.get(Contants.BIZ_CELL_AROUND).tasklet(this.coordinateCell).build())
 				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
 		
@@ -81,9 +85,9 @@ public class JobManager {
 		return runJob(p, f);
 	}
 	
-	public JobState runTownshipJob(String jobName, JobParameters params) {
+	public JobState runCoordinateTownJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
-				.start(stepBuilder.get(Contants.BIZ_TOWNSHIP).tasklet(this.township).build())
+				.start(stepBuilder.get(Contants.BIZ_TOWNSHIP).tasklet(this.coordinateTown).build())
 				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
 
@@ -91,9 +95,9 @@ public class JobManager {
 		return runJob(p, f);
 	}
 	
-	public JobState runPoiAroundJob(String jobName, JobParameters params) {
+	public JobState runCoordinateAroundJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
-				.start(stepBuilder.get(Contants.BIZ_POI_AROUND).tasklet(this.poisAround).build())
+				.start(stepBuilder.get(Contants.BIZ_POI_AROUND).tasklet(this.coordinateAround).build())
 				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
 		
@@ -101,9 +105,9 @@ public class JobManager {
 		return runJob(p, f);
 	}
 
-	public JobState runGatherPointJob(String jobName, JobParameters params) {
+	public JobState runGatherPointTownJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
-				.start(stepBuilder.get(Contants.BIZ_GP_TO_POI_AROUND).tasklet(this.gatherPoint).build())
+				.start(stepBuilder.get(Contants.BIZ_GP_TO_TOWN).tasklet(this.gatherPointTown).build())
 				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
 		
@@ -111,6 +115,16 @@ public class JobManager {
 		return runJob(p, f);
 	}
 
+	public JobState runGatherPointAroundJob(String jobName, JobParameters params) {
+		Function<String, Job> f = j -> jobBuilder.get(j)
+				.start(stepBuilder.get(Contants.BIZ_GP_TO_AROUND).tasklet(this.gatherPointAround).build())
+				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
+				.build();
+		
+		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
+		return runJob(p, f);
+	}
+	
 	public String getInputFilePath(MultipartFile file, String inputType) throws IllegalStateException, IOException {
 		String tmpUUID = env.getProperty("file.in.dir") + "/" + UUID.randomUUID();
 
@@ -131,7 +145,7 @@ public class JobManager {
 		}
 		
 		if (inputFilePath == null || inputFilePath.equals("")) {
-			throw new RuntimeException("arrange input file failed");
+			throw new RuntimeException("transfer input file failed");
 		}
 		return inputFilePath;
 	}

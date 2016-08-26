@@ -25,10 +25,11 @@ import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiType;
 import cn.td.geotags.service.CoordService;
+import cn.td.geotags.util.Contants;
 import cn.td.geotags.util.CoordinateParser;
 
 @Component
-public class CellAround {
+public class CoordinateCell {
 	@Autowired
 	private CoordService coordService;
 	
@@ -51,7 +52,7 @@ public class CellAround {
 
 		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
 			try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
-				CellAround cellAround = ctx.getBean(CellAround.class);
+				CoordinateCell cellAround = ctx.getBean(CoordinateCell.class);
 				lines.map(CoordinateParser::parse)
 //						 .limit(10)
 						// .filter(x -> x.isValid())
@@ -66,19 +67,23 @@ public class CellAround {
 	}
 	
 	public void calc(long radius, String inFile, String outFile) throws IOException {
+		calc(radius, Contants.PARAM_COORD_SYS_GPS, inFile, outFile);
+	}
+	
+	public void calc(long radius, String coordsys, String inFile, String outFile) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
 			lines.map(CoordinateParser::parse)
 				.parallel()
-				.map(c -> calc(c, radius))
+				.map(c -> calc(c, radius, coordsys))
 				.forEach(s -> strm.println(s));
 		} finally {
 			strm.close();
 		}
 	}
 	
-	private String calc(Coordinate coord, long radius) {
-		return this.calc(coord, c -> coordService.getAroundPoi(coord, String.valueOf(CELL_POI_TYPE), radius));
+	private String calc(Coordinate coord, long radius, String coordsys) {
+		return this.calc(coord, c -> coordService.getAroundPoi(coord, String.valueOf(CELL_POI_TYPE), radius, coordsys));
 	}
 	
 	private String calc(Coordinate coord) {

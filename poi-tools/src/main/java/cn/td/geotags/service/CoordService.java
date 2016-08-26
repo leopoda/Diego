@@ -10,9 +10,10 @@ import cn.td.geotags.domain.PoiType;
 public interface CoordService {
 //	Coordinate toGcj02Coord(Coordinate wjs84Coord);
 	CoordAddress getCoordAddress(Coordinate wjs84Coord);
+	CoordAddress getCoordAddress(Coordinate coord, String coordsys);
 	List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, List<PoiType> poiTypes);
 //	List<PoiType> getConfigPoiTypes();
 	List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, String types, long radius);
-	
+	List<PoiInfo> getAroundPoi(Coordinate coord, String types, long radius, String coordsys);
 	
 }

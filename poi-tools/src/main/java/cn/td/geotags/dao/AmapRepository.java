@@ -36,17 +36,41 @@ public class AmapRepository implements MapRepository {
 	@Cacheable(value="coordCache", key="'wjs84-' + #p0.lng + ',' + #p0.lat", unless="#result == null")
 	public Coordinate getGCJ02Coord(Coordinate c) {
 		
+//		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(mapConfig.getConvertURL());
+//		builder.queryParam("key", mapConfig.getToken());
+//		builder.queryParam("locations", String.format("%.6f,%.6f", c.getLng(), c.getLat()));
+//		builder.queryParam("coordsys", "gps");
+//		
+//		String url = builder.build().toUriString();
+//		try {
+//			ResponseEntity<CoordinateResponse> e = REST.getForEntity(url, CoordinateResponse.class);
+//			return e.getBody().parseAsCoordinate();
+//		} catch (Exception e) {
+//			log.error("failed to convert for GCJ02: " + c.getLng() + "," + c.getLat(), e);
+//			return null;
+//		}
+		
+		return convertCoord("gps", c);
+	}
+	
+	@Cacheable(value="coordCache", key="'coordsys-' + #p0 + '-' + #p1.lng + ',' + #p1.lat", unless="#result == null")
+	public Coordinate getGCJ02Coord(String coordsys, Coordinate c) {
+		return convertCoord(coordsys, c);
+	}
+	
+	public Coordinate convertCoord(String coordsys, Coordinate c) {
+		
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(mapConfig.getConvertURL());
 		builder.queryParam("key", mapConfig.getToken());
 		builder.queryParam("locations", String.format("%.6f,%.6f", c.getLng(), c.getLat()));
-		builder.queryParam("coordsys", "gps");
+		builder.queryParam("coordsys", coordsys);
 		
 		String url = builder.build().toUriString();
 		try {
 			ResponseEntity<CoordinateResponse> e = REST.getForEntity(url, CoordinateResponse.class);
 			return e.getBody().parseAsCoordinate();
 		} catch (Exception e) {
-			log.error("failed to convert for GCJ02: " + c.getLng() + "," + c.getLat(), e);
+			log.error("failed to convert to GCJ02: " + c.getLng() + "," + c.getLat(), e);
 			return null;
 		}
 	}

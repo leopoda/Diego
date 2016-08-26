@@ -43,6 +43,8 @@
                         <div class="col-md-11">
                             <label class="radio-inline"><input type="radio" name="coordsys" value="gps"
                                                                ng-model="taskInfo.cood">WGS84（GPS）</label>
+                            <label class="radio-inline"><input type="radio" name="coordsys" value="baidu"
+                                                               ng-model="taskInfo.cood">BD09LL（百度地图）</label>
                             <label class="radio-inline"><input type="radio" name="coordsys" value="autonavi"
                                                                ng-model="taskInfo.cood" disabled="true">GCJ02（高德地图、四维地图、腾讯地图）</label>
                         </div>
@@ -52,7 +54,7 @@
                         <div class="col-md-11 ">
                             <label class="radio-inline"><input type="radio" name="for" value="geo"
                                                                ng-model="taskInfo.for">社区街道</label>
-                            <label class="radio-inline" ng-show="taskInfo.import!='gp'"><input type="radio"
+                            <label class="radio-inline"><input type="radio"
                                                                                                name="for"
                                                                                                value="poi"
                                                                                                ng-model="taskInfo.for">周边

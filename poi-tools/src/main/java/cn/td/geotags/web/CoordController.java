@@ -121,27 +121,34 @@ public class CoordController {
 				// calc file MD5 to prevent duplicated jobs being submitted
 				inFile = jobManager.getInputFilePath(file, contentType);
 			} catch (IllegalStateException | IOException e) {
-				throw new RuntimeException("identify file for input and output failed", e);
+				throw new RuntimeException("identify file failed for input", e);
 			}
 		
+			if (!coordsys.equals(Contants.PARAM_COORD_SYS_GPS) 
+					&& !coordsys.equals(Contants.PARAM_COORD_SYS_BAIDU)
+					&& !coordsys.equals(Contants.PARAM_COORD_SYS_AUTONAVI)) {
+				throw new RuntimeException("unexpected value for param coordsys");
+			}
+			
 			JobParameters jobParameters = new JobParametersBuilder()
 					.addString(Contants.PARAM_IN_FILE, inFile)
 					.addString(Contants.PARAM_CONTENT, contentType)
 					.addString(Contants.PARAM_REQ_TYPE, reqType)
 					.addLong(Contants.PARAM_RADIUS, radius == null ? Contants.DEFAULT_RADIUS : radius)
 					.addString(Contants.PARAM_TYPES, poiTypes == null ? "" : poiTypes)
+					.addString(Contants.PARAM_COORD_SYS, coordsys)
 					.toJobParameters();
 
 			if (Contants.TYPE_CO.equals(contentType) && Contants.REQ_GEO.equals(reqType)) {
-				jobState = jobManager.runTownshipJob(jobName, jobParameters);
+				jobState = jobManager.runCoordinateTownJob(jobName, jobParameters);
 			} else if (Contants.TYPE_CO.equals(contentType) && Contants.REQ_POI.equals(reqType)) {
-				jobState = jobManager.runPoiAroundJob(jobName, jobParameters);
+				jobState = jobManager.runCoordinateAroundJob(jobName, jobParameters);
 			} else if (Contants.TYPE_CO.equals(contentType) && Contants.REQ_CELL.equals(reqType)) {
-				jobState = jobManager.runCellAroundJob(jobName, jobParameters);
+				jobState = jobManager.runCoordinateCellJob(jobName, jobParameters);
 			} else if (Contants.TYPE_GP.equals(contentType) && Contants.REQ_GEO.equals(reqType)) {
-				jobState = jobManager.runGatherPointJob(jobName, jobParameters);
+				jobState = jobManager.runGatherPointTownJob(jobName, jobParameters);
 			} else if (Contants.TYPE_GP.equals(contentType) && Contants.REQ_POI.equals(reqType)) {
-				throw new RuntimeException("this is expected, this functionality is  still not implemented yet");
+				jobState = jobManager.runGatherPointAroundJob(jobName, jobParameters);
 			} else if (Contants.TYPE_GP.equals(contentType) && Contants.REQ_CELL.equals(reqType)) {
 				throw new RuntimeException("this is expected, this functionality is  still not implemented yet");
 			} else {

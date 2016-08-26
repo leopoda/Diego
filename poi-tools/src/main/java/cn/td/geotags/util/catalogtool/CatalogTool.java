@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -22,6 +23,10 @@ public class CatalogTool {
 	
 	public static void main(String[] args) throws IOException {
 		new CatalogTool().amapPoiCatalogFlatTextFileToJson();
+		
+		IntStream.rangeClosed(1, 1)
+				 .boxed()
+				 .forEach(System.out::println);
 	}
 
 	public void amapPoiCatalogFlatTextFileToJson() throws JsonProcessingException, IOException {
