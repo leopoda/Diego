@@ -1,0 +1,311 @@
+format version: 5
+output mode:
+1 items
+0 -> multiple
+output directories:
+2 items
+D:\test\Locate\src\main\resources -> D:\test\Locate\target\classes
+D:\test\Locate\src\main\scala -> D:\test\Locate\target\classes
+compile options:
+8 items
+0 -> -javabootclasspath
+1 -> D:\Program Files\Java\jdk1.8.0_74\jre\lib\resources.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\jsse.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\jce.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\charsets.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\jfr.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\access-bridge-64.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\cldrdata.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\dnsns.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\jaccess.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\jfxrt.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\localedata.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\nashorn.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\sunec.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\sunjce_provider.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\sunmscapi.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\sunpkcs11.jar;D:\Program Files\Java\jdk1.8.0_74\jre\lib\ext\zipfs.jar
+2 -> -javaextdirs
+3 ->  
+4 -> -bootclasspath
+5 -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar
+6 -> -encoding
+7 -> UTF-8
+javac options:
+0 items
+compiler version:
+1 items
+0 -> 2.10.6
+compile order:
+1 items
+0 -> Mixed
+name hashing:
+1 items
+0 -> false
+products:
+43 items
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$LogWithPartition$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$LogWithPartition.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$Probe$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$Probe.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$ProbeList$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$ProbeList.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$RawLog$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$RawLog.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$SatisWithWeight$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$SatisWithWeight.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$StatisWithPartition$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity$StatisWithPartition.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\entity.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$2.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$3.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$derivePartition$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$derivePartition$2.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator1$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator2$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator3$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator4$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator5$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\processor.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\sqlite$$typecreator1$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\sqlite$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\sqlite.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\test$$anonfun$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\test$$anonfun$main$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\test$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\test.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\utils$$anonfun$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\utils$$anonfun$loadCache$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\utils$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\utils.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\voronoi.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\voronoi$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\voronoi.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\voronoi.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\wknn$$typecreator1$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\wknn$$typecreator2$1.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\wknn$.class
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\test\Locate\target\classes\td\tendcloud\locate\wknn.class
+binary dependencies:
+34 items
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-catalyst_2.10\1.6.0\spark-catalyst_2.10-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-core_2.11\1.6.0\spark-core_2.11-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-sql_2.10\1.6.0\spark-sql_2.10-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-reflect.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-core_2.11\1.6.0\spark-core_2.11-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-sql_2.10\1.6.0\spark-sql_2.10-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-reflect.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\Program Files\apache-maven-3.3.9\repo\log4j\log4j\1.2.17\log4j-1.2.17.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-core_2.11\1.6.0\spark-core_2.11-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-sql_2.10\1.6.0\spark-sql_2.10-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-streaming_2.10\1.6.0\spark-streaming_2.10-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\Program Files\apache-maven-3.3.9\repo\cn\talkingdata\util\util-tools\0.0.1-SNAPSHOT\util-tools-0.0.1-SNAPSHOT.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\Program Files\apache-maven-3.3.9\repo\com\fasterxml\jackson\core\jackson-databind\2.6.4\jackson-databind-2.6.4.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\Program Files\apache-maven-3.3.9\repo\com\fasterxml\jackson\module\jackson-module-scala_2.11\2.4.4\jackson-module-scala_2.11-2.4.4.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\Program Files\apache-maven-3.3.9\repo\commons-io\commons-io\2.4\commons-io-2.4.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-catalyst_2.10\1.6.0\spark-catalyst_2.10-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-core_2.11\1.6.0\spark-core_2.11-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\voronoi.scala -> D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-core_2.11\1.6.0\spark-core_2.11-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-hive_2.10\1.6.0\spark-hive_2.10-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-sql_2.10\1.6.0\spark-sql_2.10-1.6.0.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-reflect.jar
+direct source dependencies:
+9 items
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala
+direct external dependencies:
+0 items
+public inherited source dependencies:
+0 items
+public inherited external dependencies:
+0 items
+member reference internal dependencies:
+0 items
+member reference external dependencies:
+0 items
+inheritance internal dependencies:
+0 items
+inheritance external dependencies:
+0 items
+class names:
+43 items
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$LogWithPartition
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$LogWithPartition$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$Probe
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$Probe$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$ProbeList
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$ProbeList$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$RawLog
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$RawLog$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$SatisWithWeight
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$SatisWithWeight$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$StatisWithPartition
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> td.tendcloud.locate.entity$StatisWithPartition$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$anonfun$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$anonfun$2
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$anonfun$3
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$anonfun$derivePartition$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$anonfun$derivePartition$2
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$typecreator1$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$typecreator2$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$typecreator3$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$typecreator4$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> td.tendcloud.locate.processor$$typecreator5$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> td.tendcloud.locate.sqlite
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> td.tendcloud.locate.sqlite$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> td.tendcloud.locate.sqlite$$typecreator1$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> td.tendcloud.locate.test
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> td.tendcloud.locate.test$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> td.tendcloud.locate.test$$anonfun$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> td.tendcloud.locate.test$$anonfun$main$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> td.tendcloud.locate.utils
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> td.tendcloud.locate.utils$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> td.tendcloud.locate.utils$$anonfun$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> td.tendcloud.locate.utils$$anonfun$loadCache$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\voronoi.scala -> td.tendcloud.locate.voronoi
+D:\test\Locate\src\main\scala\td\tendcloud\locate\voronoi.scala -> td.tendcloud.locate.voronoi$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> td.tendcloud.locate.wknn
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> td.tendcloud.locate.wknn$
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> td.tendcloud.locate.wknn$$typecreator1$1
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> td.tendcloud.locate.wknn$$typecreator2$1
+used names:
+0 items
+product stamps:
+43 items
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$.class -> lastModified(1461465648056)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$LogWithPartition$.class -> lastModified(1461465648086)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$LogWithPartition.class -> lastModified(1461465648112)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$Probe$.class -> lastModified(1461465648121)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$Probe.class -> lastModified(1461465648138)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$ProbeList$.class -> lastModified(1461465648157)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$ProbeList.class -> lastModified(1461465648150)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$RawLog$.class -> lastModified(1461465648182)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$RawLog.class -> lastModified(1461465648173)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$SatisWithWeight$.class -> lastModified(1461465648215)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$SatisWithWeight.class -> lastModified(1461465648206)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$StatisWithPartition$.class -> lastModified(1461465648242)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity$StatisWithPartition.class -> lastModified(1461465648233)
+D:\test\Locate\target\classes\td\tendcloud\locate\entity.class -> lastModified(1461465647970)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$1.class -> lastModified(1461465648328)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$2.class -> lastModified(1461465648333)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$3.class -> lastModified(1461465648338)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$derivePartition$1.class -> lastModified(1461465648342)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$anonfun$derivePartition$2.class -> lastModified(1461465648347)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator1$1.class -> lastModified(1461465648355)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator2$1.class -> lastModified(1461465648360)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator3$1.class -> lastModified(1461465648365)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator4$1.class -> lastModified(1461465648371)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$$typecreator5$1.class -> lastModified(1461465648376)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor$.class -> lastModified(1461465648307)
+D:\test\Locate\target\classes\td\tendcloud\locate\processor.class -> lastModified(1461465648254)
+D:\test\Locate\target\classes\td\tendcloud\locate\sqlite$$typecreator1$1.class -> lastModified(1461465648388)
+D:\test\Locate\target\classes\td\tendcloud\locate\sqlite$.class -> lastModified(1461465648383)
+D:\test\Locate\target\classes\td\tendcloud\locate\sqlite.class -> lastModified(1461465648379)
+D:\test\Locate\target\classes\td\tendcloud\locate\test$$anonfun$1.class -> lastModified(1461465878086)
+D:\test\Locate\target\classes\td\tendcloud\locate\test$$anonfun$main$1.class -> lastModified(1461465878094)
+D:\test\Locate\target\classes\td\tendcloud\locate\test$.class -> lastModified(1461465878074)
+D:\test\Locate\target\classes\td\tendcloud\locate\test.class -> lastModified(1461465878062)
+D:\test\Locate\target\classes\td\tendcloud\locate\utils$$anonfun$1.class -> lastModified(1461465648432)
+D:\test\Locate\target\classes\td\tendcloud\locate\utils$$anonfun$loadCache$1.class -> lastModified(1461465648438)
+D:\test\Locate\target\classes\td\tendcloud\locate\utils$.class -> lastModified(1461465648428)
+D:\test\Locate\target\classes\td\tendcloud\locate\utils.class -> lastModified(1461465648414)
+D:\test\Locate\target\classes\td\tendcloud\locate\voronoi$.class -> lastModified(1461465648444)
+D:\test\Locate\target\classes\td\tendcloud\locate\voronoi.class -> lastModified(1461465648441)
+D:\test\Locate\target\classes\td\tendcloud\locate\wknn$$typecreator1$1.class -> lastModified(1461465648469)
+D:\test\Locate\target\classes\td\tendcloud\locate\wknn$$typecreator2$1.class -> lastModified(1461465648473)
+D:\test\Locate\target\classes\td\tendcloud\locate\wknn$.class -> lastModified(1461465648464)
+D:\test\Locate\target\classes\td\tendcloud\locate\wknn.class -> lastModified(1461465648447)
+source stamps:
+7 items
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> hash(29c6aef4370ce6df41314290bc88c74e5cf0994d)
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> hash(2a1905b73716b94371218736534a14b35de264bb)
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> hash(7ff186a079043281abfb8d3fd68fc0b419c2e0ee)
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> hash(31528f49169b9c527adbffb89452286e8caa127f)
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> hash(6214ab7fcbd0166673c8fa765208488a8449fcf3)
+D:\test\Locate\src\main\scala\td\tendcloud\locate\voronoi.scala -> hash(28b632bcae0ca0cb1bb606d6a62992fe658ce1e6)
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> hash(ab638aca80182d4ab6033c6cf859d9c715ecf057)
+binary stamps:
+13 items
+D:\Program Files\apache-maven-3.3.9\repo\cn\talkingdata\util\util-tools\0.0.1-SNAPSHOT\util-tools-0.0.1-SNAPSHOT.jar -> lastModified(1461302030749)
+D:\Program Files\apache-maven-3.3.9\repo\com\fasterxml\jackson\core\jackson-databind\2.6.4\jackson-databind-2.6.4.jar -> lastModified(1460705328872)
+D:\Program Files\apache-maven-3.3.9\repo\com\fasterxml\jackson\module\jackson-module-scala_2.11\2.4.4\jackson-module-scala_2.11-2.4.4.jar -> lastModified(1460443462110)
+D:\Program Files\apache-maven-3.3.9\repo\commons-io\commons-io\2.4\commons-io-2.4.jar -> lastModified(1458722222599)
+D:\Program Files\apache-maven-3.3.9\repo\log4j\log4j\1.2.17\log4j-1.2.17.jar -> lastModified(1458722216739)
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-catalyst_2.10\1.6.0\spark-catalyst_2.10-1.6.0.jar -> lastModified(1458723037107)
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-core_2.11\1.6.0\spark-core_2.11-1.6.0.jar -> lastModified(1460443940600)
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-hive_2.10\1.6.0\spark-hive_2.10-1.6.0.jar -> lastModified(1460443496220)
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-sql_2.10\1.6.0\spark-sql_2.10-1.6.0.jar -> lastModified(1458723036677)
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-streaming_2.10\1.6.0\spark-streaming_2.10-1.6.0.jar -> lastModified(1460443483052)
+D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar -> lastModified(1459482976000)
+D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-reflect.jar -> lastModified(1459482976000)
+D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar -> lastModified(1458620156149)
+class names:
+13 items
+D:\Program Files\apache-maven-3.3.9\repo\cn\talkingdata\util\util-tools\0.0.1-SNAPSHOT\util-tools-0.0.1-SNAPSHOT.jar -> cn.talkingdata.util.tools.CacheRow
+D:\Program Files\apache-maven-3.3.9\repo\com\fasterxml\jackson\core\jackson-databind\2.6.4\jackson-databind-2.6.4.jar -> com.fasterxml.jackson.databind.ObjectMapper
+D:\Program Files\apache-maven-3.3.9\repo\com\fasterxml\jackson\module\jackson-module-scala_2.11\2.4.4\jackson-module-scala_2.11-2.4.4.jar -> com.fasterxml.jackson.module.scala.DefaultScalaModule$
+D:\Program Files\apache-maven-3.3.9\repo\commons-io\commons-io\2.4\commons-io-2.4.jar -> org.apache.commons.io.IOUtils
+D:\Program Files\apache-maven-3.3.9\repo\log4j\log4j\1.2.17\log4j-1.2.17.jar -> org.apache.log4j.Logger
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-catalyst_2.10\1.6.0\spark-catalyst_2.10-1.6.0.jar -> org.apache.spark.sql.Row
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-core_2.11\1.6.0\spark-core_2.11-1.6.0.jar -> org.apache.spark.SparkConf
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-hive_2.10\1.6.0\spark-hive_2.10-1.6.0.jar -> org.apache.spark.sql.hive.HiveContext
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-sql_2.10\1.6.0\spark-sql_2.10-1.6.0.jar -> org.apache.spark.sql.DataFrame
+D:\Program Files\apache-maven-3.3.9\repo\org\apache\spark\spark-streaming_2.10\1.6.0\spark-streaming_2.10-1.6.0.jar -> org.apache.spark.streaming.Seconds$
+D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-library.jar -> scala.Predef$
+D:\Program Files\eclipse\plugins\org.scala-ide.scala210.jars_4.4.0.201604010956\target\jars\scala-reflect.jar -> scala.reflect.api.Symbols
+D:\Program Files\Java\jdk1.8.0_74\jre\lib\rt.jar -> java.lang.Object
+internal apis:
+7 items
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHAdTPTJAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAAadGQudGVuZGNsb3VkLmxvY2F0ZS5lbnRpdHl1cgAaW0x4c2J0aS5hcGkuVHlwZVBhcmFtZXRlcjvZbSYPKJ3ytgIAAHhwAAAAAH5yABh4c2J0aS5hcGkuRGVmaW5pdGlvblR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAZNb2R1bGV1cgATW0xqYXZhLmxhbmcuU3RyaW5nO63SVufpHXtHAgAAeHAAAAAAc3IAE3hzYnRpLlNhZmVMYXp5JEltcGw7kU8R9EVMyQIAA1oACGJpdG1hcCQwTAACX3R0ABJMamF2YS9sYW5nL09iamVjdDtMAARldmFsdAARTHNjYWxhL0Z1bmN0aW9uMDt4cgAWeHNidGkuYXBpLkFic3RyYWN0TGF6edN3tQFfu+egAgAAeHABc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHBzcQB+AC4Bc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+ABVMAAlpbmhlcml0ZWRxAH4AFUwAB3BhcmVudHNxAH4AFXhxAH4ANXNxAH4ALgF1cQB+ABAAAAAAcHNxAH4ALgF1cQB+ABAAAAAAcHNxAH4ALgF1cgARW0x4c2J0aS5hcGkuVHlwZTt0/6Vae/npQQIAAHhwAAAAAnNyABR4c2J0aS5hcGkuUHJvamVjdGlvbvPSjVTpRaQtAgACTAACaWRxAH4AHEwABnByZWZpeHQAFkx4c2J0aS9hcGkvU2ltcGxlVHlwZTt4cQB+ADR0AAZPYmplY3RzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+ADRzcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAANzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgAceHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABGphdmFzcQB+AE10AARsYW5nc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AE5zcQB+AEF0AANBbnlzcQB+AEVzcQB+AEh1cQB+AEsAAAACc3EAfgBNdAAFc2NhbGFxAH4AVHBwdXIAFFtMeHNidGkuYXBpLlBhY2thZ2U7WxMZN3CnJ6ECAAB4cAAAAANzcgAReHNidGkuYXBpLlBhY2thZ2V+WY/2rs45WAIAAUwABG5hbWVxAH4AHHhwdAACdGRzcQB+AF50AAx0ZC50ZW5kY2xvdWRzcQB+AF50ABN0ZC50ZW5kY2xvdWQubG9jYXRlc3IAFXhzYnRpLmFwaS5Db21waWxhdGlvbu364MNq6KBCAgACSgAJc3RhcnRUaW1lWwAHb3V0cHV0c3QAGltMeHNidGkvYXBpL091dHB1dFNldHRpbmc7eHAAAAFURiPi/HVyABpbTHhzYnRpLmFwaS5PdXRwdXRTZXR0aW5nO39qwvOnh6VCAgAAeHAAAAACc3IAF3hzYnRpLmFwaS5PdXRwdXRTZXR0aW5netmaR3T7HXsCAAJMAA9vdXRwdXREaXJlY3RvcnlxAH4AHEwAD3NvdXJjZURpcmVjdG9yeXEAfgAceHB0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAHUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHNjYWxhc3EAfgBqdAAdRDpcdGVzdFxMb2NhdGVcdGFyZ2V0XGNsYXNzZXN0ACFEOlx0ZXN0XExvY2F0ZVxzcmNcbWFpblxyZXNvdXJjZXN1cgACW0Ks8xf4BghU4AIAAHhwAAAAFCnGrvQ3DObfQTFCkLyIx05c8JlN
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHC16FVvAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAAddGQudGVuZGNsb3VkLmxvY2F0ZS5wcm9jZXNzb3J1cgAaW0x4c2J0aS5hcGkuVHlwZVBhcmFtZXRlcjvZbSYPKJ3ytgIAAHhwAAAAAH5yABh4c2J0aS5hcGkuRGVmaW5pdGlvblR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAZNb2R1bGV1cgATW0xqYXZhLmxhbmcuU3RyaW5nO63SVufpHXtHAgAAeHAAAAAAc3IAE3hzYnRpLlNhZmVMYXp5JEltcGw7kU8R9EVMyQIAA1oACGJpdG1hcCQwTAACX3R0ABJMamF2YS9sYW5nL09iamVjdDtMAARldmFsdAARTHNjYWxhL0Z1bmN0aW9uMDt4cgAWeHNidGkuYXBpLkFic3RyYWN0TGF6edN3tQFfu+egAgAAeHABc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHBzcQB+AC4Bc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+ABVMAAlpbmhlcml0ZWRxAH4AFUwAB3BhcmVudHNxAH4AFXhxAH4ANXNxAH4ALgF1cQB+ABAAAAAAcHNxAH4ALgF1cQB+ABAAAAAAcHNxAH4ALgF1cgARW0x4c2J0aS5hcGkuVHlwZTt0/6Vae/npQQIAAHhwAAAAAnNyABR4c2J0aS5hcGkuUHJvamVjdGlvbvPSjVTpRaQtAgACTAACaWRxAH4AHEwABnByZWZpeHQAFkx4c2J0aS9hcGkvU2ltcGxlVHlwZTt4cQB+ADR0AAZPYmplY3RzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+ADRzcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAANzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgAceHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABGphdmFzcQB+AE10AARsYW5nc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AE5zcQB+AEF0AANBbnlzcQB+AEVzcQB+AEh1cQB+AEsAAAACc3EAfgBNdAAFc2NhbGFxAH4AVHBwdXIAFFtMeHNidGkuYXBpLlBhY2thZ2U7WxMZN3CnJ6ECAAB4cAAAAANzcgAReHNidGkuYXBpLlBhY2thZ2V+WY/2rs45WAIAAUwABG5hbWVxAH4AHHhwdAACdGRzcQB+AF50AAx0ZC50ZW5kY2xvdWRzcQB+AF50ABN0ZC50ZW5kY2xvdWQubG9jYXRlc3IAFXhzYnRpLmFwaS5Db21waWxhdGlvbu364MNq6KBCAgACSgAJc3RhcnRUaW1lWwAHb3V0cHV0c3QAGltMeHNidGkvYXBpL091dHB1dFNldHRpbmc7eHAAAAFURiPi/HVyABpbTHhzYnRpLmFwaS5PdXRwdXRTZXR0aW5nO39qwvOnh6VCAgAAeHAAAAACc3IAF3hzYnRpLmFwaS5PdXRwdXRTZXR0aW5netmaR3T7HXsCAAJMAA9vdXRwdXREaXJlY3RvcnlxAH4AHEwAD3NvdXJjZURpcmVjdG9yeXEAfgAceHB0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAHUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHNjYWxhc3EAfgBqdAAdRDpcdGVzdFxMb2NhdGVcdGFyZ2V0XGNsYXNzZXN0ACFEOlx0ZXN0XExvY2F0ZVxzcmNcbWFpblxyZXNvdXJjZXN1cgACW0Ks8xf4BghU4AIAAHhwAAAAFCoZBbc3FrlDcSGHNlNKFLNd4mS7
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHB60pJXAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAAadGQudGVuZGNsb3VkLmxvY2F0ZS5zcWxpdGV1cgAaW0x4c2J0aS5hcGkuVHlwZVBhcmFtZXRlcjvZbSYPKJ3ytgIAAHhwAAAAAH5yABh4c2J0aS5hcGkuRGVmaW5pdGlvblR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAZNb2R1bGV1cgATW0xqYXZhLmxhbmcuU3RyaW5nO63SVufpHXtHAgAAeHAAAAAAc3IAE3hzYnRpLlNhZmVMYXp5JEltcGw7kU8R9EVMyQIAA1oACGJpdG1hcCQwTAACX3R0ABJMamF2YS9sYW5nL09iamVjdDtMAARldmFsdAARTHNjYWxhL0Z1bmN0aW9uMDt4cgAWeHNidGkuYXBpLkFic3RyYWN0TGF6edN3tQFfu+egAgAAeHABc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHBzcQB+AC4Bc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+ABVMAAlpbmhlcml0ZWRxAH4AFUwAB3BhcmVudHNxAH4AFXhxAH4ANXNxAH4ALgF1cQB+ABAAAAABc3IADXhzYnRpLmFwaS5EZWZSvp/ifLQ2aQIAAkwACnJldHVyblR5cGV0ABBMeHNidGkvYXBpL1R5cGU7WwAPdmFsdWVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvUGFyYW1ldGVyTGlzdDt4cQB+ABZxAH4AIHVxAH4AIQAAAABzcQB+ACMAdAAEbWFpbnVxAH4AJgAAAABzcgAUeHNidGkuYXBpLlByb2plY3Rpb27z0o1U6UWkLQIAAkwAAmlkcQB+ABxMAAZwcmVmaXh0ABZMeHNidGkvYXBpL1NpbXBsZVR5cGU7eHEAfgA0dAAEVW5pdHNyABN4c2J0aS5hcGkuU2luZ2xldG9u/Kdf+M9W5EYCAAFMAARwYXRodAAQTHhzYnRpL2FwaS9QYXRoO3hxAH4ANHNyAA54c2J0aS5hcGkuUGF0aJs9XAjOpSeEAgABWwAKY29tcG9uZW50c3QAGltMeHNidGkvYXBpL1BhdGhDb21wb25lbnQ7eHB1cgAaW0x4c2J0aS5hcGkuUGF0aENvbXBvbmVudDtD2gl0LWcWdAIAAHhwAAAAAnNyAAx4c2J0aS5hcGkuSWSYMmyLN1PEQAIAAUwAAmlkcQB+ABx4cgAXeHNidGkuYXBpLlBhdGhDb21wb25lbnRfmiJbLoafvAIAAHhwdAAFc2NhbGFzcgAOeHNidGkuYXBpLlRoaXPbCe2mzFpAXAIAAHhxAH4AUXVyABpbTHhzYnRpLmFwaS5QYXJhbWV0ZXJMaXN0O/XTOh3ys3DuAgAAeHAAAAABc3IAF3hzYnRpLmFwaS5QYXJhbWV0ZXJMaXN01sW8HGRJdOMCAAJaAAppc0ltcGxpY2l0WwAKcGFyYW1ldGVyc3QAHFtMeHNidGkvYXBpL01ldGhvZFBhcmFtZXRlcjt4cAB1cgAcW0x4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyO8+4xV2l3bVtAgAAeHAAAAABc3IAGXhzYnRpLmFwaS5NZXRob2RQYXJhbWV0ZXIfRa4X00mw6gIABFoACmhhc0RlZmF1bHRMAAhtb2RpZmllcnQAHUx4c2J0aS9hcGkvUGFyYW1ldGVyTW9kaWZpZXI7TAAEbmFtZXEAfgAcTAADdHBlcQB+AD14cAB+cgAbeHNidGkuYXBpLlBhcmFtZXRlck1vZGlmaWVyAAAAAAAAAAASAAB4cQB+ACl0AAVQbGFpbnQABGFyZ3NzcgAXeHNidGkuYXBpLlBhcmFtZXRlcml6ZWQWbO5pA8m7fwIAAkwACGJhc2VUeXBlcQB+AEVbAA10eXBlQXJndW1lbnRzdAARW0x4c2J0aS9hcGkvVHlwZTt4cQB+ADRzcQB+AER0AAVBcnJheXEAfgBKdXIAEVtMeHNidGkuYXBpLlR5cGU7dP+lWnv56UECAAB4cAAAAAFzcQB+AER0AAZTdHJpbmdzcQB+AEhzcQB+AEt1cQB+AE4AAAADc3EAfgBQdAAEamF2YXNxAH4AUHQABGxhbmdxAH4AVXBzcQB+AC4BdXEAfgAQAAAAAHBzcQB+AC4BdXEAfgBpAAAAAnNxAH4ARHQABk9iamVjdHEAfgBtc3EAfgBEdAADQW55cQB+AEpwcHVyABRbTHhzYnRpLmFwaS5QYWNrYWdlO1sTGTdwpyehAgAAeHAAAAADc3IAEXhzYnRpLmFwaS5QYWNrYWdlflmP9q7OOVgCAAFMAARuYW1lcQB+ABx4cHQAAnRkc3EAfgB+dAAMdGQudGVuZGNsb3Vkc3EAfgB+dAATdGQudGVuZGNsb3VkLmxvY2F0ZXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYj4vx1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+ABxMAA9zb3VyY2VEaXJlY3RvcnlxAH4AHHhwdAAdRDpcdGVzdFxMb2NhdGVcdGFyZ2V0XGNsYXNzZXN0AB1EOlx0ZXN0XExvY2F0ZVxzcmNcbWFpblxzY2FsYXNxAH4AinQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAhRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5ccmVzb3VyY2VzdXIAAltCrPMX+AYIVOACAAB4cAAAABR/8YageQQygav7jT/Wj8C0GcLg7g==
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHCkDYTEAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAAYdGQudGVuZGNsb3VkLmxvY2F0ZS50ZXN0dXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsO5FPEfRFTMkCAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAXNyABN4c2J0aS5hcGkuRW1wdHlUeXBlvP2eRkk7iSQCAAB4cgAUeHNidGkuYXBpLlNpbXBsZVR5cGVyeGKIISO/QAIAAHhyAA54c2J0aS5hcGkuVHlwZT9q2SEWSarKAgAAeHBwc3EAfgAuAXNyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgAVTAAJaW5oZXJpdGVkcQB+ABVMAAdwYXJlbnRzcQB+ABV4cQB+ADVzcQB+AC4BdXEAfgAQAAAAAXNyAA14c2J0aS5hcGkuRGVmUr6f4ny0NmkCAAJMAApyZXR1cm5UeXBldAAQTHhzYnRpL2FwaS9UeXBlO1sAD3ZhbHVlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1BhcmFtZXRlckxpc3Q7eHEAfgAWcQB+ACB1cQB+ACEAAAAAc3EAfgAjAHQABG1haW51cQB+ACYAAAAAc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgAcTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4ANHQABFVuaXRzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+ADRzcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAAJzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgAceHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABXNjYWxhc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AFF1cgAaW0x4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdDv10zod8rNw7gIAAHhwAAAAAXNyABd4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdNbFvBxkSXTjAgACWgAKaXNJbXBsaWNpdFsACnBhcmFtZXRlcnN0ABxbTHhzYnRpL2FwaS9NZXRob2RQYXJhbWV0ZXI7eHAAdXIAHFtMeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlcjvPuMVdpd21bQIAAHhwAAAAAXNyABl4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyH0WuF9NJsOoCAARaAApoYXNEZWZhdWx0TAAIbW9kaWZpZXJ0AB1MeHNidGkvYXBpL1BhcmFtZXRlck1vZGlmaWVyO0wABG5hbWVxAH4AHEwAA3RwZXEAfgA9eHAAfnIAG3hzYnRpLmFwaS5QYXJhbWV0ZXJNb2RpZmllcgAAAAAAAAAAEgAAeHEAfgApdAAFUGxhaW50AARhcmdzc3IAF3hzYnRpLmFwaS5QYXJhbWV0ZXJpemVkFmzuaQPJu38CAAJMAAhiYXNlVHlwZXEAfgBFWwANdHlwZUFyZ3VtZW50c3QAEVtMeHNidGkvYXBpL1R5cGU7eHEAfgA0c3EAfgBEdAAFQXJyYXlxAH4ASnVyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAABc3EAfgBEdAAGU3RyaW5nc3EAfgBIc3EAfgBLdXEAfgBOAAAAA3NxAH4AUHQABGphdmFzcQB+AFB0AARsYW5ncQB+AFVwc3EAfgAuAXVxAH4AEAAAAABwc3EAfgAuAXVxAH4AaQAAAAJzcQB+AER0AAZPYmplY3RxAH4AbXNxAH4ARHQAA0FueXEAfgBKcHB1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAA3NyABF4c2J0aS5hcGkuUGFja2FnZX5Zj/auzjlYAgABTAAEbmFtZXEAfgAceHB0AAJ0ZHNxAH4AfnQADHRkLnRlbmRjbG91ZHNxAH4AfnQAE3RkLnRlbmRjbG91ZC5sb2NhdGVzcgAVeHNidGkuYXBpLkNvbXBpbGF0aW9u7frgw2rooEICAAJKAAlzdGFydFRpbWVbAAdvdXRwdXRzdAAaW0x4c2J0aS9hcGkvT3V0cHV0U2V0dGluZzt4cAAAAVRGJ4WMdXIAGltMeHNidGkuYXBpLk91dHB1dFNldHRpbmc7f2rC86eHpUICAAB4cAAAAAJzcgAXeHNidGkuYXBpLk91dHB1dFNldHRpbmd62ZpHdPsdewIAAkwAD291dHB1dERpcmVjdG9yeXEAfgAcTAAPc291cmNlRGlyZWN0b3J5cQB+ABx4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AIp0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlc3VyAAJbQqzzF/gGCFTgAgAAeHAAAAAUMVKPSRabnFJ62/+4lFIoboyqEn8=
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHDU1hCYAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAAZdGQudGVuZGNsb3VkLmxvY2F0ZS51dGlsc3VyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABk1vZHVsZXVyABNbTGphdmEubGFuZy5TdHJpbmc7rdJW5+kde0cCAAB4cAAAAABzcgATeHNidGkuU2FmZUxhenkkSW1wbDuRTxH0RUzJAgADWgAIYml0bWFwJDBMAAJfdHQAEkxqYXZhL2xhbmcvT2JqZWN0O0wABGV2YWx0ABFMc2NhbGEvRnVuY3Rpb24wO3hyABZ4c2J0aS5hcGkuQWJzdHJhY3RMYXp503e1AV+756ACAAB4cAFzcgATeHNidGkuYXBpLkVtcHR5VHlwZbz9nkZJO4kkAgAAeHIAFHhzYnRpLmFwaS5TaW1wbGVUeXBlcnhiiCEjv0ACAAB4cgAOeHNidGkuYXBpLlR5cGU/atkhFkmqygIAAHhwcHNxAH4ALgFzcgATeHNidGkuYXBpLlN0cnVjdHVyZamq+YCTb9gAAgADTAAIZGVjbGFyZWRxAH4AFUwACWluaGVyaXRlZHEAfgAVTAAHcGFyZW50c3EAfgAVeHEAfgA1c3EAfgAuAXVxAH4AEAAAAABwc3EAfgAuAXVxAH4AEAAAAABwc3EAfgAuAXVyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAACc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgAcTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4ANHQABk9iamVjdHNyABN4c2J0aS5hcGkuU2luZ2xldG9u/Kdf+M9W5EYCAAFMAARwYXRodAAQTHhzYnRpL2FwaS9QYXRoO3hxAH4ANHNyAA54c2J0aS5hcGkuUGF0aJs9XAjOpSeEAgABWwAKY29tcG9uZW50c3QAGltMeHNidGkvYXBpL1BhdGhDb21wb25lbnQ7eHB1cgAaW0x4c2J0aS5hcGkuUGF0aENvbXBvbmVudDtD2gl0LWcWdAIAAHhwAAAAA3NyAAx4c2J0aS5hcGkuSWSYMmyLN1PEQAIAAUwAAmlkcQB+ABx4cgAXeHNidGkuYXBpLlBhdGhDb21wb25lbnRfmiJbLoafvAIAAHhwdAAEamF2YXNxAH4ATXQABGxhbmdzcgAOeHNidGkuYXBpLlRoaXPbCe2mzFpAXAIAAHhxAH4ATnNxAH4AQXQAA0FueXNxAH4ARXNxAH4ASHVxAH4ASwAAAAJzcQB+AE10AAVzY2FsYXEAfgBUcHB1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAA3NyABF4c2J0aS5hcGkuUGFja2FnZX5Zj/auzjlYAgABTAAEbmFtZXEAfgAceHB0AAJ0ZHNxAH4AXnQADHRkLnRlbmRjbG91ZHNxAH4AXnQAE3RkLnRlbmRjbG91ZC5sb2NhdGVzcgAVeHNidGkuYXBpLkNvbXBpbGF0aW9u7frgw2rooEICAAJKAAlzdGFydFRpbWVbAAdvdXRwdXRzdAAaW0x4c2J0aS9hcGkvT3V0cHV0U2V0dGluZzt4cAAAAVRGI+L8dXIAGltMeHNidGkuYXBpLk91dHB1dFNldHRpbmc7f2rC86eHpUICAAB4cAAAAAJzcgAXeHNidGkuYXBpLk91dHB1dFNldHRpbmd62ZpHdPsdewIAAkwAD291dHB1dERpcmVjdG9yeXEAfgAcTAAPc291cmNlRGlyZWN0b3J5cQB+ABx4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AGp0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlc3VyAAJbQqzzF/gGCFTgAgAAeHAAAAAUYhSrf8vQFmZzyPp2UghIioRJ/PM=
+D:\test\Locate\src\main\scala\td\tendcloud\locate\voronoi.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHBbuszSAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAAbdGQudGVuZGNsb3VkLmxvY2F0ZS52b3Jvbm9pdXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsO5FPEfRFTMkCAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAXNyABN4c2J0aS5hcGkuRW1wdHlUeXBlvP2eRkk7iSQCAAB4cgAUeHNidGkuYXBpLlNpbXBsZVR5cGVyeGKIISO/QAIAAHhyAA54c2J0aS5hcGkuVHlwZT9q2SEWSarKAgAAeHBwc3EAfgAuAXNyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgAVTAAJaW5oZXJpdGVkcQB+ABVMAAdwYXJlbnRzcQB+ABV4cQB+ADVzcQB+AC4BdXEAfgAQAAAAAHBzcQB+AC4BdXEAfgAQAAAAAHBzcQB+AC4BdXIAEVtMeHNidGkuYXBpLlR5cGU7dP+lWnv56UECAAB4cAAAAAJzcgAUeHNidGkuYXBpLlByb2plY3Rpb27z0o1U6UWkLQIAAkwAAmlkcQB+ABxMAAZwcmVmaXh0ABZMeHNidGkvYXBpL1NpbXBsZVR5cGU7eHEAfgA0dAAGT2JqZWN0c3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgA0c3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAADc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4AHHhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AARqYXZhc3EAfgBNdAAEbGFuZ3NyAA54c2J0aS5hcGkuVGhpc9sJ7abMWkBcAgAAeHEAfgBOc3EAfgBBdAADQW55c3EAfgBFc3EAfgBIdXEAfgBLAAAAAnNxAH4ATXQABXNjYWxhcQB+AFRwcHVyABRbTHhzYnRpLmFwaS5QYWNrYWdlO1sTGTdwpyehAgAAeHAAAAADc3IAEXhzYnRpLmFwaS5QYWNrYWdlflmP9q7OOVgCAAFMAARuYW1lcQB+ABx4cHQAAnRkc3EAfgBedAAMdGQudGVuZGNsb3Vkc3EAfgBedAATdGQudGVuZGNsb3VkLmxvY2F0ZXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYj4vx1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+ABxMAA9zb3VyY2VEaXJlY3RvcnlxAH4AHHhwdAAdRDpcdGVzdFxMb2NhdGVcdGFyZ2V0XGNsYXNzZXN0AB1EOlx0ZXN0XExvY2F0ZVxzcmNcbWFpblxzY2FsYXNxAH4AanQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAhRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5ccmVzb3VyY2VzdXIAAltCrPMX+AYIVOACAAB4cAAAABQotjK8rgygyxu2BtamKZL+ZYzh5g==
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHDyZ1GIAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAAYdGQudGVuZGNsb3VkLmxvY2F0ZS53a25udXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsO5FPEfRFTMkCAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAXNyABN4c2J0aS5hcGkuRW1wdHlUeXBlvP2eRkk7iSQCAAB4cgAUeHNidGkuYXBpLlNpbXBsZVR5cGVyeGKIISO/QAIAAHhyAA54c2J0aS5hcGkuVHlwZT9q2SEWSarKAgAAeHBwc3EAfgAuAXNyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgAVTAAJaW5oZXJpdGVkcQB+ABVMAAdwYXJlbnRzcQB+ABV4cQB+ADVzcQB+AC4BdXEAfgAQAAAAAHBzcQB+AC4BdXEAfgAQAAAAAHBzcQB+AC4BdXIAEVtMeHNidGkuYXBpLlR5cGU7dP+lWnv56UECAAB4cAAAAAJzcgAUeHNidGkuYXBpLlByb2plY3Rpb27z0o1U6UWkLQIAAkwAAmlkcQB+ABxMAAZwcmVmaXh0ABZMeHNidGkvYXBpL1NpbXBsZVR5cGU7eHEAfgA0dAAGT2JqZWN0c3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgA0c3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAADc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4AHHhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AARqYXZhc3EAfgBNdAAEbGFuZ3NyAA54c2J0aS5hcGkuVGhpc9sJ7abMWkBcAgAAeHEAfgBOc3EAfgBBdAADQW55c3EAfgBFc3EAfgBIdXEAfgBLAAAAAnNxAH4ATXQABXNjYWxhcQB+AFRwcHVyABRbTHhzYnRpLmFwaS5QYWNrYWdlO1sTGTdwpyehAgAAeHAAAAADc3IAEXhzYnRpLmFwaS5QYWNrYWdlflmP9q7OOVgCAAFMAARuYW1lcQB+ABx4cHQAAnRkc3EAfgBedAAMdGQudGVuZGNsb3Vkc3EAfgBedAATdGQudGVuZGNsb3VkLmxvY2F0ZXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYj4vx1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+ABxMAA9zb3VyY2VEaXJlY3RvcnlxAH4AHHhwdAAdRDpcdGVzdFxMb2NhdGVcdGFyZ2V0XGNsYXNzZXN0AB1EOlx0ZXN0XExvY2F0ZVxzcmNcbWFpblxzY2FsYXNxAH4AanQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAhRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5ccmVzb3VyY2VzdXIAAltCrPMX+AYIVOACAAB4cAAAABSrY4rKgBgtSrYDPGz4WdnHFezwVw==
+external apis:
+0 items
+source infos:
+7 items
+D:\test\Locate\src\main\scala\td\tendcloud\locate\entity.scala -> 
+AAAAAAAAAAA=
+D:\test\Locate\src\main\scala\td\tendcloud\locate\processor.scala -> 
+AAAAAAAAAAA=
+D:\test\Locate\src\main\scala\td\tendcloud\locate\sqlite.scala -> 
+AAAAAAAAAAA=
+D:\test\Locate\src\main\scala\td\tendcloud\locate\test.scala -> 
+AAAAAAAAAAA=
+D:\test\Locate\src\main\scala\td\tendcloud\locate\utils.scala -> 
+AAAAAAAAAAA=
+D:\test\Locate\src\main\scala\td\tendcloud\locate\voronoi.scala -> 
+AAAAAAAAAAA=
+D:\test\Locate\src\main\scala\td\tendcloud\locate\wknn.scala -> 
+AAAAAAAAAAA=
+compilations:
+9 items
+0 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEXaE3p1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
+1 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYdj151cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
+2 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYd0wx1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
+3 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYfvth1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
+4 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYgUER1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
+5 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYj4vx1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
+6 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYkJn11cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
+7 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYnW8h1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
+8 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVEYnhYx1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAHUQ6XHRlc3RcTG9jYXRlXHRhcmdldFxjbGFzc2VzdAAdRDpcdGVzdFxMb2NhdGVcc3JjXG1haW5cc2NhbGFzcQB+AAV0AB1EOlx0ZXN0XExvY2F0ZVx0YXJnZXRcY2xhc3Nlc3QAIUQ6XHRlc3RcTG9jYXRlXHNyY1xtYWluXHJlc291cmNlcw==
