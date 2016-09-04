@@ -56,12 +56,6 @@ public class CoordController {
 	@Autowired
 	private JobDao jobDao;
 	
-//	@Autowired
-//	private HttpServletResponse response;
-	
-//	@Autowired
-//	private HttpServletRequest request;
-	
 	@Autowired
 	public CoordController(CoordService coordService) {
 		this.coordService = coordService;
@@ -88,7 +82,7 @@ public class CoordController {
 	public CoordAddress getCoordAddress(@PathVariable String coord) {
 		Coordinate c = new Coordinate(coord);
 		
-		CoordAddress ca = coordService.getCoordAddress(c);
+		CoordAddress ca = coordService.getCoordAddress(c, Contants.PARAM_COORD_SYS_GPS);
 		return ca;
 	}
 

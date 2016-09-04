@@ -4,46 +4,24 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-import cn.td.geotags.config.RootConfig;
 import cn.td.geotags.domain.CoordAddress;
 import cn.td.geotags.domain.GatherPoint;
 import cn.td.geotags.service.CoordService;
 import cn.td.geotags.util.Contants;
-import cn.td.geotags.util.GatherPointParser;
+import cn.td.geotags.util.ParserUtil;
 
 @Component
 public class GatherPointTown {
 	@Autowired
 	CoordService coordService;
-	
-	public static void main(String[] args) throws IOException {
-		if (args.length < 2) {
-			System.out.println("Error, at least two input parameters!");
-			return;
-		}
 
-		String filePath = args[0];
-		String prefix = args[1];
-		
-//		String filePath = "d:/datahub/近一月到访tdid聚集点信息.dat";
-//		String prefix = "d:/datahub/output/花样年地产-%s.txt";
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-//		PrintStream strm = new PrintStream(String.format(prefix, sdf.format(System.currentTimeMillis())));
-		
-		try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(RootConfig.class)) {
-			GatherPointTown gatherPoint = ctx.getBean(GatherPointTown.class);
-			gatherPoint.calc(filePath, String.format(prefix, sdf.format(System.currentTimeMillis())));
-		}
-	}
+	@Deprecated
 	public void calc(String filePath, String outFile) throws IOException {
 		calc(Contants.PARAM_COORD_SYS_GPS, filePath, outFile);
 	}
@@ -51,8 +29,7 @@ public class GatherPointTown {
 	public void calc(String coordsys, String filePath, String outFile) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> line = Files.lines(Paths.get(filePath))) {
-			line.map(GatherPointParser::parse)
-//				.limit(100)
+			line.map(ParserUtil::parseAsGatherPoint)
 				.parallel()
 				.flatMap(o -> o.stream())
 				.filter(o -> o.getCoordinate().isValid())
@@ -65,11 +42,8 @@ public class GatherPointTown {
 															gp.isWorkday() ? "Y" : "N",
 															String.valueOf(gp.getHour()),
 															String.valueOf(gp.getCount()),
-//															String.valueOf(gp.getCoordinate().getLng()),
-//															String.valueOf(gp.getCoordinate().getLat()),
 															ca.asFlatText());
 							return addr;})
-//				.forEach(System.out::println);
 				.forEach(o -> strm.println(o));
 		} finally {
 			strm.close();

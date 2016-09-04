@@ -1,31 +1,18 @@
 package cn.td.geotags.config;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-
+import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
 
-import javax.sql.DataSource;
-
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.transaction.PlatformTransactionManager;
 
-import cn.td.geotags.dao.AmapRepository;
-import cn.td.geotags.dao.MapRepository;
-import cn.td.geotags.job.JobConfig;
-import cn.td.geotags.service.CoordService;
-import cn.td.geotags.service.CoordServiceImpl;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.CacheManager;
@@ -36,6 +23,12 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import cn.td.geotags.dao.AmapRepository;
+import cn.td.geotags.dao.MapRepository;
+import cn.td.geotags.job.JobConfig;
+import cn.td.geotags.service.CoordService;
+import cn.td.geotags.service.CoordServiceImpl;
+
 @Configuration
 @EnableCaching
 @ComponentScan(basePackages = "cn.td.geotags")
@@ -43,7 +36,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @Import(JobConfig.class)
 public class RootConfig {
 	@Autowired
-	Environment env;
+	private Environment env;
 	
 	/*
 	@Profile("dev")

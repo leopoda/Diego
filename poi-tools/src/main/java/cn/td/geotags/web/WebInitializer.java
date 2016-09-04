@@ -1,10 +1,25 @@
 package cn.td.geotags.web;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+
 import cn.td.geotags.config.RootConfig;
+import com.talkingdata.monitor.client.MonitorServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		/*
+		 * Add monitor
+		 */
+		ServletRegistration.Dynamic registration = servletContext.addServlet("monitor", new MonitorServlet());
+        registration.addMapping("/monitor");
 
+        super.onStartup(servletContext);
+	}
+	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class<?>[] { RootConfig.class };

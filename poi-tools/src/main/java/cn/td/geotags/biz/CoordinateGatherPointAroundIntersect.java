@@ -17,16 +17,15 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
-import cn.td.geotags.domain.Coordinate;
-import cn.td.geotags.domain.GatherPoint;
 import cn.td.geotags.domain.PoiInfo;
+import cn.td.geotags.util.ParserUtil;
 import cn.td.geotags.util.StreamForker;
 
 public class CoordinateGatherPointAroundIntersect {
 	public static void main(String[] args) throws IOException {
-		String[] types = new String[] {"餐饮服务", "购物服务", "体育休闲服务"};
-		String f1 = "c:/Users/pc/Downloads/poi-104.txt";
-		String f2 = "c:/Users/pc/Downloads/poi-101.txt";
+		String[] types = new String[] {"购物服务"};
+		String f1 = "D:/datahub/input/poi-113_cocopark-福田.txt";
+		String f2 = "D:/datahub/input/poi-110_tdidshop.txt";
 
 		CoordinateGatherPointAroundIntersect pi = new CoordinateGatherPointAroundIntersect();
 		List<List<String>> list = pi.intersect(f1, f2, types, "深圳市", 10);
@@ -108,7 +107,7 @@ public class CoordinateGatherPointAroundIntersect {
 	}
 
 	private Function<Stream<String>, List<ImmutableTriple<Integer, Integer, PoiInfo>>> getTopN(List<ImmutablePair<String, Integer>> group, String city, int topN) {
-		return s -> s.map(line -> parse(line))
+		return s -> s.map(ParserUtil::parseAsGatherPointPoiInfoPair)
 		   .parallel()
 		   .filter(o -> o.right.getCity().contains(city))
 		   .filter(o -> o.left.getHour() > 9 && o.left.getHour() < 16)
@@ -129,62 +128,10 @@ public class CoordinateGatherPointAroundIntersect {
 
 	private Function<Stream<String>, List<ImmutablePair<String, Integer>>> getIdAndDistance(String type, String city) {
 		return s -> s.parallel()
-					 .map(line -> parsePoiInfo(line))
+					 .map(ParserUtil::parsePoiInfo)
 					 .filter(o -> o.getCity().contains(city))
 					 .filter(o -> o.getType().contains(type))
 					 .map(o -> ImmutablePair.of(o.getId(), o.getDistance()))
 					 .collect(toList());
-	}
-	
-	private ImmutablePair<GatherPoint, PoiInfo> parse(String line) {
-		String[] fields = line.split("\t");
-		
-		String mac = fields[0];
-		boolean isWorkday = fields[1].equals("Y") ? true : false;
-		String month = "";
-		int hour = Integer.parseInt(fields[2]);
-		int count = Integer.parseInt(fields[3]);
-		double lng = Double.parseDouble(fields[4]);
-		double lat = Double.parseDouble(fields[5]);
-		
-		GatherPoint gp = new GatherPoint(mac, isWorkday, month, hour, lng, lat, count);
-		
-		String id = fields[16];
-		String type = fields[14];
-		String typecode = fields[15];
-		String name = fields[17];
-		String address = fields[12];
-		int distance = Integer.parseInt(fields[8]);
-
-		String province = fields[9];
-		String city = fields[10];
-		String district = fields[11];
-		String location = fields[13];
-		
-		Coordinate c1 = new Coordinate(Double.parseDouble(fields[4]), Double.parseDouble(fields[5]));
-		Coordinate c2 = new Coordinate(Double.parseDouble(fields[6]), Double.parseDouble(fields[7]));
-		
-		PoiInfo p = new PoiInfo(id, type, typecode, name, address, distance, province, city, district, location);
-		p.setCenter(c1);
-		p.setAmapCenter(c2);
-
-		return ImmutablePair.of(gp, p);
-	}
-	
-	private PoiInfo parsePoiInfo(String line) {
-		String[] fields = line.split("\t");
-		int distance = Integer.parseInt(fields[4]);
-		String province = fields[5];
-		String city = fields[6];
-		String district = fields[7];
-		String address = fields[8];
-		String location = fields[9];
-		String type = fields[10];
-		String typecode = fields[11];
-		String id = fields[12];
-		String name = fields[13];
-		
-		PoiInfo poiInfo = new PoiInfo(id, type, typecode, name, address, distance, province, city, district, location);
-		return poiInfo;
 	}
 }

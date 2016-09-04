@@ -77,7 +77,7 @@ public class JobManager {
 	
 	public JobState runCoordinateCellJob(String jobName, JobParameters params) {
 		Function<String, Job> f = j -> jobBuilder.get(j)
-				.start(stepBuilder.get(Contants.BIZ_CELL_AROUND).tasklet(this.coordinateCell).build())
+				.start(stepBuilder.get(Contants.BIZ_CELL_NEARBY).tasklet(this.coordinateCell).build())
 				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
 				.build();
 		

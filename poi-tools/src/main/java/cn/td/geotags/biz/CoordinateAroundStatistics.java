@@ -34,7 +34,7 @@ import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiSummary;
 import cn.td.geotags.domain.PoiType;
 import cn.td.geotags.service.CoordService;
-import cn.td.geotags.util.CoordinateParser;
+import cn.td.geotags.util.ParserUtil;
 import cn.td.geotags.util.StreamForker;
 
 @Component
@@ -60,7 +60,7 @@ public class CoordinateAroundStatistics {
 			
 			try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
 				CoordinateAroundStatistics poiStats = ctx.getBean(CoordinateAroundStatistics.class);
-				lines.map(CoordinateParser::parse)
+				lines.map(ParserUtil::parseAsCoordinate)
 //					 .limit(10)
 					 .map(c -> poiStats.calculate(c))
 					 .flatMap(s -> s.stream())

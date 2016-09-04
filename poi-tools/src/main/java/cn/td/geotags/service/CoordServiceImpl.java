@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import static java.util.stream.Collectors.toList;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import cn.td.geotags.amap.around.Around;
@@ -22,9 +24,7 @@ import cn.td.geotags.util.Contants;
 import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
 
-import static java.util.stream.Collectors.toList;
-
-import java.util.ArrayList;
+import com.talkingdata.monitor.client.Client;
 
 @Slf4j
 @Getter
@@ -40,6 +40,7 @@ public class CoordServiceImpl implements CoordService {
 	
 
 	@Override
+	@Deprecated
 	public CoordAddress getCoordAddress(Coordinate wjs84Coord) {
 		return getCoordAddress(wjs84Coord, Contants.PARAM_COORD_SYS_GPS);
 	}
@@ -63,9 +64,7 @@ public class CoordServiceImpl implements CoordService {
 					ac.getCity(),
 					ac.getDistrict(),
 					ac.getTownship(),
-					rc.getFormatted_address() //,
-//					(ac.getBusinessAreas() == null) ? "" : String.format(";", ac.getBusinessAreas().stream().map(b -> b.getName()).collect(toList())) 
-					);
+					rc.getFormatted_address());
 
 			ca.setCoord(coord);
 			ca.setAmapCoord(gcj02Coord);
@@ -103,17 +102,7 @@ public class CoordServiceImpl implements CoordService {
 	@Override
 	public List<PoiInfo> getAroundPoi(Coordinate coord, String types, long radius, String coordsys) {
 		try {
-//			List<String> types = poiTypes.stream()
-//										 .map(x -> x.getType())
-//										 .map(x -> Arrays.asList(x.split("\\|")))
-//										 .flatMap(x -> x.stream())
-//										 .distinct()
-//										 .collect(toList());
-			
-//			String typeStr = String.join("|", types);
 			int pageSize = poiConfig.getPoiAroundPageSize();
-//			int radius = poiConfig.getPoiAroundRadius();
-	
 			Coordinate gcj02Coord = repo.getGCJ02Coord(coordsys, coord);
 			
 			if (gcj02Coord == null) {
@@ -125,9 +114,7 @@ public class CoordServiceImpl implements CoordService {
 			
 			int pageCount = amount / pageSize + (amount % pageSize == 0 ? 0 : 1);
 			String c = String.join(",", String.valueOf(coord.getLng()), String.valueOf(coord.getLat()));
-			log.info(c + "; page count:" + pageCount + "; poi amount:" + amount);
-			
-//			System.out.println(around);
+			log.debug(c + "; page count:" + pageCount + "; poi amount:" + amount);
 			
 			List<PoiInfo> p1 =
 			IntStream.rangeClosed(1, 1)
@@ -152,27 +139,11 @@ public class CoordServiceImpl implements CoordService {
 							po.setAmapCenter(gcj02Coord);
 							return po;})
 					 .collect(toList());
-			
-//			List<PoiInfo> p1 = around.getPois().stream().map(p -> {
-//													PoiInfo po = new PoiInfo(p.getId(), 
-//															p.getType(), 
-//															p.getTypecode(), 
-//															p.getName(), 
-//															p.getAddress(),
-//															Integer.parseInt(p.getDistance()), 
-//															p.getPname(), 
-//															p.getCityname(), 
-//															p.getAdname(),
-//															p.getLocation());
-//													po.setCenter(wjs84Coord);
-//													po.setAmapCenter(gcj02Coord);
-//													return po;})
-//										.collect(toList());
 
 			List<PoiInfo> p2 = 
 			IntStream.rangeClosed(2,  pageCount)
 					 .boxed()
-					 .parallel() // 经常假死, 需要并行调用高德 api 获取各个页面
+					 .parallel() // 并行调用高德 api 获取各个页面
 					 .map(x -> repo.getPoiAround(gcj02Coord, types, radius, pageSize, x))
 					 .filter(x -> x != null)
 					 .map(a -> a.getPois())
@@ -195,7 +166,6 @@ public class CoordServiceImpl implements CoordService {
 					 .collect(toList());
 			
 			return Stream.of(p1, p2).flatMap(x -> x.stream()).collect(toList());
-//			return (p2 != null) ? Stream.of(p1, p2).flatMap(x -> x.stream()).collect(toList()) : p1;
 		} catch (Exception e) {
 			log.error("get around poi failed", e);
 			return new ArrayList<PoiInfo>();
