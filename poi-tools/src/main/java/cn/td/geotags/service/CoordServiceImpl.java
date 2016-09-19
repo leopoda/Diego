@@ -110,8 +110,14 @@ public class CoordServiceImpl implements CoordService {
 			}
 			
 			Around around = repo.getPoiAround(gcj02Coord, types, radius, pageSize, 1);
-			int amount = Integer.parseInt(around.getCount());
 			
+			int amount = 0;
+			try {
+				amount = Integer.parseInt(around.getCount());
+			} catch (Exception ex) {
+				log.error("get poi count failed, use default value 0");
+			}	
+						
 			int pageCount = amount / pageSize + (amount % pageSize == 0 ? 0 : 1);
 			String c = String.join(",", String.valueOf(coord.getLng()), String.valueOf(coord.getLat()));
 			log.debug(c + "; page count:" + pageCount + "; poi amount:" + amount);

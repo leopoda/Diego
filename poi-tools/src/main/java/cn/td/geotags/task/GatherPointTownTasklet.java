@@ -28,27 +28,27 @@ public class GatherPointTownTasklet implements Tasklet, Monitorable {
 
 		String outputType = (String) params.get(Contants.PARAM_REQ_TYPE);
 		long jobId = chunkContext.getStepContext().getStepExecution().getJobExecutionId();
-		long taskId = chunkContext.getStepContext().getStepExecution().getId();
+//		long taskId = chunkContext.getStepContext().getStepExecution().getId();
 		String coordsys = (String) params.get(Contants.PARAM_COORD_SYS);
 
-		/*
-		 * 监控: 处理前, 记录下时间戳
-		 */
-		monitorProcessTimeAt(jobId, 
-				taskId, 
-				Contants.MONITOR_TASK_STAGE_START,
-				new Date());
+//		/*
+//		 * 监控: 处理前, 记录下时间戳
+//		 */
+//		monitorProcessTimeAt(jobId, 
+//				taskId, 
+//				Contants.MONITOR_TASK_STAGE_START,
+//				new Date());
 
-		monitorFileSize(jobId, taskId, Contants.MONITOR_TASK_STAGE_INPUT_FILE, inputFileName);
+//		monitorFileSize(jobId, taskId, Contants.MONITOR_TASK_STAGE_INPUT_FILE, inputFileName);
 		gatherPoint.calc(coordsys, inputFileName, taskConfig.getOutputFilePath(jobId, outputType));
 		
-		/*
-		 * 监控: 处理完毕，记录下时间戳
-		 */
-		monitorProcessTimeAt(jobId, 
-				taskId, 
-				Contants.MONITOR_TASK_STAGE_END,
-				new Date());
+//		/*
+//		 * 监控: 处理完毕，记录下时间戳
+//		 */
+//		monitorProcessTimeAt(jobId, 
+//				taskId, 
+//				Contants.MONITOR_TASK_STAGE_END,
+//				new Date());
 		return RepeatStatus.FINISHED;
 	}
 }

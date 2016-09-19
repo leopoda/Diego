@@ -5,7 +5,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import cn.td.geotags.config.RootConfig;
-import com.talkingdata.monitor.client.MonitorServlet;
+import cn.td.geotags.util.CustomMonitorServlet;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -14,7 +15,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		/*
 		 * Add monitor
 		 */
-		ServletRegistration.Dynamic registration = servletContext.addServlet("monitor", new MonitorServlet());
+		ServletRegistration.Dynamic registration = servletContext.addServlet("monitor", new CustomMonitorServlet());
         registration.addMapping("/monitor");
 
         super.onStartup(servletContext);

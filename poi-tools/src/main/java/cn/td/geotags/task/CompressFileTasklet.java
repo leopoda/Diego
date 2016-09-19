@@ -24,7 +24,7 @@ public class CompressFileTasklet implements Tasklet, Monitorable {
 		Map<String, Object> params = chunkContext.getStepContext().getJobParameters();
 		String outputType = (String) params.get(Contants.PARAM_REQ_TYPE);
 		long jobId = chunkContext.getStepContext().getStepExecution().getJobExecutionId();
-		long taskId = chunkContext.getStepContext().getStepExecution().getId();
+//		long taskId = chunkContext.getStepContext().getStepExecution().getId();
 
 		String filePath = taskConfig.getOutputFilePath(jobId, outputType);
 		String zipPath = taskConfig.getCompressedOutputFilePath(jobId, outputType);
@@ -32,13 +32,13 @@ public class CompressFileTasklet implements Tasklet, Monitorable {
 		FileSystemResource file = new FileSystemResource(filePath);
 		FileSystemResource zipFile = new FileSystemResource(zipPath);
 
-		/*
-		 * 监控: 处理前, 记录下时间戳
-		 */
-		monitorProcessTimeAt(jobId, 
-				taskId, 
-				Contants.MONITOR_TASK_STAGE_COMPRESS_BEGIN,
-				new Date());
+//		/*
+//		 * 监控: 处理前, 记录下时间戳
+//		 */
+//		monitorProcessTimeAt(jobId, 
+//				taskId, 
+//				Contants.MONITOR_TASK_STAGE_COMPRESS_BEGIN,
+//				new Date());
 		
 		if (zipFile.exists()) {
 			zipFile.getFile().delete();
@@ -60,15 +60,15 @@ public class CompressFileTasklet implements Tasklet, Monitorable {
 			file.getFile().delete();
 		}
 		
-		monitorFileSize(jobId, taskId, Contants.MONITOR_TASK_STAGE_COMPRESSED_FILE, zipPath);
+//		monitorFileSize(jobId, taskId, Contants.MONITOR_TASK_STAGE_COMPRESSED_FILE, zipPath);
 		
-		/*
-		 * 监控: 处理完毕，记录下时间戳
-		 */
-		monitorProcessTimeAt(jobId, 
-				taskId, 
-				Contants.MONITOR_TASK_STAGE_COMPRESS_END,
-				new Date());
+//		/*
+//		 * 监控: 处理完毕，记录下时间戳
+//		 */
+//		monitorProcessTimeAt(jobId, 
+//				taskId, 
+//				Contants.MONITOR_TASK_STAGE_COMPRESS_END,
+//				new Date());
 		return RepeatStatus.FINISHED;
 	}
 }

@@ -8,10 +8,10 @@ var taskModule = angular.module('taskModule', []);
  * @type {*[]}
  */
 taskModule.controller('TabsCtrl', function ($scope, $location, $rootScope) {
-    $rootScope.queryurl = "http://54.222.253.178:8080/poi-tools/jobs";
-    $rootScope.submiturl = "http://54.222.253.178:8080/poi-tools/submit"
-    $rootScope.downloadurl = "http://54.222.253.178:8080/poi-tools/jobresult/";
-    $rootScope.deleteurl = "http://54.222.253.178:8080/poi-tools/jobdelete/";
+    $rootScope.queryurl = "/poi-tools/jobs";
+    $rootScope.submiturl = "/poi-tools/submit"
+    $rootScope.downloadurl = "/poi-tools/jobresult/";
+    $rootScope.deleteurl = "/poi-tools/jobdelete/";
     $scope.tabs = [{
         title: '社区街道',
         sref: 'area'

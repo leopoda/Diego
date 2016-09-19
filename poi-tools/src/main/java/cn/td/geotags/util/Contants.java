@@ -38,7 +38,7 @@ public final class Contants {
 	public final static String PARAM_COORD_SYS_BAIDU = "baidu";
 	public final static String PARAM_COORD_SYS_AUTONAVI = "autonavi";
 	
-	public final static String MONITOR_CALL_AMAP_PREFIX = "call_amap_";
+	public final static String MONITOR_CALL_AMAP_PREFIX = "today_call_amap_";
 	public final static String MONITOR_TASK_STAGE_START = "process_start";
 	public final static String MONITOR_TASK_STAGE_END = "process_end";
 	public final static String MONITOR_TASK_STAGE_COMPRESS_BEGIN = "compress_begin";

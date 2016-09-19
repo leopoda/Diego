@@ -24,28 +24,28 @@ public class CoordinateCellTasklet implements Tasklet, Monitorable {
 		String inputFileName = (String) params.get(Contants.PARAM_IN_FILE);
 		String outputType = (String) params.get(Contants.PARAM_REQ_TYPE);
 		long jobId = chunkContext.getStepContext().getStepExecution().getJobExecutionId();
-		long taskId = chunkContext.getStepContext().getStepExecution().getId();
+//		long taskId = chunkContext.getStepContext().getStepExecution().getId();
 		long radius = Long.parseLong(params.get(Contants.PARAM_RADIUS).toString());
 		String coordsys = (String) params.get(Contants.PARAM_COORD_SYS);
 
-		/*
-		 * 监控: 处理前, 记录下时间戳
-		 */
-		monitorProcessTimeAt(jobId, 
-				taskId, 
-				Contants.MONITOR_TASK_STAGE_START,
-				new Date());
+//		/*
+//		 * 监控: 处理前, 记录下时间戳
+//		 */
+//		monitorProcessTimeAt(jobId, 
+//				taskId, 
+//				Contants.MONITOR_TASK_STAGE_START,
+//				new Date());
 
-		monitorFileSize(jobId, taskId, Contants.MONITOR_TASK_STAGE_INPUT_FILE, inputFileName);
+//		monitorFileSize(jobId, taskId, Contants.MONITOR_TASK_STAGE_INPUT_FILE, inputFileName);
 		cellAround.calc(radius, coordsys, inputFileName, taskConfig.getOutputFilePath(jobId, outputType));
 
-		/*
-		 * 监控: 处理完毕，记录下时间戳
-		 */
-		monitorProcessTimeAt(jobId, 
-				taskId, 
-				Contants.MONITOR_TASK_STAGE_END,
-				new Date());
+//		/*
+//		 * 监控: 处理完毕，记录下时间戳
+//		 */
+//		monitorProcessTimeAt(jobId, 
+//				taskId, 
+//				Contants.MONITOR_TASK_STAGE_END,
+//				new Date());
 		return RepeatStatus.FINISHED;
 	}
 }

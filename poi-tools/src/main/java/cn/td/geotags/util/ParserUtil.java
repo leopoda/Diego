@@ -2,14 +2,20 @@ package cn.td.geotags.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.GatherPoint;
 import cn.td.geotags.domain.PoiInfo;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ParserUtil {
+	private static int DEFAULT_COUNT = 1;
+	private static int DEFAULT_HOUR = 1;
+	
 	public static Coordinate parseAsCoordinate(String line) {
 		String[] arr = line.split("\t");
 		double lng = Double.parseDouble(arr[0]);
@@ -19,65 +25,72 @@ public class ParserUtil {
 	}
 	
 	public static List<GatherPoint> parseAsGatherPoint(String line) {
-		String tdid = "";
-		String pos = "";
-		String[] arr = line.split("\t");
-
-		if (arr.length >= 2) {
-			tdid = arr[0];
-			pos = arr[1];
-		}
-
-		int idx = pos.indexOf("|");
 		List<GatherPoint> list = new ArrayList<>();
+		try {
+			String tdid = "";
+			String pos = "";
+			/*
+			 * 预处理一下, 聚集点的次数 经常为类似 2.0 这样的数
+			 */
+			String[] arr = line.replace(".0;", ";").split("\t");
 
-		if (idx >= 0) {
-			String first = pos.substring(0, idx);
-			String second = pos.substring(idx + 1, pos.length());
-			
-			if (first != null && first.length() > 0) {
-				for (String hc : first.split(";")) {
-					int idx2 = hc.indexOf(":");
-					String h = hc.substring(0, idx2);
-					String c = hc.substring(idx2 + 1, hc.length());
-					for (String cos : c.split(",")) {
-						String[] co = cos.split("_");
-						String lat = co[0];
-						String lng = co[1];
-						int count = Integer.parseInt(co[2]);
-						GatherPoint gp = new GatherPoint(tdid, 
-														 true, 
-														 "", 
-														 Integer.parseInt(h), 
-														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 
-														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lat))), 
-														 count);
-						list.add(gp);
+			if (arr.length >= 2) {
+				tdid = arr[0];
+				pos = arr[1];
+			}
+
+			int idx = pos.indexOf("|");
+
+			if (idx >= 0) {
+				String first = pos.substring(0, idx);
+				String second = pos.substring(idx + 1, pos.length());
+				
+				if (first != null && first.length() > 0) {
+					for (String hc : first.split(";")) {
+						int idx2 = hc.indexOf(":");
+						String h = hc.substring(0, idx2);
+						String c = hc.substring(idx2 + 1, hc.length());
+						for (String cos : c.split(",")) {
+							String[] co = cos.split("_");
+							String lat = co[0];
+							String lng = co[1];
+							int count = tryParseInt(co[2], DEFAULT_COUNT);
+							GatherPoint gp = new GatherPoint(tdid, 
+															 true, 
+															 "", 
+															 tryParseInt(h, DEFAULT_HOUR), 
+															 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 
+															 Double.parseDouble(String.format("%.5f", Double.parseDouble(lat))), 
+															 count);
+							list.add(gp);
+						}
+					}
+				}
+
+				if (second != null && second.length() > 0) {
+					for (String hc : second.split(";")) {
+						int idx2 = hc.indexOf(":");
+						String h = hc.substring(0, idx2);
+						String c = hc.substring(idx2 + 1, hc.length());
+						for (String cos : c.split(",")) {
+							String[] co = cos.split("_");
+							String lat = co[0];
+							String lng = co[1];
+							int count = tryParseInt(co[2], DEFAULT_COUNT);
+							GatherPoint gp = new GatherPoint(tdid, 
+															 false, 
+															 "", 
+															 tryParseInt(h, DEFAULT_HOUR), 
+															 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 
+															 Double.parseDouble(String.format("%.5f", Double.parseDouble(lat))), 
+															 count);
+							list.add(gp);
+						}
 					}
 				}
 			}
-
-			if (second != null && second.length() > 0) {
-				for (String hc : second.split(";")) {
-					int idx2 = hc.indexOf(":");
-					String h = hc.substring(0, idx2);
-					String c = hc.substring(idx2 + 1, hc.length());
-					for (String cos : c.split(",")) {
-						String[] co = cos.split("_");
-						String lat = co[0];
-						String lng = co[1];
-						int count = Integer.parseInt(co[2]);
-						GatherPoint gp = new GatherPoint(tdid, 
-														 false, 
-														 "", 
-														 Integer.parseInt(h), 
-														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lng))), 
-														 Double.parseDouble(String.format("%.5f", Double.parseDouble(lat))), 
-														 count);
-						list.add(gp);
-					}
-				}
-			}
+		} catch (Exception e) {
+			log.error("Parsing text line as GatherPoint is failed, skip this line", e);
 		}
 		return list;
 	}
@@ -132,5 +145,18 @@ public class ParserUtil {
 		p.setAmapCenter(c2);
 
 		return ImmutablePair.of(gp, p);
+	}
+	
+	/*
+	 * 解决输入数据整数非法问题, 如 1.0, 而不是 1
+	 */
+	private static int tryParseInt(String digit, int defaulValue) {
+		Optional<Integer> opt;
+	    try {
+	    	opt = Optional.of(Integer.valueOf(digit));
+	    } catch (NumberFormatException e) {
+	        opt = Optional.empty();
+	    }
+	    return opt.orElse(defaulValue).intValue();
 	}
 }
