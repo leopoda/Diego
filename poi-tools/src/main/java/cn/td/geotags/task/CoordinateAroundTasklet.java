@@ -1,6 +1,5 @@
 package cn.td.geotags.task;
 
-import java.util.Date;
 import java.util.Map;
 
 import org.springframework.batch.core.StepContribution;
@@ -12,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cn.td.geotags.biz.CoordinateAround;
 import cn.td.geotags.util.Contants;
 
-public class CoordinateAroundTasklet implements Tasklet, Monitorable {
+public class CoordinateAroundTasklet implements Tasklet {
 	@Autowired
 	private CoordinateAround poiAround;
 	
@@ -23,34 +22,15 @@ public class CoordinateAroundTasklet implements Tasklet, Monitorable {
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		Map<String, Object> params = chunkContext.getStepContext().getJobParameters();
 		String inputFileName = (String) params.get(Contants.PARAM_IN_FILE);
-//		String outputFileName = (String) params.get(Contants.PARAM_OUT_FILE);
 
 		String outputType = (String) params.get(Contants.PARAM_REQ_TYPE);
 		long jobId = chunkContext.getStepContext().getStepExecution().getJobExecutionId();
-//		long taskId = chunkContext.getStepContext().getStepExecution().getId();
 
 		String types = (String) params.get(Contants.PARAM_TYPES);
 		long radius = Long.parseLong(params.get(Contants.PARAM_RADIUS).toString());
 		String coordsys = (String) params.get(Contants.PARAM_COORD_SYS);
 
-//		/*
-//		 * 监控: 处理前, 记录下时间戳
-//		 */
-//		monitorProcessTimeAt(jobId, 
-//				taskId, 
-//				Contants.MONITOR_TASK_STAGE_START,
-//				new Date());
-//
-//		monitorFileSize(jobId, taskId, Contants.MONITOR_TASK_STAGE_INPUT_FILE, inputFileName);
 		poiAround.calc(types, radius, coordsys, inputFileName, taskConfig.getOutputFilePath(jobId, outputType));
-		
-//		/*
-//		 * 监控: 处理完毕，记录下时间戳
-//		 */
-//		monitorProcessTimeAt(jobId, 
-//				taskId, 
-//				Contants.MONITOR_TASK_STAGE_END,
-//				new Date());
 		return RepeatStatus.FINISHED;
 	}
 }

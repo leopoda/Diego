@@ -2,16 +2,18 @@ package cn.td.geotags.service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-import static java.util.stream.Collectors.toList;
 import java.util.ArrayList;
 
+import java.util.stream.Stream;
+import java.util.stream.IntStream;
+import static java.util.stream.Collectors.toList;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import cn.td.geotags.amap.around.Around;
-import cn.td.geotags.amap.regeo.AddressComponent;
 import cn.td.geotags.amap.regeo.Regeo;
 import cn.td.geotags.amap.regeo.RegeoCode;
+import cn.td.geotags.amap.regeo.AddressComponent;
+
 import cn.td.geotags.config.MapConfig;
 import cn.td.geotags.config.PoiConfig;
 import cn.td.geotags.dao.MapRepository;
@@ -21,10 +23,9 @@ import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiType;
 import cn.td.geotags.util.Contants;
+
 import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
-
-import com.talkingdata.monitor.client.Client;
 
 @Slf4j
 @Getter

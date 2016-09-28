@@ -49,6 +49,20 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('top', {
+            url: '/top',
+            views: {
+                '': {
+                    templateUrl: 'div/main.html'
+                },
+                'topbar@top': {
+                    templateUrl: 'div/topbar.html'
+                },
+                'main@top': {
+                    templateUrl: 'div/top.html'
+                }
+            }
+        })
         .state('form', {
             url: '/form',
             views: {

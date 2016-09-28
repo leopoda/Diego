@@ -17,6 +17,7 @@ public class MapConfig {
 	private String convertURL;
 	private String regeoURL;
 	private String aroundURL;
+	private String districtURL;
 
 	public String getToken() {
 		String[] tokens = token.split(",");

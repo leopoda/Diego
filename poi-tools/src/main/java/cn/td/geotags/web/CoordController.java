@@ -104,7 +104,8 @@ public class CoordController {
 			@ApiParam("坐标系 (gps - wjs84坐标, autonavi -  高德、谷歌、腾讯坐标)") @RequestParam(value="coordsys", required=false) String coordsys,
 			@ApiParam("POI分类代码  (高德 POI 类型代码，多个以|分隔)") @RequestParam(value="types", required=false) String poiTypes,
 			@ApiParam("搜索半径 (默认 500m)") @RequestParam(value="radius", required=false) Integer radius,
-			@ApiParam("*输出类别 (geo - 社区街道, poi - 周边 POI, cell - 最近小区)") @RequestParam(value="for") String reqType) {
+			@ApiParam("*输出类别 (geo - 社区街道, poi - 周边 POI, cell - 最近小区)") @RequestParam(value="for") String reqType,
+			@RequestParam(value="rank", required=false) String rankCondition) {
 
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		JobState jobState = null;
@@ -124,14 +125,18 @@ public class CoordController {
 				throw new RuntimeException("unexpected value for param coordsys");
 			}
 			
-			JobParameters jobParameters = new JobParametersBuilder()
+			JobParametersBuilder jobParamBuilder = new JobParametersBuilder()
 					.addString(Contants.PARAM_IN_FILE, inFile)
 					.addString(Contants.PARAM_CONTENT, contentType)
 					.addString(Contants.PARAM_REQ_TYPE, reqType)
 					.addLong(Contants.PARAM_RADIUS, radius == null ? Contants.DEFAULT_RADIUS : radius)
 					.addString(Contants.PARAM_TYPES, poiTypes == null ? "" : poiTypes)
-					.addString(Contants.PARAM_COORD_SYS, coordsys)
-					.toJobParameters();
+					.addString(Contants.PARAM_COORD_SYS, coordsys);
+			
+			if (Contants.TYPE_GP.equals(contentType) && Contants.REQ_RANK.equals(reqType) && (rankCondition != null && !rankCondition.isEmpty())) {
+				jobParamBuilder.addString(Contants.PARAM_RANK_CONDITION, rankCondition);
+			}
+			JobParameters jobParameters = jobParamBuilder.toJobParameters();
 
 			if (Contants.TYPE_CO.equals(contentType) && Contants.REQ_GEO.equals(reqType)) {
 				jobState = jobManager.runCoordinateTownJob(jobName, jobParameters);
@@ -143,6 +148,8 @@ public class CoordController {
 				jobState = jobManager.runGatherPointTownJob(jobName, jobParameters);
 			} else if (Contants.TYPE_GP.equals(contentType) && Contants.REQ_POI.equals(reqType)) {
 				jobState = jobManager.runGatherPointAroundJob(jobName, jobParameters);
+			} else if (Contants.TYPE_GP.equals(contentType) && Contants.REQ_RANK.equals(reqType)) {
+				jobState = jobManager.runPoiRankJob(jobName, jobParameters);
 			} else if (Contants.TYPE_GP.equals(contentType) && Contants.REQ_CELL.equals(reqType)) {
 				throw new RuntimeException("this is expected, this functionality is  still not implemented yet");
 			} else {
@@ -165,6 +172,8 @@ public class CoordController {
 		} else if (reqType.equals(Contants.REQ_POI)) {
 			return jobDao.queryJobs(offset, page, Contants.REQ_POI, search);
 		} else if (reqType.equals(Contants.REQ_CELL)){
+			return jobDao.queryJobs(offset, page, reqType, search);
+		} else if (reqType.equals(Contants.REQ_RANK)) {
 			return jobDao.queryJobs(offset, page, reqType, search);
 		} else {
 			throw new RuntimeException("this type of request is not supported yet!");

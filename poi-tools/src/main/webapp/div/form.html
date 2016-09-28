@@ -1,3 +1,4 @@
+
 <div class="panel panel-primary" ng-controller="FormCtrl">
     <div class="panel-body">
         <div class="row">
@@ -16,8 +17,9 @@
                     <div class="form-group">
                         <label class="col-md-1 control-label">文件内容</label>
                         <div class="col-md-2 ">
-                            <label class="radio-inline"><input type="radio" name="import" value="gp"
-                                                               ng-model="taskInfo.import" ng-click="taskInfo.for='geo'">位置聚集点</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="import" value="gp" ng-model="taskInfo
+.import" ng-click="taskInfo.for='geo'">位置聚集点</label>
                             <label class="radio-inline"><input type="radio" name="import" value="co"
                                                                ng-model="taskInfo.import">经纬度</label>
                         </div>
@@ -52,21 +54,97 @@
                     <div class="form-group">
                         <label class="col-md-1 control-label">查询内容</label>
                         <div class="col-md-11 ">
-                            <label class="radio-inline"><input type="radio" name="for" value="geo"
-                                                               ng-model="taskInfo.for">社区街道</label>
-                            <label class="radio-inline"><input type="radio"
-                                                                                               name="for"
-                                                                                               value="poi"
-                                                                                               ng-model="taskInfo.for">周边
-                                POI</label>
-                            <label class="radio-inline" ng-show="taskInfo.import!='gp'"><input type="radio"
-                                                                                               name="for"
-                                                                                               value="cell"
-                                                                                               ng-model="taskInfo.for">最近小区</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="for" value="geo" ng-model="taskInfo.for">
+                                社区街道
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="for" value="poi" ng-model="taskInfo.for">
+                                周边POI
+                            </label>
+                            <label class="radio-inline" ng-show="taskInfo.import!='gp'">
+                                <input type="radio" name="for" value="cell" ng-model="taskInfo.for">
+                                最近小区
+                            </label>
+                            <label class="radio-inline" ng-show="taskInfo.import!='co'">
+                                <input type="radio" name="for" value="top" ng-model="taskInfo.for">
+                                POI排名(TOP1000倒序排列)
+                            </label>
                         </div>
                     </div>
-
-                    <div class="form-group" ng-show="taskInfo.for=='poi'">
+                    <!--start POI排名 -->
+                     <div class="form-group" ng-show="taskInfo.for==='top'&&taskInfo.import!='co'">
+                            <label class="col-md-1 control-label">时间类型</label>
+                            <div class="col-md-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="day_type" value="w" ng-model="taskInfo.dateType">
+                                    工作日
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="day_type" value="e" ng-model="taskInfo.dateType">
+                                    周六日
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="day_type" value="d" ng-model="taskInfo.dateType">
+                                    全部
+                                </label>
+                            </div>
+                    </div>    
+                    <div  class="form-group" ng-show="taskInfo.for==='top'&&taskInfo.import!='co'">
+                        <label class="col-md-1 control-label">城市区域</label>
+                        <div class="col-md-2" style="width:10%;">
+                            <label class="control-label">省</label>
+                            <select ng-change="setProvince(provinceId)" ng-model="provinceId">
+                                <option value="{{item.id}}" ng-selected="{{$index==0}}"  ng-repeat="item in province" >{{item.name}}</option>
+                            </select>
+                        </div>
+                         <div class="col-md-2" style="width:14%;">
+                            <label class="control-label" >市</label>
+                            <select ng-change="setCity(cityId)" ng-model="cityId">
+                                <option value="{{item.id}}" ng-repeat="item in city" >{{item.name}}</option> 
+                            </select> 
+                        </div>
+                       <div class="col-md-3">
+                            <label class="control-label" >区</label>
+                            <select ng-model="areaId">
+                                <option value="{{item.id}}" ng-repeat="item in area" >{{item.name}}</option> 
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="taskInfo.for==='top'&&taskInfo.import!='co'">
+                            <label class="col-md-1 control-label">时间选段</label>
+                            <div class="col-md-9" style="padding-top:7px;">
+                                <button ng-click="addTimeSlot()" type="button" class="btn btn-default btn-xs">+</button>
+                            </div>
+                    </div>
+                    <div ng-repeat="obj in timeSlotArr">
+                        <div class="form-group" ng-show="taskInfo.for==='top'&&taskInfo.import!='co'">
+                            <label class="col-md-1 control-label"></label>
+                            <div class="col-md-2" style="width:12%;">
+                                <label class="control-label">开始时段</label>
+                                <select ng-change="setHourRange(obj.start,$index)" ng-model="obj.start">
+                                    <option value="{{item}}" ng-selected="{{$index==0}}"  ng-repeat="item in HOURARR" >{{item}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" style="width:11%;">
+                                <label class="control-label" >结束时段</label>
+                                <select ng-model="obj.end">
+                                    <option value="{{item}}" ng-selected="{{$index==0}}"  ng-repeat="item in obj.endArr" >{{item}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button ng-click="delTimeSlot($index)" type="button" style="margin-top:7px;" class="btn btn-default btn-xs">—</button>
+                            </div>
+                        </div>  
+                    </div>
+                   <!-- <div class="form-group" ng-show="taskInfo.for==='top'">
+                            <label class="col-md-1 control-label"></label>
+                            <div class="col-md-9">
+                                <button ng-click="addTimeSlot()" type="button" class="btn btn-default btn-xs">+</button>
+                            </div>
+                    </div> -->
+                    <!--end  POI排名 -->
+                    <div class="form-group" ng-show="taskInfo.for=='poi'||taskInfo.for=='top'">
                         <label for="radius" class="col-md-1 control-label">周边半径</label>
                         <div class="col-md-2">
                             <input type="number" name="radius" id="radius" class="form-control"
@@ -74,10 +152,11 @@
                                    ng-model="taskInfo.radius" >米范围内
                         </div>
                     </div>
-                    <div class="form-group"  ng-show="taskInfo.for=='poi'">
+                    <div class="form-group"  ng-show="taskInfo.for=='poi'||taskInfo.for=='top'">
                         <label class="col-md-1 control-label">查询内容</label>
                         <div id="poiTree" class="col-md-3"></div>
                     </div>
+                    
                     <div class="form-group">
                         <div class="col-md-1 col-md-offset-1">
                             <input class="btn btn-default" ng-disabled="taskForm.$invalid" type="submit" value="提交任务">
@@ -91,3 +170,4 @@
         </div>
     </div>
 </div>
+

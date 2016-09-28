@@ -114,6 +114,7 @@ public class RootConfig {
 		conf.setConvertURL(baseURL + env.getProperty("amap.api.convert.path"));
 		conf.setRegeoURL(baseURL + env.getProperty("amap.api.regeo.path"));
 		conf.setAroundURL(baseURL + env.getProperty("amap.api.around.path"));
+		conf.setDistrictURL(baseURL + env.getProperty("amap.api.district.path"));
 		return conf;
 	}
 	

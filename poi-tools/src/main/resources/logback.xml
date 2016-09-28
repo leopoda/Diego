@@ -19,8 +19,8 @@
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 	</appender>
-	<logger name="org.springframework" level="error">
-    	<appender-ref ref="file-audit" />
+	<logger name="org.springframework" level="info">
+    	<appender-ref ref="console" />
 	</logger>
 	<logger name="cn.td.geotags" level="info" additivity="false">
 		<appender-ref ref="console" />

@@ -23,11 +23,13 @@ import org.springframework.batch.core.repository.JobRepository;
 
 import cn.td.geotags.task.CoordinateCellTasklet;
 import cn.td.geotags.task.GatherPointTownTasklet;
+import cn.td.geotags.task.PoiRankAndTopNTasklet;
 import cn.td.geotags.task.CoordinateAroundTasklet;
 import cn.td.geotags.task.TaskConfig;
 import cn.td.geotags.task.CoordinateTownTasklet;
 import cn.td.geotags.task.GatherPointAroundTasklet;
 import cn.td.geotags.task.CompressFileTasklet;
+import cn.td.geotags.task.CompressRankFileTasklet;
 import cn.td.geotags.util.BigFileMD5;
 import cn.td.geotags.util.Contants;
 
@@ -65,6 +67,12 @@ public class JobManager {
 	
 	@Autowired
 	private CompressFileTasklet zipTasklet;
+	
+	@Autowired
+	private CompressRankFileTasklet compressMultiFile;
+	
+	@Autowired
+	private PoiRankAndTopNTasklet poiRankAndTopN;
 	
 	@Autowired
 	private Environment env;
@@ -119,6 +127,17 @@ public class JobManager {
 		Function<String, Job> f = j -> jobBuilder.get(j)
 				.start(stepBuilder.get(Contants.BIZ_GP_TO_AROUND).tasklet(this.gatherPointAround).build())
 				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.zipTasklet).build())
+				.build();
+		
+		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);
+		return runJob(p, f);
+	}
+	
+	public JobState runPoiRankJob(String jobName, JobParameters params) {
+		Function<String, Job> f = j -> jobBuilder.get(j)
+				.start(stepBuilder.get(Contants.BIZ_GP_TO_AROUND).tasklet(this.gatherPointAround).build())
+				.next(stepBuilder.get("POI Rank").tasklet(this.poiRankAndTopN).build())
+				.next(stepBuilder.get(Contants.BIZ_COMPRESS_ZIP).tasklet(this.compressMultiFile).build())
 				.build();
 		
 		ImmutablePair<String, JobParameters> p = ImmutablePair.of(jobName, params);

@@ -1,19 +1,22 @@
 package cn.td.geotags.dao;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.td.geotags.amap.around.Around;
+import cn.td.geotags.amap.district.District;
+import cn.td.geotags.amap.district.DistrictResponse;
 import cn.td.geotags.amap.regeo.CoordinateResponse;
 import cn.td.geotags.amap.regeo.Regeo;
 import cn.td.geotags.config.MapConfig;
@@ -21,8 +24,8 @@ import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.util.Contants;
 import cn.td.geotags.util.CustomMonitorClient;
 import cn.td.geotags.util.URLUtil;
+
 import lombok.extern.slf4j.Slf4j;
-//import com.talkingdata.monitor.client.Client;
 import cc.d_z.jstats.Counter;
 
 @Slf4j
@@ -47,7 +50,7 @@ public class AmapRepository implements MapRepository {
 		return convertCoord("gps", c);
 	}
 	
-	@Cacheable(value="coordCache", key="'coordsys-' + #p0 + '-' + #p1.lng + ',' + #p1.lat", unless="#result == null")
+//	@Cacheable(value="coordCache", key="'coordsys-' + #p0 + '-' + #p1.lng + ',' + #p1.lat", unless="#result == null")
 	public Coordinate getGCJ02Coord(String coordsys, Coordinate c) {
 		return convertCoord(coordsys, c);
 	}
@@ -157,6 +160,29 @@ public class AmapRepository implements MapRepository {
 		} catch (IOException e) {
 			log.error("Unable to get poi from amap", e);
 			return null;
+		}
+	}
+
+	@Override
+	public List<District> getDistrict(String provinceCode) {
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(mapConfig.getDistrictURL());
+		builder.queryParam("key", mapConfig.getToken());
+		builder.queryParam("keywords", provinceCode);
+		builder.queryParam("subdistrict", 2);
+		builder.queryParam("showbiz", false);
+		builder.queryParam("extensions", "base");
+		
+		String url = builder.build().toUriString();
+		
+		try {
+			String content = URLUtil.doGet(url);
+			String newContent = content.replace("[]", "\"\"").replace(",\"districts\":\"\"", ",\"districts\":[]");
+			DistrictResponse response = MAPPER.readValue(newContent, DistrictResponse.class);
+			List<District> district = response.getDistricts();
+			return district;
+		} catch (Exception e) {
+			log.error("Unable to get distrinct", e);
+			return new ArrayList<District>();
 		}
 	}
 }

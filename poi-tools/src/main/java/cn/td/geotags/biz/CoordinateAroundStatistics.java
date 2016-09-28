@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.td.geotags.config.PoiConfig;
 import cn.td.geotags.config.RootConfig;
+import cn.td.geotags.dao.MapRepository;
 import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.domain.PoiSummary;
@@ -41,6 +42,9 @@ import cn.td.geotags.util.StreamForker;
 public class CoordinateAroundStatistics {
 	@Autowired
 	CoordService coordService;
+	
+	@Autowired
+	MapRepository mapRepository; 
 	
 	@Autowired
 	PoiConfig poiConfig;
@@ -69,6 +73,10 @@ public class CoordinateAroundStatistics {
 			} finally {
 				strm.close();
 			}
+//			CoordinateAroundStatistics a = ctx.getBean(CoordinateAroundStatistics.class);
+//			List<District> districts = a.mapRepository.getDistrict(Contants.AMAP_PROVINCE_CODE.get(5));
+//			
+//			System.out.println(districts);
 		}
 	}
 
