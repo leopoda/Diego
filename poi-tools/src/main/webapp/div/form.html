@@ -106,7 +106,7 @@
                         </div>
                        <div class="col-md-3">
                             <label class="control-label" >区</label>
-                            <select ng-model="areaId">
+                            <select ng-change="setArea(areaId)" ng-model="areaId">
                                 <option value="{{item.id}}" ng-repeat="item in area" >{{item.name}}</option> 
                             </select> 
                         </div>

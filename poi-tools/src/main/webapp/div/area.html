@@ -7,6 +7,7 @@
                     <th>任务名称</th>
                     <th width="10%">任务ID</th>
                     <th>创建时间</th>
+                    <th>完成时间</th>
                     <th>上传内容</th>
                     <th>当前状态</th>
                     <th>操作</th>
@@ -17,6 +18,7 @@
                     <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{record.job_name}}</td>
                     <td>{{record.job_id}}</td>
                     <td>{{record.start_time}}</td>
+                    <td>{{record.end_time}}</td>
                     <td ng-switch="record.job_param.import">
                         <div ng-switch-when="co">
                             经纬度

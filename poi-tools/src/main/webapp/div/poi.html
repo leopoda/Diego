@@ -7,6 +7,7 @@
                     <th>任务名称</th>
                     <th width="5%">任务ID</th>
                     <th>创建时间</th>
+                    <th>完成时间</th>
                     <th>上传内容</th>
                     <th width="30%">查询类别</th>
                     <th>半径范围</th>
@@ -19,6 +20,7 @@
                     <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{record.job_name}}</td>
                     <td>{{record.job_id}}</td>
                     <td>{{record.start_time}}</td>
+                    <td>{{record.end_time}}</td>
                     <td ng-switch="record.job_param.import">
                         <div ng-switch-when="co">
                             经纬度
@@ -27,7 +29,7 @@
                             位置聚集点
                         </div>
                     </td>
-                    <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{record.job_param.poi_types | codeFilter:$root.poicode}}</td>
+                    <td title="{{record.job_param.poi_types | codeFilter:$root.poicode}}" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{record.job_param.poi_types | codeFilter:$root.poicode}}</td>
                     <td>{{record.job_param.radius}}</td>
                     <td ng-switch="record.status">
                         <div ng-switch-when="COMPLETED">

@@ -198,11 +198,12 @@ taskModule.controller('PoiCtrl', function ($scope, $rootScope, $http, $interval,
     $scope.selectPage(1);
 });
 /**
- * poi查询
+ * Top N 查询
  */
 taskModule.controller('TopCtrl', function ($scope, $rootScope, $http, $interval, $state, $stateParams, $location) {
     $scope.selPage = 1;
     $scope.search_content = $location.search()["query"] == undefined ? "" : $location.search()["query"];
+    
     $scope.getPois = function (selPage) {
         var params = {
             offset: 10,
@@ -12122,6 +12123,14 @@ var area = {
 
     //设置省
     $scope.setProvince=function(provinceId){
+        //获取省份
+        for(var i=0,len=$scope.province.length;i<len;i++){
+            var obj=$scope.province[i];
+            if(obj.id===provinceId){
+                $scope.provinceName=obj.name;
+                break;
+            }
+        }
         //修改市
         $scope.city=city[provinceId];
         $scope.cityId=$scope.city[0].id;
@@ -12133,10 +12142,29 @@ var area = {
     }
     //设置区
     $scope.setCity=function(cityeId){
+        //获取市
+        for(var i=0,len=$scope.city.length;i<len;i++){
+            var obj=$scope.city[i];
+            if(obj.id===cityeId){
+                $scope.cityName=obj.name;
+                break;
+            }
+        }
         //修改区
         $scope.area=area[$scope.cityId];
         $scope.areaId=$scope.area[0].id;
         $scope.areaName=$scope.area[0].name;
+    }
+    //设置区
+    $scope.setArea=function(areaId){
+        //获取区
+        for(var i=0,len=$scope.area.length;i<len;i++){
+            var obj=$scope.area[i];
+            if(obj.id===areaId){
+                $scope.areaName=obj.name;
+                break;
+            }
+        }
     }
     //设置时间段
     //小时段集合
