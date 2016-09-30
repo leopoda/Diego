@@ -108,12 +108,16 @@ taskModule.controller('AreaCtrl', function ($scope, $rootScope, $http, $interval
         $scope.selectPage($scope.selPage + 1);
     };
     $scope.delete = function (jobid) {
-        $http({
-            method: 'DELETE',
-            url: $rootScope.deleteurl+jobid
-        }).success(function(data,status,config,headers){
-            window.location.reload();
-        });
+        var r=confirm("确认删除?");
+        if(r){
+            $http({
+                method: 'DELETE',
+                url: $rootScope.deleteurl+jobid
+            }).success(function(data,status,config,headers){
+                window.location.reload();
+            });
+        }
+        
     }
     $scope.selectPage(1);
 });
@@ -188,12 +192,15 @@ taskModule.controller('PoiCtrl', function ($scope, $rootScope, $http, $interval,
         $scope.selectPage($scope.selPage + 1);
     };
     $scope.delete = function (jobid) {
-        $http({
-            method: 'DELETE',
-            url: $rootScope.deleteurl+jobid
-        }).success(function(data,status,config,headers){
-            window.location.reload();
-        });
+        var r=confirm("确认删除?");
+        if(r){
+            $http({
+                method: 'DELETE',
+                url: $rootScope.deleteurl+jobid
+            }).success(function(data,status,config,headers){
+                window.location.reload();
+            });
+        }
     }
     $scope.selectPage(1);
 });
@@ -268,12 +275,16 @@ taskModule.controller('TopCtrl', function ($scope, $rootScope, $http, $interval,
         $scope.selectPage($scope.selPage + 1);
     };
     $scope.delete = function (jobid) {
-        $http({
-            method: 'DELETE',
-            url: $rootScope.deleteurl+jobid
-        }).success(function(data,status,config,headers){
-            window.location.reload();
-        });
+        var r=confirm("确认删除?");
+        if(r){
+            $http({
+                method: 'DELETE',
+                url: $rootScope.deleteurl+jobid
+            }).success(function(data,status,config,headers){
+                window.location.reload();
+            });
+        }
+        
     }
     $scope.selectPage(1);
 });
@@ -346,12 +357,15 @@ taskModule.controller('CellCtrl', function ($scope, $rootScope, $http, $interval
         $scope.selectPage($scope.selPage + 1);
     };
     $scope.delete = function (jobid) {
-        $http({
-            method: 'DELETE',
-            url: $rootScope.deleteurl+jobid
-        }).success(function(data,status,config,headers){
-            window.location.reload();
-        });
+        var r=confirm("确认删除?");
+        if(r){
+            $http({
+                method: 'DELETE',
+                url: $rootScope.deleteurl+jobid
+            }).success(function(data,status,config,headers){
+                window.location.reload();
+            });
+        }
     }
     $scope.selectPage(1);
 });
