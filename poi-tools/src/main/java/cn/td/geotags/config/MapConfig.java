@@ -18,6 +18,9 @@ public class MapConfig {
 	private String regeoURL;
 	private String aroundURL;
 	private String districtURL;
+	
+	private int connectTimeout;
+	private int readTimeout;
 
 	public String getToken() {
 		String[] tokens = token.split(",");

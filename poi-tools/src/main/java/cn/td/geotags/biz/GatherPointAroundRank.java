@@ -101,6 +101,7 @@ public class GatherPointAroundRank {
 			IntStream.rangeClosed(1, typeCodes2.size())
 					 .boxed()
 					 .map(o -> {int idx = o - 1; return ImmutablePair.of(psList.get(idx), (List<String>)result.get(typeCodes2.get(idx)));})
+					 .filter(o -> o.left != null && o.right != null)
 					 .forEach(p -> {p.right.stream().forEach(s -> p.left.println(s)); p.left.close();});
 //					 .forEach(p -> {p.right.stream().forEach(s -> System.out.println(s));});
 		}

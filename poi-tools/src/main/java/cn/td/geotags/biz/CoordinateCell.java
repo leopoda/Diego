@@ -1,6 +1,7 @@
 package cn.td.geotags.biz;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
 import cn.td.geotags.domain.Coordinate;
 import cn.td.geotags.domain.PoiInfo;
 import cn.td.geotags.service.CoordService;
-import cn.td.geotags.util.Contants;
+//import cn.td.geotags.util.Contants;
 import cn.td.geotags.util.ParserUtil;
 
 @Component
@@ -28,25 +29,25 @@ public class CoordinateCell {
 	
 	private static final int CELL_POI_TYPE = 120302;
 	
-	@Deprecated
-	public void calc(long radius, String inFile, String outFile) throws IOException {
-		calc(radius, Contants.PARAM_COORD_SYS_GPS, inFile, outFile);
-	}
+//	@Deprecated
+//	public void calc(long radius, String inFile, String outFile) throws IOException {
+//		calc(radius, Contants.PARAM_COORD_SYS_GPS, inFile, outFile);
+//	}
 	
-	public void calc(long radius, String coordsys, String inFile, String outFile) throws IOException {
+	public void calc(long radius, String coordsys, String inFile, String outFile, Map<String, Object> additional) throws IOException {
 		PrintStream strm = new PrintStream(outFile);
 		try (Stream<String> lines = Files.lines(Paths.get(inFile))) {
 			lines.map(ParserUtil::parseAsCoordinate)
 				.parallel()
-				.map(c -> calc(c, radius, coordsys))
+				.map(c -> calc(c, radius, coordsys, additional))
 				.forEach(s -> strm.println(s));
 		} finally {
 			strm.close();
 		}
 	}
 	
-	private String calc(Coordinate coord, long radius, String coordsys) {
-		return this.calc(coord, c -> coordService.getAroundPoi(coord, String.valueOf(CELL_POI_TYPE), radius, coordsys));
+	private String calc(Coordinate coord, long radius, String coordsys, Map<String, Object> additional) {
+		return this.calc(coord, c -> coordService.getAroundPoi(coord, String.valueOf(CELL_POI_TYPE), radius, coordsys, additional));
 	}
 	
 	private String calc(Coordinate coord, Function<Coordinate, List<PoiInfo>> f) {

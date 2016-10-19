@@ -33,7 +33,10 @@ public class JobState {
 	private String endTime;
 	
 	@JsonProperty("job_param")
-	Map<String, Object> params;
+	private Map<String, Object> params;
+	
+	@JsonProperty("exit_desc")
+	private String exitMessage;
 	
 	public String getStartTime() {
 		return formatDateTime(startTime);

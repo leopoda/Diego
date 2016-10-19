@@ -2,6 +2,7 @@ package cn.td.geotags.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 
 import java.util.stream.Stream;
@@ -97,11 +98,11 @@ public class CoordServiceImpl implements CoordService {
 	
 	@Override
 	public List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, String types, long radius) {
-		return getAroundPoi(wjs84Coord, types, radius, Contants.PARAM_COORD_SYS_GPS);
+		return getAroundPoi(wjs84Coord, types, radius, Contants.PARAM_COORD_SYS_GPS, null);
 	}
 	
 	@Override
-	public List<PoiInfo> getAroundPoi(Coordinate coord, String types, long radius, String coordsys) {
+	public List<PoiInfo> getAroundPoi(Coordinate coord, String types, long radius, String coordsys, Map<String, Object> additional) {
 		try {
 			int pageSize = poiConfig.getPoiAroundPageSize();
 			Coordinate gcj02Coord = repo.getGCJ02Coord(coordsys, coord);
@@ -110,7 +111,7 @@ public class CoordServiceImpl implements CoordService {
 				throw new RuntimeException("unable to get GCJ02 coordinate");
 			}
 			
-			Around around = repo.getPoiAround(gcj02Coord, types, radius, pageSize, 1);
+			Around around = repo.getPoiAround(gcj02Coord, types, radius, pageSize, 1, additional); // 加入调用次数监控
 			
 			int amount = 0;
 			try {
@@ -151,7 +152,7 @@ public class CoordServiceImpl implements CoordService {
 			IntStream.rangeClosed(2,  pageCount)
 					 .boxed()
 					 .parallel() // 并行调用高德 api 获取各个页面
-					 .map(x -> repo.getPoiAround(gcj02Coord, types, radius, pageSize, x))
+					 .map(x -> repo.getPoiAround(gcj02Coord, types, radius, pageSize, x, additional)) // 加入调用次数监控
 					 .filter(x -> x != null)
 					 .map(a -> a.getPois())
 					 .filter(o -> o != null)

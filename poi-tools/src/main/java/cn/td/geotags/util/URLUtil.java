@@ -14,12 +14,12 @@ public class URLUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(URLUtil.class);
 	private static final String USER_AGENT = "Mozilla/5.0";
 
-	public static String doGet(String url) throws IOException {
+	public static String doGet(String url, int connectTimeout, int readTimeout) throws IOException {
 		URL obj = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
 
-		conn.setReadTimeout(Contants.TIMEOUT);
-		conn.setConnectTimeout(Contants.TIMEOUT);
+		conn.setConnectTimeout(connectTimeout);
+		conn.setReadTimeout(readTimeout);
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("User-Agent", USER_AGENT);
 
@@ -50,8 +50,8 @@ public class URLUtil {
 		URL obj = new URL(url);
 		HttpURLConnection  conn = (HttpURLConnection) obj.openConnection();
 		
-		conn.setReadTimeout(Contants.TIMEOUT);
-		conn.setConnectTimeout(Contants.TIMEOUT);
+//		conn.setReadTimeout(Contants.TIMEOUT);
+//		conn.setConnectTimeout(Contants.TIMEOUT);
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("User-Agent", USER_AGENT);
 		conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");

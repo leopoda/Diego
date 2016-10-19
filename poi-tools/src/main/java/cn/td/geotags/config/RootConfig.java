@@ -2,6 +2,8 @@ package cn.td.geotags.config;
 
 import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ import cn.td.geotags.dao.MapRepository;
 import cn.td.geotags.job.JobConfig;
 import cn.td.geotags.service.CoordService;
 import cn.td.geotags.service.CoordServiceImpl;
+import cn.td.geotags.util.Contants;
 
 @Configuration
 @EnableCaching
@@ -38,16 +41,7 @@ public class RootConfig {
 	@Autowired
 	private Environment env;
 	
-	/*
-	@Profile("dev")
-	@Bean(destroyMethod="shutdown")
-	public DataSource embeddedDataSource() {
-		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("classpath:schema.sql").build();
-	}
-*/
-	
 	@Bean
-//	@Profile("prod")
 	public BasicDataSource dataSource() {
 		BasicDataSource ds = new BasicDataSource();
 		ds.setDriverClassName(env.getProperty("jdbc.driver"));
@@ -68,17 +62,18 @@ public class RootConfig {
 	public MapRepository repository() {
 		return new AmapRepository();
 	}
-	
-	/*
-	@Bean
-	public PlatformTransactionManager transactionManager(DataSource dataSource) {
-		return new DataSourceTransactionManager(dataSource);
-	}
-	*/
-	
+
 	@Bean
 	public CacheManager cacheManager(RedisTemplate<String, String> redisTemplate) {
-		return new RedisCacheManager(redisTemplate);
+		RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
+
+		// 对缓存非常大的 region, 设置失效时间
+		long expireInSeconds = Long.parseLong(env.getProperty("redis.default.expire"));
+		Map<String, Long> expireConfig = new HashMap<>();
+		expireConfig.put(Contants.CACHE_REGION_REGEO, expireInSeconds);
+		expireConfig.put(Contants.CACHE_REGION_POI_AROUND, expireInSeconds);
+		cacheManager.setExpires(expireConfig);
+		return cacheManager;
 	}
 
 	@Bean
@@ -115,6 +110,9 @@ public class RootConfig {
 		conf.setRegeoURL(baseURL + env.getProperty("amap.api.regeo.path"));
 		conf.setAroundURL(baseURL + env.getProperty("amap.api.around.path"));
 		conf.setDistrictURL(baseURL + env.getProperty("amap.api.district.path"));
+		
+		conf.setReadTimeout(Integer.parseInt(env.getProperty("read.timeout.interval")));
+		conf.setConnectTimeout(Integer.parseInt(env.getProperty("connect.timeout.interval")));
 		return conf;
 	}
 	

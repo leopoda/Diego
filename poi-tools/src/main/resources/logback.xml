@@ -13,19 +13,19 @@
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>${log_home}/hcz.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<fileNamePattern>${log_home}/audit.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>100MB</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 	</appender>
-	<logger name="org.springframework" level="info">
-    	<appender-ref ref="console" />
+	<logger name="org.springframework" level="error">
+    	<appender-ref ref="file-audit" />
 	</logger>
-	<logger name="cn.td.geotags" level="info" additivity="false">
-		<appender-ref ref="console" />
+	<logger name="cn.td.geotags" level="info" additivity="error">
+		<appender-ref ref="file-audit" />
 	</logger>
-		<logger name="org.eclipse.jetty" level="error" additivity="false">
+		<logger name="org.eclipse.jetty" level="error" additivity="error">
 		<appender-ref ref="file-audit" />
 	</logger>
 	<root level="error">

@@ -200,6 +200,42 @@ public class JobManager {
 		jobDao.deleteJob(jobId);
 		return jobState;
 	}
+	
+	public JobState updateJobStatus(long jobId, int statusCode) {
+		JobExecution jobExecution = jobDao.getJobExecution(jobId);
+		JobState jobState = jobDao.getJobState(jobId);
+
+		switch (statusCode) {
+		case 0:
+			jobExecution.setStatus(BatchStatus.COMPLETED);
+			break;
+		case 1:
+			jobExecution.setStatus(BatchStatus.STARTING);
+			break;
+		case 2:
+			jobExecution.setStatus(BatchStatus.STARTED);
+			break;
+		case 3:
+			jobExecution.setStatus(BatchStatus.STOPPING);
+			break;
+		case 4:
+			jobExecution.setStatus(BatchStatus.STOPPED);
+			break;
+		case 5:
+			jobExecution.setStatus(BatchStatus.FAILED);
+			break;
+		case 6:
+			jobExecution.setStatus(BatchStatus.ABANDONED);
+			break;
+		case 7:
+			jobExecution.setStatus(BatchStatus.UNKNOWN);
+			break;
+		default:
+			throw new RuntimeException("Unknown status code");
+		}
+		jobDao.updateJob(jobExecution);
+		return jobState;
+	}
 
 	private JobState runJob(ImmutablePair<String, JobParameters> p, Function<String, Job> f) {
 		String jobName = p.getLeft();

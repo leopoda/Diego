@@ -1,6 +1,7 @@
 package cn.td.geotags.service;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.td.geotags.domain.CoordAddress;
 import cn.td.geotags.domain.Coordinate;
@@ -12,5 +13,5 @@ public interface CoordService {
 	CoordAddress getCoordAddress(Coordinate coord, String coordsys);
 	List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, List<PoiType> poiTypes);
 	List<PoiInfo> getAroundPoi(Coordinate wjs84Coord, String types, long radius);
-	List<PoiInfo> getAroundPoi(Coordinate coord, String types, long radius, String coordsys);
+	List<PoiInfo> getAroundPoi(Coordinate coord, String types, long radius, String coordsys, Map<String, Object> additional);
 }

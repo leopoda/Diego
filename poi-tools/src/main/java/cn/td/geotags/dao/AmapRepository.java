@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -44,11 +45,11 @@ public class AmapRepository implements MapRepository {
 			.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
 			.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
 
-	@Deprecated
-	@Cacheable(value="coordCache", key="'wjs84-' + #p0.lng + ',' + #p0.lat", unless="#result == null")
-	public Coordinate getGCJ02Coord(Coordinate c) {
-		return convertCoord("gps", c);
-	}
+//	@Deprecated
+////	@Cacheable(value="coordCache", key="'wjs84-' + #p0.lng + ',' + #p0.lat", unless="#result == null")
+//	public Coordinate getGCJ02Coord(Coordinate c) {
+//		return convertCoord("gps", c);
+//	}
 	
 //	@Cacheable(value="coordCache", key="'coordsys-' + #p0 + '-' + #p1.lng + ',' + #p1.lat", unless="#result == null")
 	public Coordinate getGCJ02Coord(String coordsys, Coordinate c) {
@@ -58,7 +59,7 @@ public class AmapRepository implements MapRepository {
 	public Coordinate convertCoord(String coordsys, Coordinate c) {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(mapConfig.getConvertURL());
 		builder.queryParam("key", mapConfig.getToken());
-		builder.queryParam("locations", String.format("%.6f,%.6f", c.getLng(), c.getLat()));
+		builder.queryParam("locations", String.format("%.5f,%.5f", c.getLng(), c.getLat()));
 		builder.queryParam("coordsys", coordsys);
 		
 		String url = builder.build().toUriString();
@@ -87,7 +88,7 @@ public class AmapRepository implements MapRepository {
 			
 			String url = builder.build().toUriString();
 			try {
-				String content = URLUtil.doGet(url);
+				String content = URLUtil.doGet(url, mapConfig.getConnectTimeout(), mapConfig.getReadTimeout());
 				String newConent = content.replace("[]", "null");
 				
 				/*
@@ -132,7 +133,7 @@ public class AmapRepository implements MapRepository {
 
 	@Override
 	@Cacheable(value="poiAroundCache", key="'poi-around-gcj02-' + #p0.lng + ',' + #p0.lat + ';' + #p1 + ';' + #p2 + ';' + #p3 + ';' + #p4", unless="#result == null")
-	public Around getPoiAround(Coordinate coord, String poiTypes, long radius, int pageSize, int pageNum) {
+	public Around getPoiAround(Coordinate coord, String poiTypes, long radius, int pageSize, int pageNum, Map<String, Object> additional) {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(mapConfig.getAroundURL());
 		builder.queryParam("key", mapConfig.getToken());
 		builder.queryParam("location", String.format("%s,%s", coord.getLng(), coord.getLat()));
@@ -144,7 +145,7 @@ public class AmapRepository implements MapRepository {
 		String url = builder.build().toUriString();
 		
 		try {
-			String content = URLUtil.doGet(url);
+			String content = URLUtil.doGet(url, mapConfig.getConnectTimeout(), mapConfig.getReadTimeout());
 			String newConent = content.replace("[]", "null");
 //			log.debug(content);
 			Around around = MAPPER.readValue(newConent, Around.class);
@@ -155,6 +156,11 @@ public class AmapRepository implements MapRepository {
 			 */
 			CustomMonitorClient.count(currentDayCounterName(AMAP_API_AROUND));
 			resetCounter(counterName(AMAP_API_AROUND), CustomMonitorClient.getCounter(currentDayCounterName(AMAP_API_AROUND)).get());
+			
+			// 统计每个 job 对高德 地图 api的调用次数
+			if (additional.containsKey(Contants.ADDITIONAL_KEY_JOB)) {
+				CustomMonitorClient.count((String)additional.get(Contants.ADDITIONAL_KEY_JOB));
+			}
 			
 			return around;
 		} catch (IOException e) {
@@ -175,7 +181,7 @@ public class AmapRepository implements MapRepository {
 		String url = builder.build().toUriString();
 		
 		try {
-			String content = URLUtil.doGet(url);
+			String content = URLUtil.doGet(url, mapConfig.getConnectTimeout(), mapConfig.getReadTimeout());
 			String newContent = content.replace("[]", "\"\"").replace(",\"districts\":\"\"", ",\"districts\":[]");
 			DistrictResponse response = MAPPER.readValue(newContent, DistrictResponse.class);
 			List<District> district = response.getDistricts();

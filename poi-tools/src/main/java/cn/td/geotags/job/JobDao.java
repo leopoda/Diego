@@ -7,6 +7,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.Comparator;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobInstance;
 import org.springframework.batch.core.JobParameters;
@@ -51,6 +52,8 @@ public class JobDao {
 				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().getValue()));
 		
 		jobState.setParams(params);
+		ExitStatus status = jobExecution.getExitStatus();
+		jobState.setExitMessage(status.getExitDescription());
 		return jobState;
 	}
 	
@@ -99,6 +102,10 @@ public class JobDao {
 
 	public boolean deleteJob(long jobId) {
 		return jobDelete.delete(jobId);
+	}
+	
+	public void updateJob(JobExecution jobExecution) {
+		jobExecutionDao.updateJobExecution(jobExecution);
 	}
 	
 	private List<ImmutablePair<String, List<JobExecution>>> getJobExecution() {

@@ -188,6 +188,15 @@ public class CoordController {
 	}
 
 	@CrossOrigin
+	@ApiOperation(tags ="地理标签应用", value = "重设任务状态")
+	@RequestMapping(value="/status", method=RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public JobState resetJobStatus(@RequestParam("job_id") long jobId, 
+			@ApiParam(value = "COMPLETED - 0, STARTING - 1, STARTED - 2, STOPPING - 3, STOPPED - 4, FAILED - 5, ABANDONED - 6, UNKNOWN - 7")
+			@RequestParam("status_code") int statusCode) {
+		return jobManager.updateJobStatus(jobId, statusCode);
+	}
+
+	@CrossOrigin
 	@ApiOperation(tags ="地理标签应用", value = "获取任务结果")
 	@RequestMapping(value="/jobresult/{jobId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public FileSystemResource handleDownload(
